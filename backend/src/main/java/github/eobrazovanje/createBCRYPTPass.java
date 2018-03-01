@@ -1,6 +1,6 @@
 package github.eobrazovanje;
 
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Scanner;
 
@@ -16,7 +16,6 @@ public class createBCRYPTPass {
     }
 
     public static String passwordEncript(String enc){
-//        return new BCryptPasswordEncoder().encode(enc);
-        return null;
+        return new BCryptPasswordEncoder().encode(enc);
     }
 }

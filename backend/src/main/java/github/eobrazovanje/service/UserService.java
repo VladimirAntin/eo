@@ -13,6 +13,8 @@ import java.util.List;
 public interface UserService {
     User findOne(long id);
 
+    User findByUsername(String username);
+
     List<User> findAll();
 
     User save(User user);

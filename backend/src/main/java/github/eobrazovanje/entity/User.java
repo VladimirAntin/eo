@@ -1,8 +1,14 @@
 package github.eobrazovanje.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
   Created by IntelliJ IDEA.
@@ -11,7 +17,7 @@ import javax.validation.constraints.Size;
   Time: 09.22
 */
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +40,11 @@ public class User {
     @Size(min = 1, max = 256) //hash
     private String password;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private Set<Authority> authorities = new HashSet<>();
     public User() { }
 
     public User(long id, String ime, String prezime, String username, String password) {
@@ -71,21 +82,53 @@ public class User {
         return this;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public User setUsername(String username) {
         this.username = username;
         return this;
     }
 
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public User setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+        return this;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
     public String getPassword() {
         return password;
     }
 
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
