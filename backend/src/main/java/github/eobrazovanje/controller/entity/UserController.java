@@ -1,5 +1,4 @@
-package github.eobrazovanje.controller;
-
+package github.eobrazovanje.controller.entity;
 
 import github.eobrazovanje.converter.NastavnikToNastavnikDto;
 import github.eobrazovanje.converter.UcenikToUcenikDto;
@@ -9,24 +8,22 @@ import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
 import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 /*
   Created by IntelliJ IDEA.
   User: vladimir_antin
-  Date: 1.3.18.
-  Time: 11.17
+  Date: 2.3.18.
+  Time: 19.59
 */
-
 @RestController
-@RequestMapping("/api")
-public class ApiController {
+@RequestMapping("api/users")
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -40,23 +37,29 @@ public class ApiController {
     @Autowired
     private UserToUserDto toUserDto;
 
-    @Value("${jwt.expires_in}")
-    private long EXPIRES_IN;
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity getAll(){
+        return ResponseEntity.ok(toUserDto.convert(userService.findAll()));
+    }
 
-
-    @GetMapping("/me")
-    public ResponseEntity get(Principal principal) {
-        User user = userService.findByUsername(principal.getName());
+    @GetMapping(value = "/{id}") //username or id
+    public ResponseEntity get(@PathVariable String id){
+        User user;
+        try{
+            long idLong = Long.parseLong(id);
+            user = userService.findOne(idLong);
+        }catch (NumberFormatException ex){
+            user = userService.findByUsername(id);
+        }
+        if(user==null){
+            return ResponseEntity.notFound().build();
+        }
         if(user instanceof Nastavnik){
             return ResponseEntity.ok(toNastavnikDto.convert((Nastavnik) user));
         }else if(user instanceof Ucenik){
             return ResponseEntity.ok(toUcenikDto.convert((Ucenik) user));
         }
-        return ResponseEntity.ok(toUserDto.convert(user)); //admin
+        return ResponseEntity.ok(toUserDto.convert(user));
     }
-    @GetMapping("/check")
-    public ResponseEntity check() {
-        return ResponseEntity.ok(true);
-    }
-
 }

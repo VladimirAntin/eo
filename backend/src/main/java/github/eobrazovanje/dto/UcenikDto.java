@@ -2,6 +2,7 @@ package github.eobrazovanje.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /*
   Created by IntelliJ IDEA.
@@ -12,7 +13,7 @@ import javax.validation.constraints.Size;
 public class UcenikDto extends UserDto{
 
     @NotNull
-    @Size(min = 1, max = 8)
+    @Size(min = 1, max = 12)
     private String brojIndexa;
 
     public UcenikDto() { }
@@ -28,5 +29,9 @@ public class UcenikDto extends UserDto{
     public UcenikDto setBrojIndexa(String brojIndexa) {
         this.brojIndexa = brojIndexa;
         return this;
+    }
+
+    public UcenikDto(long id, String ime, String prezime, String username, Set<String> authority) {
+        super(id, ime, prezime, username, authority);
     }
 }

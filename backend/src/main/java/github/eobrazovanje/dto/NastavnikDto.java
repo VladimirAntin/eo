@@ -1,6 +1,7 @@
 package github.eobrazovanje.dto;
 
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /*
   Created by IntelliJ IDEA.
@@ -26,5 +27,9 @@ public class NastavnikDto extends UserDto {
     public NastavnikDto setZvanje(long zvanje) {
         this.zvanje = zvanje;
         return this;
+    }
+
+    public NastavnikDto(long id, String ime, String prezime, String username, Set<String> authority) {
+        super(id, ime, prezime, username, authority);
     }
 }

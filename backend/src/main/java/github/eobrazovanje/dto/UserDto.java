@@ -2,6 +2,8 @@ package github.eobrazovanje.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
   Created by IntelliJ IDEA.
@@ -27,6 +29,8 @@ public class UserDto {
     @Size(min = 1, max = 256) //hash
     private String password;
 
+    private Set<String> authority = new HashSet<>();
+
     public UserDto() { }
 
     public UserDto(long id, String ime, String prezime, String username) {
@@ -34,6 +38,14 @@ public class UserDto {
         this.ime = ime;
         this.prezime = prezime;
         this.username = username;
+    }
+
+    public UserDto(long id, String ime, String prezime, String username, Set<String> authority) {
+        this.id = id;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.username = username;
+        this.authority = authority;
     }
 
     public long getId() {
@@ -78,6 +90,15 @@ public class UserDto {
 
     public UserDto setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public Set<String> getAuthority() {
+        return authority;
+    }
+
+    public UserDto setAuthority(Set<String> authority) {
+        this.authority = authority;
         return this;
     }
 }

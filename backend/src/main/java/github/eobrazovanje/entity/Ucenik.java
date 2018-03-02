@@ -16,7 +16,7 @@ import java.util.Set;
 public class Ucenik extends User {
 
     @NotNull
-    @Size(min = 1, max = 8)
+    @Size(min = 1, max = 12)
     private String brojIndexa;
 
     @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL)

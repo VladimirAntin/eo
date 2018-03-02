@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 public class NastavnikToNastavnikDto implements Converter<Nastavnik,NastavnikDto>{
     @Override
     public NastavnikDto convert(Nastavnik nastavnik) {
-        return new NastavnikDto(nastavnik.getId(),nastavnik.getIme(),nastavnik.getPrezime(),nastavnik.getUsername())
+        return new NastavnikDto(nastavnik.getId(),nastavnik.getIme(),nastavnik.getPrezime(),nastavnik.getUsername(),
+                nastavnik.getAuthorities().stream().map(s -> s.getAuthority()).collect(Collectors.toSet()))
                 .setZvanje(nastavnik.getZvanje().getId());
     }
 
