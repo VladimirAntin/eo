@@ -1,19 +1,28 @@
 package github.eobrazovanje.controller.entity;
 
-import github.eobrazovanje.converter.NastavnikToNastavnikDto;
-import github.eobrazovanje.converter.UcenikToUcenikDto;
-import github.eobrazovanje.converter.UserToUserDto;
+import github.eobrazovanje.converter.*;
+import github.eobrazovanje.dto.NastavnikDto;
+import github.eobrazovanje.dto.UcenikDto;
+import github.eobrazovanje.dto.UserDto;
+import github.eobrazovanje.dto.UserPasswordDto;
 import github.eobrazovanje.entity.Nastavnik;
 import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
+import github.eobrazovanje.entity.Zvanje;
+import github.eobrazovanje.service.NastavnikService;
+import github.eobrazovanje.service.UcenikService;
 import github.eobrazovanje.service.UserService;
+import github.eobrazovanje.service.ZvanjeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 /*
   Created by IntelliJ IDEA.
@@ -32,10 +41,28 @@ public class UserController {
     private NastavnikToNastavnikDto toNastavnikDto;
 
     @Autowired
+    private UserDtoToUser toUser;
+
+    @Autowired
+    private NastavnikDtoToNastavnik toNastavnik;
+
+    @Autowired
+    private UcenikDtoToUcenik toUcenik;
+
+    @Autowired
     private UcenikToUcenikDto toUcenikDto;
 
     @Autowired
     private UserToUserDto toUserDto;
+
+    @Autowired
+    private PredmetToPredmetDto toPredmetDto;
+
+    @Autowired
+    private IspitToIspitDto toIspitDto;
+
+    @Autowired
+    private UplataToUplataDto toUplataDto;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
@@ -45,13 +72,7 @@ public class UserController {
 
     @GetMapping(value = "/{id}") //username or id
     public ResponseEntity get(@PathVariable String id){
-        User user;
-        try{
-            long idLong = Long.parseLong(id);
-            user = userService.findOne(idLong);
-        }catch (NumberFormatException ex){
-            user = userService.findByUsername(id);
-        }
+        User user = userService.findByUsernameOrId(id);
         if(user==null){
             return ResponseEntity.notFound().build();
         }
@@ -62,4 +83,140 @@ public class UserController {
         }
         return ResponseEntity.ok(toUserDto.convert(user));
     }
+
+    @GetMapping(value = "/{id}/predmeti")
+    public ResponseEntity getPredmetiNastavnika(@PathVariable String id){
+        User user = userService.findByUsernameOrId(id);
+        if(user==null){
+            return ResponseEntity.notFound().build();
+        }
+        if(user instanceof Nastavnik){
+            return ResponseEntity.ok(toPredmetDto.convert(((Nastavnik) user).getPredmeti()));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(value = "/{id}/authorities")
+    public ResponseEntity getAuthority(@PathVariable String id){
+        User user = userService.findByUsernameOrId(id);
+        if(user==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user.getAuthorities());
+    }
+
+    @GetMapping(value = "/{id}/ispiti")
+    public ResponseEntity getIspitiUcenika(@PathVariable String id){
+        User user = userService.findByUsernameOrId(id);
+        if(user==null){
+            return ResponseEntity.notFound().build();
+        }
+        if(user instanceof Ucenik){
+            return ResponseEntity.ok(toIspitDto.convert(((Ucenik) user).getIspiti()));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(value = "/{id}/uplate")
+    public ResponseEntity getUplataUcenika(@PathVariable String id){
+        User user = userService.findByUsernameOrId(id);
+        if(user==null){
+            return ResponseEntity.notFound().build();
+        }
+        if(user instanceof Ucenik){
+            return ResponseEntity.ok(toUplataDto.convert(((Ucenik) user).getUplate()));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity postUser(@RequestBody @Validated UserDto dto, Errors errors){
+        if(errors.hasErrors()){
+            return ResponseEntity.badRequest().build();
+        }
+        if(dto.getId()!=0){
+            return new ResponseEntity(HttpStatus.CONFLICT); //not send id
+        }
+        if(userService.findByUsername(dto.getUsername())!=null){
+            return new ResponseEntity(HttpStatus.CONFLICT); //username exist
+        }
+        User user;
+
+        if(dto instanceof NastavnikDto){
+            if(((NastavnikDto) dto).getZvanje()==0){
+                return new ResponseEntity(HttpStatus.CONFLICT); //zvanje not exist
+            }
+            user = userService.save(toNastavnik.convert((NastavnikDto) dto));
+            return ResponseEntity.ok(toNastavnikDto.convert((Nastavnik) user));
+        }else if(dto instanceof UcenikDto){
+            if(((UcenikDto) dto).getBrojIndexa()==null){
+                return new ResponseEntity(HttpStatus.CONFLICT); //brojIndexa not exist
+            }
+            user = userService.save(toUcenik.convert((UcenikDto) dto));
+            return ResponseEntity.ok(toUcenikDto.convert((Ucenik) user));
+        }
+        user = userService.save(toUser.convert(dto));
+        return ResponseEntity.ok(toUserDto.convert(user));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity put(@PathVariable long id, @RequestBody @Validated UserDto dto, Errors errors, Principal principal){
+        if(errors.hasErrors()){
+            return ResponseEntity.badRequest().build();
+        }
+        if(id!=dto.getId()){
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+        User loginUser = userService.findByUsername(principal.getName());
+        if(!loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"))
+                && loginUser.getId()!=id){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        User user;
+        dto.setPassword(null);
+        if(dto instanceof NastavnikDto){
+            user = userService.save(toNastavnik.convert((NastavnikDto) dto));
+            return ResponseEntity.ok(toNastavnikDto.convert((Nastavnik)user));
+        }else if(dto instanceof UcenikDto) {
+            user = userService.save(toUcenik.convert((UcenikDto) dto));
+            return ResponseEntity.ok(toUcenikDto.convert((Ucenik) user));
+        }
+        user = userService.save(toUser.convert(dto));
+        return ResponseEntity.ok(toUserDto.convert(user));
+    }
+
+    @PatchMapping("/{id}/password")
+    public ResponseEntity password(@PathVariable long id, @RequestBody @Validated UserPasswordDto dto, Principal principal){
+        User loginUser = userService.findByUsername(principal.getName());
+        User user = userService.findOne(id);
+        if(loginUser.getId()!=user.getId() || !loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        if(!dto.getNewPasswordRepeat().equals(dto.getNewPasswordRepeat())){
+            return ResponseEntity.badRequest().build();
+        }
+        if(!new BCryptPasswordEncoder().matches(dto.getOldPassword(),user.getPassword()) ||
+                !loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
+            return ResponseEntity.badRequest().build();
+        }
+        user = userService.savePassword(toUser.changePassword(dto,user.getId()));
+        if(user!=null){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity delete(@PathVariable String id){
+        User user = userService.findByUsernameOrId(id);
+        if(user==null){
+            return ResponseEntity.notFound().build();
+        }
+        userService.delete(user.getId());
+        return ResponseEntity.noContent().build();
+    }
+
 }

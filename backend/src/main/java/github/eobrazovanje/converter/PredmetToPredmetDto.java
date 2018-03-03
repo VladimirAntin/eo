@@ -5,7 +5,9 @@ import github.eobrazovanje.entity.Predmet;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /*
@@ -28,7 +30,8 @@ public class PredmetToPredmetDto implements Converter<Predmet,PredmetDto>{
     }
 
 
-    public List<PredmetDto> convert(List<Predmet> predmeti){
+    public List<PredmetDto> convert(Collection<Predmet> predmeti){
         return predmeti.stream().map(this::convert).collect(Collectors.toList());
     }
+
 }

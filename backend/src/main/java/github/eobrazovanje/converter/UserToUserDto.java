@@ -22,8 +22,7 @@ public class UserToUserDto implements Converter<User,UserDto> {
                 .setId(user.getId())
                 .setIme(user.getIme())
                 .setPrezime(user.getPrezime())
-                .setUsername(user.getUsername())
-                .setAuthority(user.getAuthorities().stream().map(s -> s.getAuthority()).collect(Collectors.toSet()));
+                .setUsername(user.getUsername());
     }
 
     public List<UserDto> convert(List<User> users){

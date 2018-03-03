@@ -1,10 +1,12 @@
 package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.UserDto;
+import github.eobrazovanje.dto.UserPasswordDto;
 import github.eobrazovanje.entity.User;
 import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /*
@@ -26,6 +28,13 @@ public class UserDtoToUser implements Converter<UserDto,User> {
                 .setIme(dto.getIme())
                 .setPrezime(dto.getPrezime())
                 .setUsername(dto.getUsername())
-                .setPassword(userService.findOne(dto.getId()).getPassword());
+                .setPassword(dto.getPassword()==null? userService.findOne(dto.getId()).getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()));
+    }
+
+
+    public User changePassword(UserPasswordDto dto,long id) {
+        User user = userService.findOne(id)
+                .setPassword(new BCryptPasswordEncoder().encode(dto.getNewPassword()));
+        return user;
     }
 }

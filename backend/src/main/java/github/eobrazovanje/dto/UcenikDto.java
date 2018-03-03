@@ -31,7 +31,4 @@ public class UcenikDto extends UserDto{
         return this;
     }
 
-    public UcenikDto(long id, String ime, String prezime, String username, Set<String> authority) {
-        super(id, ime, prezime, username, authority);
-    }
 }

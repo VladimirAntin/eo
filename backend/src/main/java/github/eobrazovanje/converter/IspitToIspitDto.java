@@ -5,6 +5,7 @@ import github.eobrazovanje.entity.Ispit;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,8 @@ public class IspitToIspitDto implements Converter<Ispit,IspitDto>{
                 .setUcenik(ispit.getUcenik().getId());
     }
 
-    public List<IspitDto> convert(List<Ispit> ispiti){
+    public List<IspitDto> convert(Collection<Ispit> ispiti){
         return ispiti.stream().map(this::convert).collect(Collectors.toList());
     }
+
 }

@@ -6,6 +6,7 @@ import github.eobrazovanje.service.UserService;
 import github.eobrazovanje.service.ZvanjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /*
@@ -25,8 +26,9 @@ public class NastavnikDtoToNastavnik implements Converter<NastavnikDto,Nastavnik
 
     @Override
     public Nastavnik convert(NastavnikDto dto) {
-        return new Nastavnik(dto.getId(), dto.getIme(),dto.getPrezime(),dto.getUsername(),userService.findOne(dto.getId()).getPassword())
+        return new Nastavnik(dto.getId(), dto.getIme(),dto.getPrezime(),dto.getUsername(),
+                dto.getPassword()==null? userService.findOne(dto.getId()).getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()))
                 .setZvanje(zvanjeService.findOne(dto.getZvanje()));
-        //change password ce biti posebno
     }
+
 }
