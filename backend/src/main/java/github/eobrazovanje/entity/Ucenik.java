@@ -17,6 +17,7 @@ public class Ucenik extends User {
 
     @NotNull
     @Size(min = 1, max = 12)
+    @Column(unique = true)
     private String brojIndexa;
 
     @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL)

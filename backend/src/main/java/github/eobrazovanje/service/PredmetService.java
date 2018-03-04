@@ -18,4 +18,8 @@ public interface PredmetService {
     Predmet save(Predmet predmet);
 
     void delete(long id);
+
+    boolean deleteNastavnik(Predmet predmet,long id);
+
+    boolean deleteUcenik(Predmet predmet, long id);
 }

@@ -2,12 +2,8 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.PredmetDto;
 import github.eobrazovanje.entity.Predmet;
-import github.eobrazovanje.service.NastavnikService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.stream.Collectors;
 
 /*
   Created by IntelliJ IDEA.
@@ -22,7 +18,7 @@ public class PredmetDtoToPredmet implements Converter<PredmetDto,Predmet>{
     public Predmet convert(PredmetDto dto) {
         return new Predmet()
                 .setId(dto.getId())
-                .setBrojCasoovaVezbi(dto.getBrojCasoovaVezbi())
+                .setBrojCasovaVezbi(dto.getBrojCasoovaVezbi())
                 .setBrojCasovaPredavanja(dto.getBrojCasovaPredavanja())
                 .setNaziv(dto.getNaziv())
                 .setAktivnosti(dto.getAktivnosti());

@@ -1,6 +1,6 @@
 package github.eobrazovanje.service;
 
-import github.eobrazovanje.entity.Nastavnik;
+import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
 
 import java.util.List;
@@ -18,6 +18,8 @@ public interface UserService {
 
     User findByUsernameOrId(String id);
 
+    Ucenik findByBrojIndexa(String brojIndexa);
+
     List<User> findAll();
 
     User save(User user);
@@ -25,4 +27,5 @@ public interface UserService {
     User savePassword(User user);
 
     void delete(long id);
+
 }

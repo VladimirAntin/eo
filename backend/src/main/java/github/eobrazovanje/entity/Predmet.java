@@ -25,8 +25,7 @@ public class Predmet {
     private String naziv;
 
     private int brojCasovaPredavanja;
-
-    private int brojCasoovaVezbi;
+    private int brojCasovaVezbi;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "predmet_nastavnik",
@@ -77,12 +76,12 @@ public class Predmet {
         return this;
     }
 
-    public int getBrojCasoovaVezbi() {
-        return brojCasoovaVezbi;
+    public int getBrojCasovaVezbi() {
+        return brojCasovaVezbi;
     }
 
-    public Predmet setBrojCasoovaVezbi(int brojCasoovaVezbi) {
-        this.brojCasoovaVezbi = brojCasoovaVezbi;
+    public Predmet setBrojCasovaVezbi(int brojCasovaVezbi) {
+        this.brojCasovaVezbi = brojCasovaVezbi;
         return this;
     }
 

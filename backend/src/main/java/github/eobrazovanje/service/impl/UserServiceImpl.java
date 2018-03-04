@@ -5,6 +5,7 @@ import github.eobrazovanje.entity.Nastavnik;
 import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
 import github.eobrazovanje.repo.AuthorityRepo;
+import github.eobrazovanje.repo.UcenikRepo;
 import github.eobrazovanje.repo.UserRepo;
 import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepo repo;
+
+    @Autowired
+    private UcenikRepo ucenikRepo;
 
     @Autowired
     private AuthorityRepo authorityRepo;
@@ -77,5 +81,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public void delete(long id) {
         repo.delete(id);
+    }
+
+    @Override
+    public Ucenik findByBrojIndexa(String brojIndexa) {
+        return ucenikRepo.findByBrojIndexa(brojIndexa);
     }
 }

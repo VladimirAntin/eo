@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /*
@@ -23,7 +22,7 @@ public class PredmetToPredmetDto implements Converter<Predmet,PredmetDto>{
         return new PredmetDto()
                 .setId(predmet.getId())
                 .setNaziv(predmet.getNaziv())
-                .setBrojCasoovaVezbi(predmet.getBrojCasoovaVezbi())
+                .setBrojCasoovaVezbi(predmet.getBrojCasovaVezbi())
                 .setBrojCasovaPredavanja(predmet.getBrojCasovaPredavanja())
                 .setAktivnosti(predmet.getAktivnosti());
     }

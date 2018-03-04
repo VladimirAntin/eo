@@ -55,14 +55,11 @@ public class UserController {
     private PredmetToPredmetDto toPredmetDto;
 
     @Autowired
-    private IspitToIspitDto toIspitDto;
-
-    @Autowired
     private UplataToUplataDto toUplataDto;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity getAll(){
+    public ResponseEntity<java.util.List<UserDto>> getAll(){
         return ResponseEntity.ok(toUserDto.convert(userService.findAll()));
     }
 
@@ -112,7 +109,7 @@ public class UserController {
         if(user instanceof Ucenik){
             return ResponseEntity.ok(toUplataDto.convert(((Ucenik) user).getUplate()));
         }
-        return ResponseEntity.notFound().build();
+        return new ResponseEntity<>(String.format("Korisnik sa id %s nije ucenik",id),HttpStatus.CONFLICT);
     }
 
     @PostMapping
@@ -134,15 +131,29 @@ public class UserController {
                 return new ResponseEntity(HttpStatus.CONFLICT); //zvanje not exist
             }
             user = userService.save(toNastavnik.convert((NastavnikDto) dto));
+            if(user==null){
+                return new ResponseEntity(HttpStatus.CONFLICT);
+            }
             return ResponseEntity.ok(toNastavnikDto.convert((Nastavnik) user));
         }else if(dto instanceof UcenikDto){
             if(((UcenikDto) dto).getBrojIndexa()==null){
                 return new ResponseEntity(HttpStatus.CONFLICT); //brojIndexa not exist
             }
+            if(userService.findByBrojIndexa(((UcenikDto) dto).getBrojIndexa())!=null){
+                return new ResponseEntity<>(String.format("Ucenik sa brojem indexa %s vec postoji, izaberite drugi index",
+                        ((UcenikDto) dto).getBrojIndexa()),
+                        HttpStatus.CONFLICT); //user nije izmenjen
+            }
             user = userService.save(toUcenik.convert((UcenikDto) dto));
+            if(user==null){
+                return new ResponseEntity(HttpStatus.CONFLICT);
+            }
             return ResponseEntity.ok(toUcenikDto.convert((Ucenik) user));
         }
         user = userService.save(toUser.convert(dto));
+        if(user==null){
+            return new ResponseEntity(HttpStatus.CONFLICT); //user nije sacuvan
+        }
         return ResponseEntity.ok(toUserDto.convert(user));
     }
 
@@ -155,7 +166,7 @@ public class UserController {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         User loginUser = userService.findByUsername(principal.getName());
-        if(!loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"))
+        if(loginUser.getAuthorities().stream().noneMatch(a->a.getAuthority().equals("ROLE_ADMIN"))
                 && loginUser.getId()!=id){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
@@ -163,12 +174,27 @@ public class UserController {
         dto.setPassword(null);
         if(dto instanceof NastavnikDto){
             user = userService.save(toNastavnik.convert((NastavnikDto) dto));
+            if(user==null){
+                return new ResponseEntity(HttpStatus.CONFLICT); //user nije izmenjen
+            }
             return ResponseEntity.ok(toNastavnikDto.convert((Nastavnik)user));
         }else if(dto instanceof UcenikDto) {
+            Ucenik ucenik = userService.findByBrojIndexa(((UcenikDto) dto).getBrojIndexa());
+            if(ucenik!=null && ucenik.getId()!=dto.getId()) {
+                return new ResponseEntity<>(String.format("Ucenik sa brojem indexa %s vec postoji, izaberite drugi index",
+                        ((UcenikDto) dto).getBrojIndexa()),
+                        HttpStatus.CONFLICT);
+            }
             user = userService.save(toUcenik.convert((UcenikDto) dto));
+            if(user==null){
+                return new ResponseEntity(HttpStatus.CONFLICT); //user nije izmenjen
+            }
             return ResponseEntity.ok(toUcenikDto.convert((Ucenik) user));
         }
         user = userService.save(toUser.convert(dto));
+        if(user==null){
+            return new ResponseEntity(HttpStatus.CONFLICT); //user nije izmenjen
+        }
         return ResponseEntity.ok(toUserDto.convert(user));
     }
 
@@ -176,14 +202,14 @@ public class UserController {
     public ResponseEntity password(@PathVariable long id, @RequestBody @Validated UserPasswordDto dto, Principal principal){
         User loginUser = userService.findByUsername(principal.getName());
         User user = userService.findOne(id);
-        if(loginUser.getId()!=user.getId() || !loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
+        if(loginUser.getId()!=user.getId() || loginUser.getAuthorities().stream().noneMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
         if(!dto.getNewPasswordRepeat().equals(dto.getNewPasswordRepeat())){
             return ResponseEntity.badRequest().build();
         }
         if(!new BCryptPasswordEncoder().matches(dto.getOldPassword(),user.getPassword()) ||
-                !loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
+                loginUser.getAuthorities().stream().noneMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
             return ResponseEntity.badRequest().build();
         }
         user = userService.savePassword(toUser.changePassword(dto,user.getId()));
