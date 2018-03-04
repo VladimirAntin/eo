@@ -17,9 +17,6 @@ public class IspitDto {
     @NotNull
     private long predmet;
 
-    @NotNull
-    private long ucenik;
-
     public IspitDto() { }
 
     public long getId() {
@@ -46,15 +43,6 @@ public class IspitDto {
 
     public IspitDto setPredmet(long predmet) {
         this.predmet = predmet;
-        return this;
-    }
-
-    public long getUcenik() {
-        return ucenik;
-    }
-
-    public IspitDto setUcenik(long ucenik) {
-        this.ucenik = ucenik;
         return this;
     }
 }

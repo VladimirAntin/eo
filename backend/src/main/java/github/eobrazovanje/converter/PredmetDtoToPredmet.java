@@ -18,9 +18,6 @@ import java.util.stream.Collectors;
 @Component
 public class PredmetDtoToPredmet implements Converter<PredmetDto,Predmet>{
 
-    @Autowired
-    private NastavnikService nastavnikService;
-
     @Override
     public Predmet convert(PredmetDto dto) {
         return new Predmet()
@@ -28,7 +25,6 @@ public class PredmetDtoToPredmet implements Converter<PredmetDto,Predmet>{
                 .setBrojCasoovaVezbi(dto.getBrojCasoovaVezbi())
                 .setBrojCasovaPredavanja(dto.getBrojCasovaPredavanja())
                 .setNaziv(dto.getNaziv())
-                .setAktivnosti(dto.getAktivnosti())
-                .setNastavnici(dto.getNastavnici().stream().map(n -> nastavnikService.findOne(n)).collect(Collectors.toSet()));
+                .setAktivnosti(dto.getAktivnosti());
     }
 }

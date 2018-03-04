@@ -23,7 +23,8 @@ public class AktivnostToAktivnostDto implements Converter<Aktivnost,AktivnostDto
                 .setId(aktivnost.getId())
                 .setNaziv(aktivnost.getNaziv())
                 .setBrojBodova(aktivnost.getBrojBodova())
-                .setIspit(aktivnost.getIspit().getId());
+                .setIspit(aktivnost.getIspit().getId())
+                .setUcenik(aktivnost.getUcenik().getId());
     }
 
     public List<AktivnostDto> convert(List<Aktivnost> aktivnosts){

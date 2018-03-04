@@ -22,6 +22,9 @@ public class AktivnostDto {
     @NotNull
     private long ispit;
 
+    @NotNull
+    private long ucenik;
+
     public AktivnostDto() { }
 
     public long getId() {
@@ -57,6 +60,15 @@ public class AktivnostDto {
 
     public AktivnostDto setIspit(long ispit) {
         this.ispit = ispit;
+        return this;
+    }
+
+    public long getUcenik() {
+        return ucenik;
+    }
+
+    public AktivnostDto setUcenik(long ucenik) {
+        this.ucenik = ucenik;
         return this;
     }
 }

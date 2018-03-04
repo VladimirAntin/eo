@@ -5,6 +5,7 @@ import github.eobrazovanje.entity.Ucenik;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class UcenikToUcenikDto implements Converter<Ucenik,UcenikDto> {
                 .setBrojIndexa(ucenik.getBrojIndexa());
     }
 
-    public List<UcenikDto> convert(List<Ucenik> ucenici){
+    public List<UcenikDto> convert(Collection<Ucenik> ucenici){
         return ucenici.stream().map(this::convert).collect(Collectors.toList());
     }
 }

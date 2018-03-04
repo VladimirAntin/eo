@@ -25,8 +25,7 @@ public class PredmetToPredmetDto implements Converter<Predmet,PredmetDto>{
                 .setNaziv(predmet.getNaziv())
                 .setBrojCasoovaVezbi(predmet.getBrojCasoovaVezbi())
                 .setBrojCasovaPredavanja(predmet.getBrojCasovaPredavanja())
-                .setAktivnosti(predmet.getAktivnosti())
-                .setNastavnici(predmet.getNastavnici().stream().map(n->n.getId()).collect(Collectors.toSet()));
+                .setAktivnosti(predmet.getAktivnosti());
     }
 
 

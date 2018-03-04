@@ -8,11 +8,7 @@ import github.eobrazovanje.dto.UserPasswordDto;
 import github.eobrazovanje.entity.Nastavnik;
 import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
-import github.eobrazovanje.entity.Zvanje;
-import github.eobrazovanje.service.NastavnikService;
-import github.eobrazovanje.service.UcenikService;
 import github.eobrazovanje.service.UserService;
-import github.eobrazovanje.service.ZvanjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -85,15 +81,17 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}/predmeti")
-    public ResponseEntity getPredmetiNastavnika(@PathVariable String id){
+    public ResponseEntity getPredmeti(@PathVariable String id){
         User user = userService.findByUsernameOrId(id);
         if(user==null){
             return ResponseEntity.notFound().build();
         }
         if(user instanceof Nastavnik){
             return ResponseEntity.ok(toPredmetDto.convert(((Nastavnik) user).getPredmeti()));
+        }else if(user instanceof Ucenik) {
+            return ResponseEntity.ok(toPredmetDto.convert(((Ucenik) user).getPredmeti()));
         }
-        return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
     }
 
     @GetMapping(value = "/{id}/authorities")
@@ -103,18 +101,6 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(user.getAuthorities());
-    }
-
-    @GetMapping(value = "/{id}/ispiti")
-    public ResponseEntity getIspitiUcenika(@PathVariable String id){
-        User user = userService.findByUsernameOrId(id);
-        if(user==null){
-            return ResponseEntity.notFound().build();
-        }
-        if(user instanceof Ucenik){
-            return ResponseEntity.ok(toIspitDto.convert(((Ucenik) user).getIspiti()));
-        }
-        return ResponseEntity.notFound().build();
     }
 
     @GetMapping(value = "/{id}/uplate")
@@ -128,7 +114,6 @@ public class UserController {
         }
         return ResponseEntity.notFound().build();
     }
-
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")

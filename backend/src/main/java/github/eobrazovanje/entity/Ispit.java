@@ -28,11 +28,6 @@ public class Ispit {
     @JoinColumn(name = "predmet_id", referencedColumnName = "id")
     private Predmet predmet;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "ucenik_id", referencedColumnName = "id")
-    private Ucenik ucenik;
-
     @OneToMany(mappedBy = "ispit", cascade = CascadeType.ALL)
     private Set<Aktivnost> aktivnosti = new HashSet<>();
 
@@ -62,15 +57,6 @@ public class Ispit {
 
     public Ispit setPredmet(Predmet predmet) {
         this.predmet = predmet;
-        return this;
-    }
-
-    public Ucenik getUcenik() {
-        return ucenik;
-    }
-
-    public Ispit setUcenik(Ucenik ucenik) {
-        this.ucenik = ucenik;
         return this;
     }
 

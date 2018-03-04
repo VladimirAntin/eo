@@ -5,6 +5,7 @@ import github.eobrazovanje.entity.Nastavnik;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ public class NastavnikToNastavnikDto implements Converter<Nastavnik,NastavnikDto
                 .setZvanje(nastavnik.getZvanje().getId());
     }
 
-    public List<NastavnikDto> convert(List<Nastavnik> nastavnici){
+    public List<NastavnikDto> convert(Collection<Nastavnik> nastavnici){
         return nastavnici.stream().map(this::convert).collect(Collectors.toList());
     }
 }

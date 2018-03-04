@@ -23,7 +23,6 @@ public class PredmetDto {
     private int brojCasovaPredavanja;
     private int brojCasoovaVezbi;
     private String aktivnosti; // aktivnost; aktivnost; aktivnost;...
-    private Set<Long> nastavnici = new HashSet<>();
 
     public PredmetDto() { }
 
@@ -69,15 +68,6 @@ public class PredmetDto {
 
     public PredmetDto setAktivnosti(String aktivnosti) {
         this.aktivnosti = aktivnosti;
-        return this;
-    }
-
-    public Set<Long> getNastavnici() {
-        return nastavnici;
-    }
-
-    public PredmetDto setNastavnici(Set<Long> nastavnici) {
-        this.nastavnici = nastavnici;
         return this;
     }
 }

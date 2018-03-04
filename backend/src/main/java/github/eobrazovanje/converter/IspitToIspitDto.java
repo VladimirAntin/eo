@@ -22,8 +22,7 @@ public class IspitToIspitDto implements Converter<Ispit,IspitDto>{
         return new IspitDto()
                 .setId(ispit.getId())
                 .setBodovi(ispit.getBodovi())
-                .setPredmet(ispit.getPredmet().getId())
-                .setUcenik(ispit.getUcenik().getId());
+                .setPredmet(ispit.getPredmet().getId());
     }
 
     public List<IspitDto> convert(Collection<Ispit> ispiti){

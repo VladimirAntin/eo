@@ -18,9 +18,6 @@ import org.springframework.stereotype.Component;
 public class IspitDtoToIspit implements Converter<IspitDto,Ispit>{
 
     @Autowired
-    private UcenikService ucenikService;
-
-    @Autowired
     private PredmetService predmetService;
 
     @Override
@@ -28,7 +25,6 @@ public class IspitDtoToIspit implements Converter<IspitDto,Ispit>{
         return new Ispit()
                 .setId(dto.getId())
                 .setBodovi(dto.getBodovi())
-                .setUcenik(ucenikService.findOne(dto.getUcenik()))
                 .setPredmet(predmetService.findOne(dto.getPredmet()));
     }
 }

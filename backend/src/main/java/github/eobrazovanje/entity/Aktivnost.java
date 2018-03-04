@@ -29,6 +29,11 @@ public class Aktivnost {
     @JoinColumn(name = "ispit_id", referencedColumnName = "id")
     private Ispit ispit;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "ucenik_id", referencedColumnName = "id")
+    private Ucenik ucenik;
+
     public Aktivnost() { }
 
     public long getId() {
@@ -64,6 +69,15 @@ public class Aktivnost {
 
     public Aktivnost setIspit(Ispit ispit) {
         this.ispit = ispit;
+        return this;
+    }
+
+    public Ucenik getUcenik() {
+        return ucenik;
+    }
+
+    public Aktivnost setUcenik(Ucenik ucenik) {
+        this.ucenik = ucenik;
         return this;
     }
 }

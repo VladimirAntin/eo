@@ -23,7 +23,10 @@ public class Ucenik extends User {
     private Set<Uplata> uplate = new HashSet<>();
 
     @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL)
-    private Set<Ispit> ispiti = new HashSet<>();
+    private Set<Aktivnost> aktivnosti = new HashSet<>();
+
+    @ManyToMany(mappedBy = "ucenici", cascade = CascadeType.ALL)
+    private Set<Predmet> predmeti = new HashSet<>();
 
     public Ucenik() { }
 
@@ -49,12 +52,21 @@ public class Ucenik extends User {
         return this;
     }
 
-    public Set<Ispit> getIspiti() {
-        return ispiti;
+    public Set<Aktivnost> getAktivnosti() {
+        return aktivnosti;
     }
 
-    public Ucenik setIspiti(Set<Ispit> ispiti) {
-        this.ispiti = ispiti;
+    public Ucenik setAktivnosti(Set<Aktivnost> aktivnosti) {
+        this.aktivnosti = aktivnosti;
+        return this;
+    }
+
+    public Set<Predmet> getPredmeti() {
+        return predmeti;
+    }
+
+    public Ucenik setPredmeti(Set<Predmet> predmeti) {
+        this.predmeti = predmeti;
         return this;
     }
 }

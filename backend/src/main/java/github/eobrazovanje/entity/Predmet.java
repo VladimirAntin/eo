@@ -21,7 +21,7 @@ public class Predmet {
     private long id;
 
     @NotNull
-    @Size(min = 0, max = 50)
+    @Size(min = 1, max = 50)
     private String naziv;
 
     private int brojCasovaPredavanja;
@@ -34,8 +34,17 @@ public class Predmet {
             inverseJoinColumns = @JoinColumn(name = "nastavnik_id", referencedColumnName = "id"))
     private Set<Nastavnik> nastavnici = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "predmet_ucenik",
+            joinColumns = @JoinColumn(name = "predmet_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "ucenik_id", referencedColumnName = "id"))
+    private Set<Ucenik> ucenici = new HashSet<>();
+
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
     private Set<Uplata> uplate = new HashSet<>();
+
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    private Set<Ispit> ispiti = new HashSet<>();
 
     private String aktivnosti; // aktivnost; aktivnost; aktivnost;...
 
@@ -86,12 +95,30 @@ public class Predmet {
         return this;
     }
 
+    public Set<Ucenik> getUcenici() {
+        return ucenici;
+    }
+
+    public Predmet setUcenici(Set<Ucenik> ucenici) {
+        this.ucenici = ucenici;
+        return this;
+    }
+
     public Set<Uplata> getUplate() {
         return uplate;
     }
 
     public Predmet setUplate(Set<Uplata> uplate) {
         this.uplate = uplate;
+        return this;
+    }
+
+    public Set<Ispit> getIspiti() {
+        return ispiti;
+    }
+
+    public Predmet setIspiti(Set<Ispit> ispiti) {
+        this.ispiti = ispiti;
         return this;
     }
 
