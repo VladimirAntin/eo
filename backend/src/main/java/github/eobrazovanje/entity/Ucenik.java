@@ -29,6 +29,9 @@ public class Ucenik extends User {
     @ManyToMany(mappedBy = "ucenici", cascade = CascadeType.ALL)
     private Set<Predmet> predmeti = new HashSet<>();
 
+    @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL)
+    private Set<Dokument> dokumenti = new HashSet<>();
+
     public Ucenik() { }
 
     public Ucenik(long id, String ime, String prezime, String username, String password) {
@@ -68,6 +71,15 @@ public class Ucenik extends User {
 
     public Ucenik setPredmeti(Set<Predmet> predmeti) {
         this.predmeti = predmeti;
+        return this;
+    }
+
+    public Set<Dokument> getDokumenti() {
+        return dokumenti;
+    }
+
+    public Ucenik setDokumenti(Set<Dokument> dokumenti) {
+        this.dokumenti = dokumenti;
         return this;
     }
 }

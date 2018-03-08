@@ -1,0 +1,34 @@
+<div *ngIf="_router.url!=='/login'">
+  <mat-nav-list class="mat-elevation-z20">
+    <a matSubheader routerLink="/">
+      <img width="25" alt="E-learn" src="../../assets/student.png">
+      E-learn
+    </a>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-spinner *ngIf="!nav_items || nav_items.length==0"></mat-spinner>
+    <button *ngFor="let nav of nav_items" [routerLink]="[nav.route]" class="btn btn-block"
+            [ngClass]="{'btn-dark':_router.url===nav.route,
+                 'btn-outline-dark':_router.url!==nav.route}">
+      <mat-icon matListIcon>{{nav.icon}}</mat-icon>
+      {{nav.name}}
+    </button>
+  </mat-nav-list>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span class="spacer"></span>
+      <button mat-raised-button color="primary">
+        <mat-icon>edit</mat-icon>
+        Change password
+      </button>
+      <button mat-raised-button color="primary">
+        <mat-icon>edit</mat-icon>
+        Edit profile
+      </button>
+      <button mat-raised-button (click)="logout()" color="warn">
+        Logout
+        <mat-icon>input</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

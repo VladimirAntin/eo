@@ -57,6 +57,9 @@ public class UserController {
     @Autowired
     private UplataToUplataDto toUplataDto;
 
+    @Autowired
+    private DokumentToDokumentDto toDokumentDto;
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<java.util.List<UserDto>> getAll(){
@@ -112,6 +115,17 @@ public class UserController {
         return new ResponseEntity<>(String.format("Korisnik sa id %s nije ucenik",id),HttpStatus.CONFLICT);
     }
 
+    @GetMapping(value = "/{id}/dokumenta")
+    public ResponseEntity getDokumentaUcenika(@PathVariable String id){
+        User user = userService.findByUsernameOrId(id);
+        if(user==null){
+            return ResponseEntity.notFound().build();
+        }
+        if(user instanceof Ucenik){
+            return ResponseEntity.ok(toDokumentDto.convert(((Ucenik) user).getDokumenti()));
+        }
+        return new ResponseEntity<>(String.format("Korisnik sa id %s nije ucenik",id),HttpStatus.CONFLICT);
+    }
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity postUser(@RequestBody @Validated UserDto dto, Errors errors){

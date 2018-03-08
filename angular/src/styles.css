@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "bootstrap.min.css";
+
+body {
+  margin: 4%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+.full-width {
+  width: 100%;
+}
+.center {
+  text-align: center;
+}
+
+app-home, app-not-found{
+  float: right;
+  width: 83%;
+  border-style: solid;
+  border-color: burlywood;
+  border-radius: 30px;
+  padding: 1em;
+  background-color: white;
+  opacity: 0.9;
+  height: 74vh;
+}
+
+.mat-toolbar {
+  background-color: transparent;
+}

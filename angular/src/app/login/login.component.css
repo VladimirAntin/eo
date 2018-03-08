@@ -1,0 +1,14 @@
+mat-form-field:first-of-type{
+    margin-top: 2vh;
+}
+div.col-6{
+  margin-top: 2em;
+  float: right;
+  width: 82%;
+  border-style: solid;
+  border-color: burlywood;
+  border-radius: 30px;
+  padding: 1em;
+  background-color: white;
+  opacity: 0.9;
+}

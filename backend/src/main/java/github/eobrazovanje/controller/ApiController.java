@@ -7,15 +7,20 @@ import github.eobrazovanje.converter.UserToUserDto;
 import github.eobrazovanje.entity.Nastavnik;
 import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
+import github.eobrazovanje.security.NavItem;
 import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /*
   Created by IntelliJ IDEA.
@@ -54,9 +59,19 @@ public class ApiController {
         }
         return ResponseEntity.ok(toUserDto.convert(user)); //admin
     }
-    @GetMapping("/check")
-    public ResponseEntity check() {
-        return ResponseEntity.ok(true);
+    @GetMapping("nav_items")
+    public ResponseEntity getNav(Principal principal){
+        Collection<? extends GrantedAuthority> authorities = userService.findByUsername(principal.getName()).getAuthorities();
+        List<NavItem> navItems = new ArrayList<>();
+        navItems.add(new NavItem("Home","/","home"));
+        if(authorities.stream().anyMatch(t -> t.getAuthority().equals("ROLE_ADMIN"))) {
+            navItems.add(new NavItem("Users","/users", "people"));
+        }else if(authorities.stream().anyMatch(t -> t.getAuthority().equals("ROLE_PROFESOR"))){
+            // bla bla za profesora
+        }else {
+            // bla bla za ucenika
+        }
+        navItems.add(new NavItem("Profile","/users/"+principal.getName(), "person"));
+        return ResponseEntity.ok(navItems);
     }
-
 }

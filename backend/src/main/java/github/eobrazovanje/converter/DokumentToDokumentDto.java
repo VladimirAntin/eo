@@ -5,6 +5,7 @@ import github.eobrazovanje.entity.Dokument;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +25,7 @@ public class DokumentToDokumentDto implements Converter<Dokument,DokumentDto>{
                 .setTipDokumenta(dokument.getTipDokumenta().getId());
     }
 
-    public List<DokumentDto> convert(List<Dokument> dokuments){
+    public List<DokumentDto> convert(Collection<Dokument> dokuments){
         return dokuments.stream().map(this::convert).collect(Collectors.toList());
     }
 }
