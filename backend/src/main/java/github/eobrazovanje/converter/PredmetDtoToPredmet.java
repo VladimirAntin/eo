@@ -18,7 +18,7 @@ public class PredmetDtoToPredmet implements Converter<PredmetDto,Predmet>{
     public Predmet convert(PredmetDto dto) {
         return new Predmet()
                 .setId(dto.getId())
-                .setBrojCasovaVezbi(dto.getBrojCasoovaVezbi())
+                .setBrojCasovaVezbi(dto.getBrojCasovaVezbi())
                 .setBrojCasovaPredavanja(dto.getBrojCasovaPredavanja())
                 .setNaziv(dto.getNaziv())
                 .setAktivnosti(dto.getAktivnosti());

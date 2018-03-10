@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {UserApi} from '../model/user-api';
-import {AuthService} from '../service/auth-service.service';
+import {AuthService} from '../service/auth.service';
 import {Nastavnik} from '../model/nastavnik';
 import {Ucenik} from '../model/ucenik';
 import {NavItem} from '../model/nav-item';
@@ -38,15 +38,7 @@ export class NavigationComponent {
   }
 
   private getMe() {
-    this.authService.me().subscribe(data => {
-      if(data instanceof Nastavnik){
-        this.me =  data as Nastavnik;
-      }else if(data instanceof Ucenik){
-        this.me = data as Ucenik;
-      }else {
-        this.me = data as UserApi;
-      }
-    }, err => {
+    this.authService.me().subscribe(data => this.me = data, err => {
       this._router.navigateByUrl('/login');
       this.authService.removeToken();
     });

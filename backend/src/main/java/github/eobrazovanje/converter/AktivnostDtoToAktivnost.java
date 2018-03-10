@@ -29,7 +29,7 @@ public class AktivnostDtoToAktivnost implements Converter<AktivnostDto,Aktivnost
                 .setId(dto.getId())
                 .setNaziv(dto.getNaziv())
                 .setBrojBodova(dto.getBrojBodova())
-                .setIspit(ispitService.findOne(dto.getIspit()))
-                .setUcenik(ucenikService.findOne(dto.getUcenik()));
+                .setIspit(ispitService.findOne(dto.getIspit().getId()))
+                .setUcenik(ucenikService.findOne(dto.getUcenik().getId()));
     }
 }

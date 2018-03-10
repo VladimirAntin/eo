@@ -2,6 +2,7 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.IspitDto;
 import github.eobrazovanje.entity.Ispit;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +18,15 @@ import java.util.stream.Collectors;
 */
 @Component
 public class IspitToIspitDto implements Converter<Ispit,IspitDto>{
+
+    @Autowired
+    private PredmetToPredmetDto toPredmetDto;
     @Override
     public IspitDto convert(Ispit ispit) {
         return new IspitDto()
                 .setId(ispit.getId())
                 .setBodovi(ispit.getBodovi())
-                .setPredmet(ispit.getPredmet().getId());
+                .setPredmet(toPredmetDto.convert(ispit.getPredmet()));
     }
 
     public List<IspitDto> convert(Collection<Ispit> ispiti){

@@ -15,7 +15,7 @@ public class IspitDto {
     private int bodovi;
 
     @NotNull
-    private long predmet;
+    private PredmetDto predmet;
 
     public IspitDto() { }
 
@@ -37,11 +37,11 @@ public class IspitDto {
         return this;
     }
 
-    public long getPredmet() {
+    public PredmetDto getPredmet() {
         return predmet;
     }
 
-    public IspitDto setPredmet(long predmet) {
+    public IspitDto setPredmet(PredmetDto predmet) {
         this.predmet = predmet;
         return this;
     }

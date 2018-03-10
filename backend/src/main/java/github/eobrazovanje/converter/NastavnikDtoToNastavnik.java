@@ -28,7 +28,7 @@ public class NastavnikDtoToNastavnik implements Converter<NastavnikDto,Nastavnik
     public Nastavnik convert(NastavnikDto dto) {
         return new Nastavnik(dto.getId(), dto.getIme(),dto.getPrezime(),dto.getUsername(),
                 dto.getPassword()==null? userService.findOne(dto.getId()).getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()))
-                .setZvanje(zvanjeService.findOne(dto.getZvanje()));
+                .setZvanje(zvanjeService.findOne(dto.getZvanje().getId()));
     }
 
 }

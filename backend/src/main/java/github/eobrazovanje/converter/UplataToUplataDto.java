@@ -2,6 +2,7 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.UplataDto;
 import github.eobrazovanje.entity.Uplata;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +18,16 @@ import java.util.stream.Collectors;
 */
 @Component
 public class UplataToUplataDto implements Converter<Uplata,UplataDto> {
+
+    @Autowired
+    private PredmetToPredmetDto toPredmetDto;
+
     @Override
     public UplataDto convert(Uplata uplata) {
         return new UplataDto()
                 .setId(uplata.getId())
                 .setSuma(uplata.getSuma())
-                .setPredmet(uplata.getPredmet().getId())
+                .setPredmet(toPredmetDto.convert(uplata.getPredmet()))
                 .setUcenik(uplata.getUcenik().getId());
     }
 

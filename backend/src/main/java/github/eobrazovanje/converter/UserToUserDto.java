@@ -1,6 +1,10 @@
 package github.eobrazovanje.converter;
 
+import github.eobrazovanje.dto.NastavnikDto;
+import github.eobrazovanje.dto.UcenikDto;
 import github.eobrazovanje.dto.UserDto;
+import github.eobrazovanje.entity.Nastavnik;
+import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -18,6 +22,12 @@ import java.util.stream.Collectors;
 public class UserToUserDto implements Converter<User,UserDto> {
     @Override
     public UserDto convert(User user) {
+
+        if(user instanceof Nastavnik){
+            return new NastavnikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername());
+        }else if(user instanceof Ucenik){
+            return new UcenikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername());
+        }
         return new UserDto()
                 .setId(user.getId())
                 .setIme(user.getIme())

@@ -25,6 +25,6 @@ public class IspitDtoToIspit implements Converter<IspitDto,Ispit>{
         return new Ispit()
                 .setId(dto.getId())
                 .setBodovi(dto.getBodovi())
-                .setPredmet(predmetService.findOne(dto.getPredmet()));
+                .setPredmet(predmetService.findOne(dto.getPredmet().getId()));
     }
 }

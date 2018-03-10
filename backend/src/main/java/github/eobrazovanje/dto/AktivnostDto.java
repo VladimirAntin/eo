@@ -20,10 +20,10 @@ public class AktivnostDto {
     private int brojBodova;
 
     @NotNull
-    private long ispit;
+    private IspitDto ispit;
 
     @NotNull
-    private long ucenik;
+    private UcenikDto ucenik;
 
     public AktivnostDto() { }
 
@@ -54,20 +54,20 @@ public class AktivnostDto {
         return this;
     }
 
-    public long getIspit() {
+    public IspitDto getIspit() {
         return ispit;
     }
 
-    public AktivnostDto setIspit(long ispit) {
+    public AktivnostDto setIspit(IspitDto ispit) {
         this.ispit = ispit;
         return this;
     }
 
-    public long getUcenik() {
+    public UcenikDto getUcenik() {
         return ucenik;
     }
 
-    public AktivnostDto setUcenik(long ucenik) {
+    public AktivnostDto setUcenik(UcenikDto ucenik) {
         this.ucenik = ucenik;
         return this;
     }

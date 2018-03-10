@@ -1,0 +1,56 @@
+<div *ngIf="users.data!==null">
+  <div style="padding: 8px 24px 0">
+    <mat-form-field class="full-width f20">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <mat-toolbar>
+      <button mat-fab color="primary" (click)="addUser()" matTooltip="Add new user">
+        <mat-icon>person_add</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <button mat-fab color="primary" (click)="getAll()" matTooltip="Refresh">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <mat-table *ngIf="!loading" #table [dataSource]="users">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> First name </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.ime}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef> Last name </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.prezime}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="username">
+      <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.username}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.type}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="options">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <a mat-icon-button color="primary" [routerLink]="['/users',user.username]" matTooltip="Open">
+          <mat-icon>person</mat-icon>
+        </a>
+        <button mat-icon-button color="accent" matTooltip="Update">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" matTooltip="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator [pageSize]="5"
+                 [pageSizeOptions]="[5, 10, 20, 50, 100]">
+  </mat-paginator>
+</div>
+<app-not-found *ngIf="users.data===null" class="not-found"></app-not-found>

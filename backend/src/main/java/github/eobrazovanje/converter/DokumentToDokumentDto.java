@@ -2,7 +2,9 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.DokumentDto;
 import github.eobrazovanje.entity.Dokument;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.annotation.AccessType;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -17,12 +19,16 @@ import java.util.stream.Collectors;
 */
 @Component
 public class DokumentToDokumentDto implements Converter<Dokument,DokumentDto>{
+
+    @Autowired
+    private TipDokumentaToTipDokumentaDto toTipDokumentaDto;
+
     @Override
     public DokumentDto convert(Dokument dokument) {
         return new DokumentDto()
                 .setId(dokument.getId())
                 .setUcenik(dokument.getUcenik().getId())
-                .setTipDokumenta(dokument.getTipDokumenta().getId());
+                .setTipDokumenta(toTipDokumentaDto.convert(dokument.getTipDokumenta()));
     }
 
     public List<DokumentDto> convert(Collection<Dokument> dokuments){

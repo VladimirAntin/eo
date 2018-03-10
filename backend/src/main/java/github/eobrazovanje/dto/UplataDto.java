@@ -20,7 +20,7 @@ public class UplataDto {
     private long ucenik;
 
     @NotNull
-    private long predmet;
+    private PredmetDto predmet;
 
     public UplataDto() { }
 
@@ -51,11 +51,11 @@ public class UplataDto {
         return this;
     }
 
-    public long getPredmet() {
+    public PredmetDto getPredmet() {
         return predmet;
     }
 
-    public UplataDto setPredmet(long predmet) {
+    public UplataDto setPredmet(PredmetDto predmet) {
         this.predmet = predmet;
         return this;
     }

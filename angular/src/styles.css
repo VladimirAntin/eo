@@ -16,7 +16,7 @@ body {
   text-align: center;
 }
 
-app-home, app-not-found{
+app-home, app-users, app-user, app-not-found{
   float: right;
   width: 83%;
   border-style: solid;
@@ -28,6 +28,30 @@ app-home, app-not-found{
   height: 74vh;
 }
 
+.not-found {
+  all: unset;
+}
+
 .mat-toolbar {
   background-color: transparent;
+}
+
+app-users .mat-table{
+  overflow-y: auto;
+  height: 35vh;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #D62929;
 }

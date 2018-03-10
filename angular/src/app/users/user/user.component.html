@@ -1,0 +1,104 @@
+<div *ngIf="user!=null">
+  <mat-tab-group>
+    <mat-tab label="Info">
+      <ng-template mat-tab-label>
+        <mat-icon>info_outline</mat-icon> Info
+      </ng-template>
+      <div class="m-5 row">
+        <mat-form-field class="col-md-12">
+          <input matInput placeholder="Username" [(ngModel)]="user.username" disabled>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput placeholder="First name" [(ngModel)]="user.ime" disabled>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput placeholder="Last name" [(ngModel)]="user.prezime" disabled>
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+          <input matInput placeholder="Type" [(ngModel)]="user.type" disabled>
+        </mat-form-field>
+        <mat-form-field *ngIf="user.isNastavnik()" class="col-md-4">
+          <input matInput placeholder="Zvanje"
+                 [(ngModel)]="user.zvanje.naziv" disabled>
+        </mat-form-field>
+        <mat-form-field *ngIf="user.isUcenik()" class="col-md-4">
+          <input matInput placeholder="Broj Indexa"
+                 [(ngModel)]="user.brojIndexa" disabled>
+        </mat-form-field>
+        <div class="col-md-4">
+          <span>Authorities</span>
+        <mat-chip-list>
+          <mat-chip *ngFor="let key of authorities" disabled>
+            {{key.name.substring(5).toLowerCase()}}
+          </mat-chip>
+        </mat-chip-list>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Predmeti" *ngIf="predmeti && predmeti.length!==0">
+      <ng-template mat-tab-label>
+          Predmeti <span class="badge badge-pill badge-dark">{{predmeti.length}}</span>
+      </ng-template>
+      <div>
+      </div>
+      <mat-list>
+        <mat-list-item *ngFor="let p of predmeti">
+          <mat-icon mat-list-icon>subject</mat-icon>
+          <h4 mat-line><i>{{p.naziv}}</i></h4>
+          <p mat-line>Broj casova predavanje: {{p.brojCasovaPredavanja}}</p>
+          <p mat-line>Broj casova vezbi: {{p.brojCasovaVezbi}}</p>
+          <p mat-line>
+            Aktivnosti:
+          <mat-chip-list>
+            <mat-chip *ngFor="let a of p.aktivnosti.split(';')" disabled>
+              {{a}}
+            </mat-chip>
+          </mat-chip-list>
+          </p>
+          <a mat-button color="primary" [routerLink]="['/predmeti',p.id]" matTooltip="Open">
+            <mat-icon>link</mat-icon>
+          </a>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab label="Uplate" *ngIf="user.isUcenik()">
+      <ng-template mat-tab-label>
+        Uplate <span class="badge badge-pill badge-dark">{{uplate.length}}</span>
+      </ng-template>
+      <div>
+        <mat-list>
+          <mat-list-item *ngFor="let u of uplate">
+            <mat-icon mat-list-icon>payment</mat-icon>
+            <p mat-line>Predmet:
+              <a mat-button color="accent" [routerLink]="['/predmeti',u.predmet.id]">
+                {{u.predmet.naziv}}
+              </a>
+            </p>
+            <p mat-line>Suma: <i>{{u.suma}}</i> din</p>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-tab>
+    <mat-tab label="Dokumenti" *ngIf="user.isUcenik()">
+      <ng-template mat-tab-label>
+        Dokumenti <span class="badge badge-pill badge-dark">{{docs.length}}</span>
+      </ng-template>
+      <div>
+        <mat-list>
+          <mat-list-item *ngFor="let d of docs">
+            <mat-icon mat-list-icon>note</mat-icon>
+            <h4 mat-line><i>{{d.tipDokumenta.naziv}}</i></h4>
+            <button mat-button color="warn" matTooltip="Delete">
+              <!--dodati privilegije-->
+              <mat-icon>delete</mat-icon>
+            </button>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<app-not-found *ngIf="user===null" class="not-found"></app-not-found>

@@ -15,7 +15,7 @@ public class DokumentDto {
     private long ucenik;
 
     @NotNull
-    private long tipDokumenta;
+    private TipDokumentaDto tipDokumenta;
 
     public DokumentDto() { }
 
@@ -37,11 +37,11 @@ public class DokumentDto {
         return this;
     }
 
-    public long getTipDokumenta() {
+    public TipDokumentaDto getTipDokumenta() {
         return tipDokumenta;
     }
 
-    public DokumentDto setTipDokumenta(long tipDokumenta) {
+    public DokumentDto setTipDokumenta(TipDokumentaDto tipDokumenta) {
         this.tipDokumenta = tipDokumenta;
         return this;
     }

@@ -4,10 +4,14 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {NotFoundComponent} from './not-found/not-found.component';
+import {UsersComponent} from './users/users.component';
+import {UserComponent} from './users/user/user.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'users', component: UsersComponent},
+  { path: 'users/:id', component: UserComponent},
   {path: '**', component: NotFoundComponent}
 ];
 

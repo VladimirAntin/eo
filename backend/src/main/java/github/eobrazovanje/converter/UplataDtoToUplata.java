@@ -29,6 +29,6 @@ public class UplataDtoToUplata implements Converter<UplataDto,Uplata> {
                 .setId(dto.getId())
                 .setSuma(dto.getSuma())
                 .setUcenik(ucenikService.findOne(dto.getUcenik()))
-                .setPredmet(predmetService.findOne(dto.getPredmet()));
+                .setPredmet(predmetService.findOne(dto.getPredmet().getId()));
     }
 }

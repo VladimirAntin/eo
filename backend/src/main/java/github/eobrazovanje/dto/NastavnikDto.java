@@ -12,7 +12,7 @@ import java.util.Set;
 public class NastavnikDto extends UserDto {
 
     @NotNull
-    private long zvanje;
+    private ZvanjeDto zvanje;
 
     public NastavnikDto() { }
 
@@ -20,13 +20,12 @@ public class NastavnikDto extends UserDto {
         super(id, ime, prezime, username);
     }
 
-    public long getZvanje() {
+    public ZvanjeDto getZvanje() {
         return zvanje;
     }
 
-    public NastavnikDto setZvanje(long zvanje) {
+    public NastavnikDto setZvanje(ZvanjeDto zvanje) {
         this.zvanje = zvanje;
         return this;
     }
-
 }

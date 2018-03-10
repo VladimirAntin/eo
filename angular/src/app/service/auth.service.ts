@@ -35,12 +35,12 @@ export class AuthService {
     return this.http.get('/auth/logout', httpOptions);
   }
 
-  me(): Observable<typeof UserApi|UserApi> {
+  me(): Observable<UserApi> {
     const httpOptions = {
       headers: new HttpHeaders(
         { 'Authorization': `jwt ${localStorage.getItem('token')}` })
     };
-    return this.http.get<typeof UserApi|UserApi>('/api/me', httpOptions);
+    return this.http.get<UserApi>('/api/me', httpOptions);
   }
 
   nav_items(): Observable<NavItem[]> {

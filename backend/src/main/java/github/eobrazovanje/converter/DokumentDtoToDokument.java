@@ -29,6 +29,6 @@ public class DokumentDtoToDokument implements Converter<DokumentDto,Dokument>{
         return new Dokument()
                 .setId(dto.getId())
                 .setUcenik(ucenikService.findOne(dto.getUcenik()))
-                .setTipDokumenta(tipDokumentaService.findOne(dto.getTipDokumenta()));
+                .setTipDokumenta(tipDokumentaService.findOne(dto.getTipDokumenta().getId()));
     }
 }

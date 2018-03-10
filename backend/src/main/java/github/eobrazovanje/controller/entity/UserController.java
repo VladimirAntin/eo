@@ -91,7 +91,7 @@ public class UserController {
         }else if(user instanceof Ucenik) {
             return ResponseEntity.ok(toPredmetDto.convert(((Ucenik) user).getPredmeti()));
         }
-            return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping(value = "/{id}/authorities")
@@ -115,7 +115,7 @@ public class UserController {
         return new ResponseEntity<>(String.format("Korisnik sa id %s nije ucenik",id),HttpStatus.CONFLICT);
     }
 
-    @GetMapping(value = "/{id}/dokumenta")
+    @GetMapping(value = "/{id}/dokumenti")
     public ResponseEntity getDokumentaUcenika(@PathVariable String id){
         User user = userService.findByUsernameOrId(id);
         if(user==null){
@@ -141,7 +141,7 @@ public class UserController {
         User user;
 
         if(dto instanceof NastavnikDto){
-            if(((NastavnikDto) dto).getZvanje()==0){
+            if(((NastavnikDto) dto).getZvanje().getId()==0){
                 return new ResponseEntity(HttpStatus.CONFLICT); //zvanje not exist
             }
             user = userService.save(toNastavnik.convert((NastavnikDto) dto));

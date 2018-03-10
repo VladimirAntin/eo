@@ -2,6 +2,7 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.NastavnikDto;
 import github.eobrazovanje.entity.Nastavnik;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -17,10 +18,14 @@ import java.util.stream.Collectors;
 */
 @Component
 public class NastavnikToNastavnikDto implements Converter<Nastavnik,NastavnikDto>{
+
+    @Autowired
+    private ZvanjeToZvanjeDto toZvanjeDto;
+
     @Override
     public NastavnikDto convert(Nastavnik nastavnik) {
         return new NastavnikDto(nastavnik.getId(),nastavnik.getIme(),nastavnik.getPrezime(),nastavnik.getUsername())
-                .setZvanje(nastavnik.getZvanje().getId());
+                .setZvanje(toZvanjeDto.convert(nastavnik.getZvanje()));
     }
 
     public List<NastavnikDto> convert(Collection<Nastavnik> nastavnici){

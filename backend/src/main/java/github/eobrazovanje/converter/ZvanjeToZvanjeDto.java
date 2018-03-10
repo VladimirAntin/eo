@@ -5,6 +5,7 @@ import github.eobrazovanje.entity.Zvanje;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class ZvanjeToZvanjeDto implements Converter<Zvanje,ZvanjeDto> {
                 .setNaziv(zvanje.getNaziv());
     }
 
-    public List<ZvanjeDto> convert(List<Zvanje> zvanja){
+    public List<ZvanjeDto> convert(Collection<Zvanje> zvanja){
         return zvanja.stream().map(this::convert).collect(Collectors.toList());
     }
 }

@@ -52,11 +52,11 @@ INSERT INTO user_authority(user_id, authority_id) VALUES (13,3);
 INSERT INTO user_authority(user_id, authority_id) VALUES (14,3);
 INSERT INTO user_authority(user_id, authority_id) VALUES (15,3);
 
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('kolokvijum;projekat;',2,3,'Osnove programiranja');
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('kolokvijum1;projekat;',3,3,'Osnove web programiranja');
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('projekat;usmeni deo ispita;',3,3,'Web dizajn');
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('projekat;usmeni deo ispita;',3,3,'Objektno orjetisano programiranje');
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('projekat;usmeni deo ispita;',3,3,'Osnove baza podataka');
+INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('kolokvijum;projekat',2,3,'Osnove programiranja');
+INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('kolokvijum1;projekat',3,3,'Osnove web programiranja');
+INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('projekat;usmeni deo ispita',3,3,'Web dizajn');
+INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('projekat;usmeni deo ispita',3,3,'Objektno orjetisano programiranje');
+INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('projekat;usmeni deo ispita',3,3,'Osnove baza podataka');
 
 INSERT INTO predmet_nastavnik(predmet_id, nastavnik_id) VALUES (1,5);
 INSERT INTO predmet_nastavnik(predmet_id, nastavnik_id) VALUES (2,2);
@@ -87,4 +87,6 @@ INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,15);
 -- INSERT INTO aktivnost(broj_bodova,naziv) VALUES (5,'nesto');
 -- INSERT INTO aktivnost(broj_bodova,naziv) VALUES (2,'nesto');
 
+INSERT INTO uplata(suma,ucenik_id,predmet_id) VALUES (10000,9,1);
+INSERT INTO uplata(suma,ucenik_id,predmet_id) VALUES (10000,9,2);
 

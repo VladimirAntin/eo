@@ -3,8 +3,6 @@ package github.eobrazovanje.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
 
 /*
   Created by IntelliJ IDEA.
@@ -21,7 +19,7 @@ public class PredmetDto {
     private String naziv;
 
     private int brojCasovaPredavanja;
-    private int brojCasoovaVezbi;
+    private int brojCasovaVezbi;
     private String aktivnosti; // aktivnost; aktivnost; aktivnost;...
 
     public PredmetDto() { }
@@ -53,12 +51,12 @@ public class PredmetDto {
         return this;
     }
 
-    public int getBrojCasoovaVezbi() {
-        return brojCasoovaVezbi;
+    public int getBrojCasovaVezbi() {
+        return brojCasovaVezbi;
     }
 
-    public PredmetDto setBrojCasoovaVezbi(int brojCasoovaVezbi) {
-        this.brojCasoovaVezbi = brojCasoovaVezbi;
+    public PredmetDto setBrojCasovaVezbi(int brojCasovaVezbi) {
+        this.brojCasovaVezbi = brojCasovaVezbi;
         return this;
     }
 
