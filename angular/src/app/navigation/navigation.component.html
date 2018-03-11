@@ -16,19 +16,45 @@
   </mat-nav-list>
   <mat-toolbar>
     <mat-toolbar-row>
+      <div class="mobile">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
       <span class="spacer"></span>
-      <button mat-raised-button color="primary">
-        <mat-icon>edit</mat-icon>
-        Change password
-      </button>
-      <button mat-raised-button color="primary">
-        <mat-icon>edit</mat-icon>
-        Edit profile
-      </button>
-      <button mat-raised-button (click)="logout()" color="warn">
-        Logout
-        <mat-icon>input</mat-icon>
-      </button>
+      <div class="mobile-false">
+        <button mat-raised-button color="primary">
+          <mat-icon>edit</mat-icon>
+          Change password
+        </button>
+        <button mat-raised-button color="primary">
+          <mat-icon>edit</mat-icon>
+          Edit profile
+        </button>
+        <button mat-raised-button (click)="logout()" color="warn">
+          Logout
+          <mat-icon>input</mat-icon>
+        </button>
+      </div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let nav of nav_items" [routerLink]="[nav.route]">
+          <mat-icon matListIcon>{{nav.icon}}</mat-icon>
+          {{nav.name}}
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item class="text-primary">
+          <mat-icon>edit</mat-icon>
+          Change password
+        </button>
+        <button mat-menu-item class="text-primary">
+          <mat-icon>edit</mat-icon>
+          Edit profile
+        </button>
+        <button mat-menu-item (click)="logout()" class="text-danger">
+          Logout
+          <mat-icon>input</mat-icon>
+        </button>
+      </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>

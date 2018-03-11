@@ -8,7 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import {
   MatButtonModule, MatChipsModule, MatDialogModule,
-  MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule, MatProgressSpinnerModule,
+  MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {AuthService} from './service/auth.service';
@@ -38,13 +38,13 @@ enableProdMode();
     FormsModule, BrowserAnimationsModule, MatFormFieldModule, MatChipsModule, MatInputModule,
     MatListModule, MatIconModule, MatProgressSpinnerModule, MatSnackBarModule, MatToolbarModule,
     MatButtonModule, MatPaginatorModule, MatTableModule, MatDialogModule, MatTooltipModule,
-    MatTabsModule
+    MatTabsModule, MatMenuModule
   ],
   exports: [
     FormsModule,
     MatFormFieldModule, MatInputModule, MatListModule, MatIconModule, MatProgressSpinnerModule,
     MatSnackBarModule, MatToolbarModule, MatButtonModule, MatPaginatorModule, MatTableModule,
-    MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule
+    MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule
   ],
   providers: [AuthService, UserService, ZvanjeService],
   bootstrap: [AppComponent]
