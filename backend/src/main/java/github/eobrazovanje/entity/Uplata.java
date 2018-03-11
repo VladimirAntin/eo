@@ -22,12 +22,12 @@ public class Uplata {
     private float suma;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ucenik_id", referencedColumnName = "id")
     private Ucenik ucenik;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "predmet_id", referencedColumnName = "id")
     private Predmet predmet;
 

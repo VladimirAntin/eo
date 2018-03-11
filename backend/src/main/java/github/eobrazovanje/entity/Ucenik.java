@@ -20,16 +20,16 @@ public class Ucenik extends User {
     @Column(unique = true)
     private String brojIndexa;
 
-    @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Uplata> uplate = new HashSet<>();
 
-    @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Aktivnost> aktivnosti = new HashSet<>();
 
-    @ManyToMany(mappedBy = "ucenici", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "ucenici", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Predmet> predmeti = new HashSet<>();
 
-    @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ucenik", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Dokument> dokumenti = new HashSet<>();
 
     public Ucenik() { }

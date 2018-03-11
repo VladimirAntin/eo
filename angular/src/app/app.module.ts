@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import {
   MatButtonModule, MatChipsModule, MatDialogModule,
   MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule,
+  MatSelectModule,
   MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {AuthService} from './service/auth.service';
@@ -20,6 +21,10 @@ import { UserComponent } from './users/user/user.component';
 import { SearchPipe } from './pipes/search.pipe';
 import {UserService} from './service/user.service';
 import {ZvanjeService} from './service/zvanje.service';
+import {DokumentService} from './service/dokument.service';
+import { AddDocComponent } from './users/user/add-doc/add-doc.component';
+import {TipDokumenta} from './model/tip-dokumenta';
+import {TipDokumentaService} from './service/tip-dokumenta.service';
 
 enableProdMode();
 @NgModule({
@@ -31,22 +36,24 @@ enableProdMode();
     NotFoundComponent,
     UsersComponent,
     UserComponent,
-    SearchPipe
+    SearchPipe,
+    AddDocComponent
   ],
   imports: [
     AppRoutingModule, BrowserModule, HttpClientModule,
     FormsModule, BrowserAnimationsModule, MatFormFieldModule, MatChipsModule, MatInputModule,
     MatListModule, MatIconModule, MatProgressSpinnerModule, MatSnackBarModule, MatToolbarModule,
     MatButtonModule, MatPaginatorModule, MatTableModule, MatDialogModule, MatTooltipModule,
-    MatTabsModule, MatMenuModule
+    MatTabsModule, MatMenuModule, MatSelectModule
   ],
   exports: [
     FormsModule,
     MatFormFieldModule, MatInputModule, MatListModule, MatIconModule, MatProgressSpinnerModule,
     MatSnackBarModule, MatToolbarModule, MatButtonModule, MatPaginatorModule, MatTableModule,
-    MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule
+    MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule, MatSelectModule
   ],
-  providers: [AuthService, UserService, ZvanjeService],
+  entryComponents: [AddDocComponent],
+  providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

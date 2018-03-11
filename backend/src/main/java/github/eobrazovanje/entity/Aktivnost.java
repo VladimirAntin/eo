@@ -25,12 +25,12 @@ public class Aktivnost {
     private int brojBodova;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ispit_id", referencedColumnName = "id")
     private Ispit ispit;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ucenik_id", referencedColumnName = "id")
     private Ucenik ucenik;
 

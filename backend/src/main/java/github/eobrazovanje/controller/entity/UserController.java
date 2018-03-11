@@ -126,6 +126,7 @@ public class UserController {
         }
         return new ResponseEntity<>(String.format("Korisnik sa id %s nije ucenik",id),HttpStatus.CONFLICT);
     }
+
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity postUser(@RequestBody @Validated UserDto dto, Errors errors){

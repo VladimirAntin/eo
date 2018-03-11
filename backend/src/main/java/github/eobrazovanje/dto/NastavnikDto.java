@@ -1,5 +1,7 @@
 package github.eobrazovanje.dto;
 
+import github.eobrazovanje.entity.Authority;
+
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
@@ -16,8 +18,8 @@ public class NastavnikDto extends UserDto {
 
     public NastavnikDto() { }
 
-    public NastavnikDto(long id, String ime, String prezime, String username) {
-        super(id, ime, prezime, username);
+    public NastavnikDto(long id, String ime, String prezime, String username, Set<Authority> authorities) {
+        super(id, ime, prezime, username, authorities);
     }
 
     public ZvanjeDto getZvanje() {

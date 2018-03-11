@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Dodavanje Dokumenta</h2>
+<mat-dialog-content>
+  <mat-form-field class="w-75">
+    <mat-select placeholder="Tip Dokumenta" [(ngModel)]="data.doc.tipDokumenta.id"
+                required [disabled]="tipovi.length===0">
+      <mat-option *ngFor="let t of tipovi" [value]="t.id">
+        {{ t.naziv}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="alert alert-danger" *ngIf="tipovi.length===0">Ucenik vec poseduje sva dokumenta</div>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Ucenik" [(ngModel)]="data.doc.ucenik.username" disabled>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-icon-button [mat-dialog-close]="{result:true, doc:data.doc}"
+          color="primary" matTooltip="Add" [disabled]="data.doc.tipDokumenta.id===0">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <button mat-icon-button mat-dialog-close matTooltip="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-dialog-actions>

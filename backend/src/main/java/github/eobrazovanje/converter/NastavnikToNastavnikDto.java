@@ -1,6 +1,7 @@
 package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.NastavnikDto;
+import github.eobrazovanje.entity.Authority;
 import github.eobrazovanje.entity.Nastavnik;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /*
@@ -24,7 +26,7 @@ public class NastavnikToNastavnikDto implements Converter<Nastavnik,NastavnikDto
 
     @Override
     public NastavnikDto convert(Nastavnik nastavnik) {
-        return new NastavnikDto(nastavnik.getId(),nastavnik.getIme(),nastavnik.getPrezime(),nastavnik.getUsername())
+        return new NastavnikDto(nastavnik.getId(),nastavnik.getIme(),nastavnik.getPrezime(),nastavnik.getUsername(), (Set<Authority>) nastavnik.getAuthorities())
                 .setZvanje(toZvanjeDto.convert(nastavnik.getZvanje()));
     }
 

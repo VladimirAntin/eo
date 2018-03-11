@@ -15,11 +15,11 @@ import java.util.Set;
 public class Nastavnik extends User {
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "zvanje_id", referencedColumnName = "id")
     private Zvanje zvanje;
 
-    @ManyToMany(mappedBy = "nastavnici", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "nastavnici", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Predmet> predmeti = new HashSet<>();
 
     public Nastavnik() { }

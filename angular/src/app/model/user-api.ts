@@ -1,3 +1,5 @@
+import {Authority} from './authority';
+
 export class UserApi {
     type: string;
     id: number;
@@ -5,6 +7,7 @@ export class UserApi {
     prezime: string;
     username: string;
     password: string;
+    authorities: Authority[];
 
     constructor() {
       this.id = 0;
@@ -13,6 +16,7 @@ export class UserApi {
       this.prezime = '';
       this.username = '';
       this.password = '';
+      this.authorities = [];
     }
 
   public isNastavnik(): boolean {

@@ -12,7 +12,7 @@ public class DokumentDto {
 
     private long id;
     @NotNull
-    private long ucenik;
+    private UcenikDto ucenik;
 
     @NotNull
     private TipDokumentaDto tipDokumenta;
@@ -28,11 +28,11 @@ public class DokumentDto {
         return this;
     }
 
-    public long getUcenik() {
+    public UcenikDto getUcenik() {
         return ucenik;
     }
 
-    public DokumentDto setUcenik(long ucenik) {
+    public DokumentDto setUcenik(UcenikDto ucenik) {
         this.ucenik = ucenik;
         return this;
     }

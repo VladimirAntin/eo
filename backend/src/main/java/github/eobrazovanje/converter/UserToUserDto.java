@@ -3,6 +3,7 @@ package github.eobrazovanje.converter;
 import github.eobrazovanje.dto.NastavnikDto;
 import github.eobrazovanje.dto.UcenikDto;
 import github.eobrazovanje.dto.UserDto;
+import github.eobrazovanje.entity.Authority;
 import github.eobrazovanje.entity.Nastavnik;
 import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
@@ -10,6 +11,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /*
@@ -24,15 +26,16 @@ public class UserToUserDto implements Converter<User,UserDto> {
     public UserDto convert(User user) {
 
         if(user instanceof Nastavnik){
-            return new NastavnikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername());
+            return new NastavnikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername(), (Set<Authority>) user.getAuthorities());
         }else if(user instanceof Ucenik){
-            return new UcenikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername());
+            return new UcenikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername(), (Set<Authority>) user.getAuthorities());
         }
         return new UserDto()
                 .setId(user.getId())
                 .setIme(user.getIme())
                 .setPrezime(user.getPrezime())
-                .setUsername(user.getUsername());
+                .setUsername(user.getUsername())
+                .setAuthorities((Set<Authority>) user.getAuthorities());
     }
 
     public List<UserDto> convert(List<User> users){

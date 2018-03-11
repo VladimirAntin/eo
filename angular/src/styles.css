@@ -52,6 +52,11 @@ app-users .mat-table{
   background-color: #D62929;
 }
 
+.dialog-600x400{
+  height: 400px;
+  width: 600px;
+}
+
 .mobile{
   display: none;
 }
@@ -67,5 +72,4 @@ app-users .mat-table{
   .mobile{
     display: unset;
   }
-
 }

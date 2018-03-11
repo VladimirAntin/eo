@@ -27,22 +27,22 @@ public class Predmet {
     private int brojCasovaPredavanja;
     private int brojCasovaVezbi;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "predmet_nastavnik",
             joinColumns = @JoinColumn(name = "predmet_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "nastavnik_id", referencedColumnName = "id"))
     private Set<Nastavnik> nastavnici = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "predmet_ucenik",
             joinColumns = @JoinColumn(name = "predmet_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "ucenik_id", referencedColumnName = "id"))
     private Set<Ucenik> ucenici = new HashSet<>();
 
-    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Uplata> uplate = new HashSet<>();
 
-    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Ispit> ispiti = new HashSet<>();
 
     private String aktivnosti; // aktivnost; aktivnost; aktivnost;...

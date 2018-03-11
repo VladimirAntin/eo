@@ -17,12 +17,12 @@ public class Dokument {
     private long id;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ucenik_id", referencedColumnName = "id")
     private Ucenik ucenik;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tip_id", referencedColumnName = "id")
     private TipDokumenta tipDokumenta;
 

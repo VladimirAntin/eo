@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UserService} from '../../service/user.service';
-import {Zvanje} from '../../model/zvanje';
-import {ZvanjeService} from '../../service/zvanje.service';
-import {Nastavnik} from '../../model/nastavnik';
 import {UserApi} from '../../model/user-api';
-import {Ucenik} from '../../model/ucenik';
-import {Authority} from '../../model/authority';
 import {Dokument} from '../../model/dokument';
 import {Uplata} from '../../model/uplata';
 import {Predmet} from '../../model/predmet';
+import {AuthService} from '../../service/auth.service';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {AddDocComponent} from './add-doc/add-doc.component';
+import {DokumentService} from '../../service/dokument.service';
+import {Ucenik} from '../../model/ucenik';
 
 @Component({
   selector: 'app-user',
@@ -18,28 +18,30 @@ import {Predmet} from '../../model/predmet';
 })
 export class UserComponent implements OnInit {
 
-  id; user: UserApi; zvanje = new Zvanje();
-  authorities: Authority[]; docs: Dokument[]; uplate: Uplata[]; predmeti: Predmet[];
-  constructor(private route: ActivatedRoute, private userService: UserService, public _router: Router) {}
+  id; user: UserApi; me: UserApi; docs: Dokument[] = [];
+  uplate: Uplata[] = []; predmeti: Predmet[] = [];
+  isAdmin = false;
+  constructor(private route: ActivatedRoute, private userService: UserService, public snackBar: MatSnackBar,
+              private documentService: DokumentService, private authService: AuthService,
+              public _router: Router, public dialog: MatDialog) {}
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id');
     if ( isNaN(this.id) ) {
       this.id = this.route.snapshot.paramMap.get('id');
     }
-    this.get();
+    this.get(0);
     this._router.events.filter((e) => e instanceof NavigationEnd)
       .subscribe((event: NavigationEnd) => {
         if (event.urlAfterRedirects.indexOf('users/') !== -1) {
           this.id = event.urlAfterRedirects.split('/').pop();
-          this.authorities = [];
           this.docs = [];
           this.uplate = [];
           this.predmeti = [];
-          this.get();
+          this.get(1);
         }
       });
   }
-  private get() {
+  private get(num: number) {
     this.userService.get(this.id).subscribe(data => {
       this.user = Object.assign(new UserApi(), data);
       if(this.user.isNastavnik()){
@@ -49,8 +51,48 @@ export class UserComponent implements OnInit {
         this.userService.getDokumenta(this.user.id).subscribe(data => this.docs=data);
         this.userService.getPredmeti(this.user.id).subscribe(data => this.predmeti=data);
       }
-      this.userService.getAuthorities(this.id).subscribe(data => this.authorities = data);
+      if(num==0){
+        this.authService.me().subscribe(data => {
+          this.me = data;
+          this.isAdmin = this.me.authorities
+            .filter(a => a.name.substring(5).toLowerCase()==='admin').length===1;
+        });
+      }
     }, () => this.user = null);
   }
 
+  addDoc() {
+    const dialogRef = this.dialog.open(AddDocComponent, {
+      panelClass: 'dialog-600x400',
+      data: {
+        doc: new Dokument().setUcenik(this.user as Ucenik),
+        docs: this.docs
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.documentService.add(result.doc).subscribe( data => {
+          this.docs.push(data);
+          this.snackBar.open('Successfully added!', 'Ok', {
+            duration: 4000, verticalPosition: 'top'
+          });
+        }, () => {
+          this.snackBar.open('Error with add new document', 'Ok', {
+            duration: 4000, verticalPosition: 'top'
+          });
+        });
+      }
+    });
+  }
+
+  deleteDoc(doc: Dokument) {
+    const index = this.docs.indexOf(doc);
+    this.snackBar.open(`Dokument with name: ${doc.tipDokumenta.naziv} will be deleted\n` +
+      'Are you sure?', 'Yes', {
+      duration: 10000, verticalPosition: 'top'
+    }).onAction().subscribe(() => {
+      this.documentService.delete(doc).subscribe(() => this.docs.splice(index, 1),
+        () => {});
+    });
+  }
 }

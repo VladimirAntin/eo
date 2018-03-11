@@ -2,6 +2,7 @@ package github.eobrazovanje.dto;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import github.eobrazovanje.entity.Authority;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,13 +39,16 @@ public class UserDto {
     @Size(min = 1, max = 256) //hash
     private String password;
 
+    private Set<Authority> authorities = new HashSet<>();
+
     public UserDto() { }
 
-    public UserDto(long id, String ime, String prezime, String username) {
+    public UserDto(long id, String ime, String prezime, String username, Set<Authority> authorities) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.username = username;
+        this.authorities = authorities;
     }
 
     public long getId() {
@@ -92,4 +96,12 @@ public class UserDto {
         return this;
     }
 
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public UserDto setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+        return this;
+    }
 }

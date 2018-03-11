@@ -24,11 +24,11 @@ public class Ispit {
     private int bodovi;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "predmet_id", referencedColumnName = "id")
     private Predmet predmet;
 
-    @OneToMany(mappedBy = "ispit", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ispit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Aktivnost> aktivnosti = new HashSet<>();
 
     public Ispit() { }

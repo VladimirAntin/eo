@@ -23,12 +23,11 @@ public class DokumentDtoToDokument implements Converter<DokumentDto,Dokument>{
     @Autowired
     private TipDokumentaService tipDokumentaService;
 
-
     @Override
     public Dokument convert(DokumentDto dto) {
         return new Dokument()
                 .setId(dto.getId())
-                .setUcenik(ucenikService.findOne(dto.getUcenik()))
+                .setUcenik(ucenikService.findOne(dto.getUcenik().getId()))
                 .setTipDokumenta(tipDokumentaService.findOne(dto.getTipDokumenta().getId()));
     }
 }

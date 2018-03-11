@@ -28,7 +28,7 @@
         <div class="col-md-4">
           <span>Authorities</span>
         <mat-chip-list>
-          <mat-chip *ngFor="let key of authorities" disabled>
+          <mat-chip *ngFor="let key of user.authorities" disabled>
             {{key.name.substring(5).toLowerCase()}}
           </mat-chip>
         </mat-chip-list>
@@ -86,12 +86,15 @@
         Dokumenti <span class="badge badge-pill badge-dark">{{docs.length}}</span>
       </ng-template>
       <div>
+        <button mat-mini-fab matTooltip="Add document" color="primary" (click)="addDoc()">
+          <mat-icon>add</mat-icon>
+        </button>
         <mat-list>
           <mat-list-item *ngFor="let d of docs">
             <mat-icon mat-list-icon>note</mat-icon>
             <h4 mat-line><i>{{d.tipDokumenta.naziv}}</i></h4>
-            <button mat-button color="warn" matTooltip="Delete">
-              <!--dodati privilegije-->
+            <button mat-button color="warn" matTooltip="Delete" (click)="deleteDoc(d)"
+                    *ngIf="me && user && (me.username===user.username || isAdmin)">
               <mat-icon>delete</mat-icon>
             </button>
             <mat-divider></mat-divider>

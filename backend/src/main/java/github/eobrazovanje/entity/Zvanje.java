@@ -23,7 +23,7 @@ public class Zvanje {
     @Size(min = 1, max = 20)
     private String naziv;
 
-    @OneToMany(mappedBy = "zvanje", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "zvanje", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Nastavnik> nastavnici = new HashSet<>();
 
     public Zvanje() { }

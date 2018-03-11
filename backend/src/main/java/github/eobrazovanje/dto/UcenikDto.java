@@ -1,5 +1,7 @@
 package github.eobrazovanje.dto;
 
+import github.eobrazovanje.entity.Authority;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -18,8 +20,8 @@ public class UcenikDto extends UserDto{
 
     public UcenikDto() { }
 
-    public UcenikDto(long id, String ime, String prezime, String username) {
-        super(id, ime, prezime, username);
+    public UcenikDto(long id, String ime, String prezime, String username, Set<Authority> authorities) {
+        super(id, ime, prezime, username, authorities);
     }
 
     public String getBrojIndexa() {

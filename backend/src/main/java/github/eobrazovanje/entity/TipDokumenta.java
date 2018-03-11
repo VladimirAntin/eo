@@ -21,7 +21,7 @@ public class TipDokumenta {
     @Size(max = 50)
     private String naziv;
 
-    @OneToMany(mappedBy = "tipDokumenta", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tipDokumenta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Dokument> dokumenti = new HashSet<>();
 
     public TipDokumenta() { }
