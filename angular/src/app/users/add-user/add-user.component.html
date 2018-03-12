@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Add new user</h2>
+<mat-dialog-content>
+  <mat-form-field class="full-width">
+    <mat-select placeholder="Type" [(ngModel)]="data.user.type"
+                (input)="change()" required>
+      <mat-option *ngFor="let type of types" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="First name" maxlength="30" [(ngModel)]="data.user.ime"
+           (input)="change()" required>
+    <mat-hint align="end">{{data.user.ime.length}}/30</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Last name" maxlength="30" [(ngModel)]="data.user.prezime"
+           (input)="change()" required>
+    <mat-hint align="end">{{data.user.prezime.length}}/30</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Username" maxlength="30" [(ngModel)]="data.user.username"
+           (input)="change()" required>
+    <mat-hint align="end">{{data.user.username.length}}/30</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Password" type="password" maxlength="20" [(ngModel)]="data.user.password"
+           (input)="change()" required>
+    <mat-hint align="end">{{data.user.password.length}}/20</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="full-width" *ngIf="data.user.isUcenik()">
+    <input matInput placeholder="Broj indexa" maxlength="12" [(ngModel)]="data.user.brojIndexa"
+           (input)="change()" required>
+    <mat-hint align="end">{{data.user.brojIndexa.length}}/12</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="full-width" *ngIf="data.user.isNastavnik()">
+    <mat-select placeholder="Zvanje" [(ngModel)]="data.user.zvanje.id" required>
+      <mat-option *ngFor="let z of zvanja" [value]="z.id">
+        {{ z.naziv }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-icon-button [mat-dialog-close]="{result:true, user:data.user }"
+          color="primary" matTooltip="Add new" [disabled]="enableB">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <button mat-icon-button mat-dialog-close matTooltip="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-dialog-actions>

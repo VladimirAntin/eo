@@ -13,6 +13,10 @@ export class ZvanjeService {
   };
   constructor(private http: HttpClient) { }
 
+  getAll(): Observable<Zvanje[]>  {
+    return this.http.get<Zvanje[]>(this.zvanja, this.httpOptions);
+  }
+
   get(id: number): Observable<Zvanje>  {
     return this.http.get<Zvanje>(`${this.zvanja}${id}`, this.httpOptions);
   }

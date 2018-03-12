@@ -217,15 +217,17 @@ public class UserController {
     public ResponseEntity password(@PathVariable long id, @RequestBody @Validated UserPasswordDto dto, Principal principal){
         User loginUser = userService.findByUsername(principal.getName());
         User user = userService.findOne(id);
-        if(loginUser.getId()!=user.getId() || loginUser.getAuthorities().stream().noneMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
+        if(loginUser.getId()!=user.getId() ||
+                loginUser.getAuthorities().stream().noneMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-        if(!dto.getNewPasswordRepeat().equals(dto.getNewPasswordRepeat())){
-            return ResponseEntity.badRequest().build();
-        }
-        if(!new BCryptPasswordEncoder().matches(dto.getOldPassword(),user.getPassword()) ||
-                loginUser.getAuthorities().stream().noneMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
-            return ResponseEntity.badRequest().build();
+        if(loginUser.getAuthorities().stream().noneMatch(a-> a.getAuthority().equals("ROLE_ADMIN"))){
+            if(!dto.getNewPassword().equals(dto.getNewPasswordRepeat())){
+                return ResponseEntity.badRequest().build();
+            }
+            if(!new BCryptPasswordEncoder().matches(dto.getOldPassword(),user.getPassword())){
+                return ResponseEntity.badRequest().build();
+            }
         }
         user = userService.savePassword(toUser.changePassword(dto,user.getId()));
         if(user!=null){

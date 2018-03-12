@@ -25,19 +25,14 @@ import {DokumentService} from './service/dokument.service';
 import { AddDocComponent } from './users/user/add-doc/add-doc.component';
 import {TipDokumenta} from './model/tip-dokumenta';
 import {TipDokumentaService} from './service/tip-dokumenta.service';
+import { AddUserComponent } from './users/add-user/add-user.component';
 
 enableProdMode();
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    HomeComponent,
-    NavigationComponent,
-    NotFoundComponent,
-    UsersComponent,
-    UserComponent,
-    SearchPipe,
-    AddDocComponent
+    AppComponent, LoginComponent, HomeComponent, NavigationComponent,
+    NotFoundComponent, UsersComponent, UserComponent, SearchPipe,
+    AddDocComponent, AddUserComponent
   ],
   imports: [
     AppRoutingModule, BrowserModule, HttpClientModule,
@@ -52,7 +47,7 @@ enableProdMode();
     MatSnackBarModule, MatToolbarModule, MatButtonModule, MatPaginatorModule, MatTableModule,
     MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule, MatSelectModule
   ],
-  entryComponents: [AddDocComponent],
+  entryComponents: [AddDocComponent, AddUserComponent],
   providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService],
   bootstrap: [AppComponent]
 })

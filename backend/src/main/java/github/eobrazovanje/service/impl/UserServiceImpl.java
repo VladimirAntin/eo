@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService{
                 authorities.add(authorityRepo.findOne((long)1)); // admin
             }
             user.setAuthorities(authorities);
+            return repo.save(user);
         }
         return repo.save(user.setAuthorities((Set<Authority>) this.findOne(user.getId()).getAuthorities()));
     }

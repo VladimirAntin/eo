@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private String ime;
 
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 30)
     private String prezime;
 
     @NotNull

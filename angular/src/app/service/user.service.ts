@@ -35,6 +35,8 @@ export class UserService {
   getDokumenta(id: number | string): Observable<Dokument[]>  {
     return this.http.get<Dokument[]>(`${this.users}${id}/dokumenti`, this.httpOptions);
   }
-
+  add(user: UserApi): Observable<UserApi>  {
+    return this.http.post<UserApi>(this.users, user, this.httpOptions);
+  }
 
 }

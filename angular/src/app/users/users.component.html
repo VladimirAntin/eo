@@ -1,17 +1,14 @@
 <div *ngIf="users.data!==null">
   <div style="padding: 8px 24px 0">
-    <mat-form-field class="full-width f20">
-      <mat-icon matPrefix>search</mat-icon>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
     <mat-toolbar>
-      <button mat-mini-fab color="primary" matTooltip="Add new user">
+      <button mat-mini-fab color="primary" matTooltip="Add new user" (click)="addUser()">
         <mat-icon>person_add</mat-icon>
       </button>
       <span class="spacer"></span>
-      <button mat-mini-fab color="primary" (click)="getAll()" matTooltip="Refresh">
-        <mat-icon>refresh</mat-icon>
-      </button>
+      <mat-form-field class="w-90">
+          <mat-icon matPrefix>search</mat-icon>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
     </mat-toolbar>
   </div>
   <mat-spinner *ngIf="loading"></mat-spinner>
@@ -35,15 +32,23 @@
     <ng-container matColumnDef="options">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let user">
-        <a mat-icon-button color="primary" [routerLink]="['/users',user.username]" matTooltip="Open">
+        <button mat-icon-button [routerLink]="['/users',user.username]" matTooltip="Open" color="primary">
           <mat-icon>person</mat-icon>
-        </a>
-        <button mat-icon-button color="accent" matTooltip="Update">
-          <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" matTooltip="Delete">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" color="primary" matTooltip="Options">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>edit</mat-icon> Update
+              </button>
+            <button mat-menu-item>
+                <mat-icon>edit</mat-icon> Change password
+            </button>
+            <button mat-menu-item>
+              <mat-icon>delete</mat-icon> Delete
+            </button>
+        </mat-menu>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

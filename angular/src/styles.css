@@ -12,6 +12,9 @@ body {
 .full-width {
   width: 100%;
 }
+.w-90 {
+  width: 90%;
+}
 .center {
   text-align: center;
 }
@@ -34,7 +37,7 @@ app-home, app-users, app-user, app-not-found{
 
 app-users .mat-table{
   overflow-y: auto;
-  height: 35vh;
+  height: 40vh;
 }
 
 ::-webkit-scrollbar-track {
@@ -54,6 +57,18 @@ app-users .mat-table{
 
 .dialog-600x400{
   height: 400px;
+  width: 600px;
+}
+.dialog-600x500{
+  height: 500px;
+  width: 600px;
+}
+.dialog-600x600{
+  height: 600px;
+  width: 600px;
+}
+.dialog-600x800{
+  height: 800px;
   width: 600px;
 }
 
