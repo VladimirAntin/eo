@@ -26,7 +26,17 @@ export class LoginComponent {
     this.authService.loginPost(user).subscribe(data => {
       this.authService.setToken(data);
       this._router.navigateByUrl('/');
+    }, () => {
+      this.snackBar.open('Login data not valid, try again','Ok', {
+        duration: 4000, verticalPosition: 'top'
+      });
     });
+  }
+
+  clickEnter(event, user: User) {
+    if(event.keyCode == 13) {
+      this.postLogin(user)
+    }
   }
 
 }

@@ -35,17 +35,18 @@
         <button mat-icon-button [routerLink]="['/users',user.username]" matTooltip="Open" color="primary">
           <mat-icon>person</mat-icon>
         </button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" color="primary" matTooltip="Options">
+        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="user.type!=='User'"
+                color="primary" matTooltip="Options">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="updateUser(user)">
                 <mat-icon>edit</mat-icon> Update
               </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="changePassword(user)">
                 <mat-icon>edit</mat-icon> Change password
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="deleteUser(user)">
               <mat-icon>delete</mat-icon> Delete
             </button>
         </mat-menu>

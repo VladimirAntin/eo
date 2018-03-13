@@ -34,7 +34,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 
     @Override
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)  {
 
 
         String username = null;
@@ -47,7 +47,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 logger.error("an error occured during getting username from token");
             } catch (ExpiredJwtException e){
                 logger.error("The token has expired");
-            }
+            } catch (Exception e){}
             if (username != null) {
                 // get user
                 try{
@@ -62,7 +62,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        chain.doFilter(request, response);
+        try {
+            chain.doFilter(request, response);
+        } catch (IOException e) {
+        } catch (ServletException e) {
+        }
     }
 
 }

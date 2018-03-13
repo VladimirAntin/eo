@@ -32,8 +32,8 @@ public class UserDtoToUser implements Converter<UserDto,User> {
     }
 
 
-    public User changePassword(UserPasswordDto dto,long id) {
-        User user = userService.findOne(id)
+    public User changePassword(UserPasswordDto dto,User userB) {
+        User user = userB
                 .setPassword(new BCryptPasswordEncoder().encode(dto.getNewPassword()));
         return user;
     }

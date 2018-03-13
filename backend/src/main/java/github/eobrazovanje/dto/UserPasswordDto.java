@@ -10,8 +10,8 @@ import javax.validation.constraints.Size;
   Time: 17.16
 */
 public class UserPasswordDto {
-    @NotNull
-    @Size(min = 4, max = 30)
+//    @NotNull
+//    @Size(min = 4, max = 30)
     private String oldPassword;
     @NotNull
     @Size(min = 4, max = 30)

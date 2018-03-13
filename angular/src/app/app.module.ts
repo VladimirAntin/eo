@@ -10,7 +10,7 @@ import {
   MatButtonModule, MatChipsModule, MatDialogModule,
   MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatSelectModule,
-  MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
+  MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {AuthService} from './service/auth.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -26,20 +26,22 @@ import { AddDocComponent } from './users/user/add-doc/add-doc.component';
 import {TipDokumenta} from './model/tip-dokumenta';
 import {TipDokumentaService} from './service/tip-dokumenta.service';
 import { AddUserComponent } from './users/add-user/add-user.component';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
+import {ChangePasswordComponent} from './users/change-password/change-password.component';
 
 enableProdMode();
 @NgModule({
   declarations: [
     AppComponent, LoginComponent, HomeComponent, NavigationComponent,
     NotFoundComponent, UsersComponent, UserComponent, SearchPipe,
-    AddDocComponent, AddUserComponent
+    AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent
   ],
   imports: [
     AppRoutingModule, BrowserModule, HttpClientModule,
     FormsModule, BrowserAnimationsModule, MatFormFieldModule, MatChipsModule, MatInputModule,
     MatListModule, MatIconModule, MatProgressSpinnerModule, MatSnackBarModule, MatToolbarModule,
     MatButtonModule, MatPaginatorModule, MatTableModule, MatDialogModule, MatTooltipModule,
-    MatTabsModule, MatMenuModule, MatSelectModule
+    MatTabsModule, MatMenuModule, MatSelectModule, MatSortModule
   ],
   exports: [
     FormsModule,
@@ -47,7 +49,7 @@ enableProdMode();
     MatSnackBarModule, MatToolbarModule, MatButtonModule, MatPaginatorModule, MatTableModule,
     MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule, MatSelectModule
   ],
-  entryComponents: [AddDocComponent, AddUserComponent],
+  entryComponents: [AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent],
   providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService],
   bootstrap: [AppComponent]
 })

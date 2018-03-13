@@ -4,6 +4,9 @@ import {UserService} from '../service/user.service';
 import { UserApi } from '../model/user-api';
 import { AddUserComponent } from './add-user/add-user.component';
 import {Router} from '@angular/router';
+import {EditUserComponent} from './edit-user/edit-user.component';
+import {ChangePasswordComponent} from './change-password/change-password.component';
+import {UserPassword} from '../model/user-password';
 
 @Component({
   selector: 'app-users',
@@ -55,8 +58,9 @@ export class UsersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.add(result.user).subscribe( () => {
-          this.getAll();
+        this.userService.add(result.user).subscribe( data => {
+          this.users.data.push(data);
+          this.users.paginator = this.paginator;
           this.snackBar.open(`Success added!: Open User with username:'${result.user.username}'\n`
             , 'Open', {
             duration: 10000, verticalPosition: 'top'
@@ -71,6 +75,64 @@ export class UsersComponent implements OnInit {
         });
       }
     });
-}
+  }
 
+  deleteUser(user: UserApi) {
+    this.snackBar.open('Are you sure?', 'Yes', {
+      duration: 10000, verticalPosition: 'top'
+    }).onAction().subscribe(() => {
+      this.userService.delete(user).subscribe(() => {
+        this.users.data = this.users.data.filter((u: UserApi) => u.id !== user.id);
+        this.users.paginator = this.paginator;
+      });
+    });
+  }
+
+  updateUser(user) {
+    let index = this.users.data.indexOf(user);
+    let users = this.users.data;
+    const dialogRef = this.dialog.open(EditUserComponent, {
+      data: {
+        user: Object.assign(new UserApi(), user)
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.update(result.user).subscribe(data => {
+          // this.getAll();
+          users[index] = data;
+          this.users.data = users;
+          this.snackBar.open(`Success changed!: Open User with username:'${result.user.username}'\n`
+            , 'Open', {
+              duration: 10000, verticalPosition: 'top'
+            }).onAction().subscribe(() => {
+            this._router.navigate(['/users', result.user.username]);
+          });
+        }, () => {
+          this.snackBar.open(`Error, user with username ${result.user.username} is already exists`, 'Ok', {
+            duration: 4000, verticalPosition: 'top'
+          });
+        });
+      }
+    });
+  }
+  changePassword(user) {
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      panelClass: 'dialog-600x400',
+      data: { user: new UserPassword(), admin: true }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.changePassword(user.id, result.user).subscribe(() => {
+          this.snackBar.open('Successfully changed!', 'Ok', {
+            duration: 4000, verticalPosition: 'top'
+          });
+        }, () => {
+          this.snackBar.open('Error with change password!', 'Ok', {
+            duration: 4000, verticalPosition: 'top'
+          });
+        });
+      }
+    });
+  }
 }

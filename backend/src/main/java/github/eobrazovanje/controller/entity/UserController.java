@@ -185,6 +185,12 @@ public class UserController {
                 && loginUser.getId()!=id){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
+        User userb = userService.findOne(dto.getId());
+        if(loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN")) &&
+                userb.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN")) &&
+                userb.getId()!=loginUser.getId()){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
         User user;
         dto.setPassword(null);
         if(dto instanceof NastavnikDto){
@@ -217,8 +223,13 @@ public class UserController {
     public ResponseEntity password(@PathVariable long id, @RequestBody @Validated UserPasswordDto dto, Principal principal){
         User loginUser = userService.findByUsername(principal.getName());
         User user = userService.findOne(id);
-        if(loginUser.getId()!=user.getId() ||
+        if(loginUser.getId()!=user.getId() &&
                 loginUser.getAuthorities().stream().noneMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        if(loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN")) &&
+                user.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN")) &&
+                user.getId()!=loginUser.getId()){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
         if(loginUser.getAuthorities().stream().noneMatch(a-> a.getAuthority().equals("ROLE_ADMIN"))){
@@ -229,7 +240,7 @@ public class UserController {
                 return ResponseEntity.badRequest().build();
             }
         }
-        user = userService.savePassword(toUser.changePassword(dto,user.getId()));
+        user = userService.savePassword(toUser.changePassword(dto,user));
         if(user!=null){
             return ResponseEntity.ok().build();
         }

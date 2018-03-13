@@ -6,6 +6,7 @@ import {Authority} from '../model/authority';
 import {Predmet} from '../model/predmet';
 import {Uplata} from '../model/uplata';
 import {Dokument} from '../model/dokument';
+import {UserPassword} from '../model/user-password';
 
 @Injectable()
 export class UserService {
@@ -37,6 +38,16 @@ export class UserService {
   }
   add(user: UserApi): Observable<UserApi>  {
     return this.http.post<UserApi>(this.users, user, this.httpOptions);
+  }
+  delete (user: UserApi | number): Observable<UserApi> {
+    const id = typeof user === 'number' ? user : user.id;
+    return this.http.delete<UserApi>(`${this.users}${id}`, this.httpOptions);
+  }
+  update(user: UserApi) {
+    return this.http.put<UserApi>(`${this.users}${user.id}`, user, this.httpOptions);
+  }
+  changePassword(id: number, user: UserPassword) {
+    return this.http.patch(`${this.users}${id}/password`, user, this.httpOptions);
   }
 
 }
