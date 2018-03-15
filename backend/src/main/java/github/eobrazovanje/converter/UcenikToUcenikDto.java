@@ -22,7 +22,8 @@ public class UcenikToUcenikDto implements Converter<Ucenik,UcenikDto> {
 
     @Override
     public UcenikDto convert(Ucenik ucenik) {
-        return new UcenikDto(ucenik.getId(),ucenik.getIme(),ucenik.getPrezime(),ucenik.getUsername(), (Set<Authority>) ucenik.getAuthorities())
+        return new UcenikDto(ucenik.getId(),ucenik.getIme(),ucenik.getPrezime(),ucenik.getUsername(),
+                ucenik.getEmail(), (Set<Authority>) ucenik.getAuthorities())
                 .setBrojIndexa(ucenik.getBrojIndexa());
     }
 

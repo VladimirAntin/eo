@@ -34,8 +34,8 @@ public class Ucenik extends User {
 
     public Ucenik() { }
 
-    public Ucenik(long id, String ime, String prezime, String username, String password) {
-        super(id, ime, prezime, username, password);
+    public Ucenik(long id, String ime, String prezime, String username, String email, String password) {
+        super(id, ime, prezime, username, email, password);
     }
 
     public String getBrojIndexa() {

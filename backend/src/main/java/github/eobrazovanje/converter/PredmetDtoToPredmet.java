@@ -21,6 +21,7 @@ public class PredmetDtoToPredmet implements Converter<PredmetDto,Predmet>{
                 .setBrojCasovaVezbi(dto.getBrojCasovaVezbi())
                 .setBrojCasovaPredavanja(dto.getBrojCasovaPredavanja())
                 .setNaziv(dto.getNaziv())
+                .setOpis(dto.getOpis())
                 .setAktivnosti(dto.getAktivnosti());
     }
 }

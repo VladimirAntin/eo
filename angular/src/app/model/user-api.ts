@@ -6,6 +6,7 @@ export class UserApi {
     ime: string;
     prezime: string;
     username: string;
+    email: string;
     password: string;
     authorities: Authority[];
 
@@ -15,6 +16,7 @@ export class UserApi {
       this.ime = '';
       this.prezime = '';
       this.username = '';
+      this.email = '';
       this.password = '';
       this.authorities = [];
     }

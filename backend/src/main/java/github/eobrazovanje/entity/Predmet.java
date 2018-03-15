@@ -23,6 +23,7 @@ public class Predmet {
     @NotNull
     @Size(min = 1, max = 50)
     private String naziv;
+    private String opis;
 
     private int brojCasovaPredavanja;
     private int brojCasovaVezbi;
@@ -64,6 +65,15 @@ public class Predmet {
 
     public Predmet setNaziv(String naziv) {
         this.naziv = naziv;
+        return this;
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public Predmet setOpis(String opis) {
+        this.opis = opis;
         return this;
     }
 

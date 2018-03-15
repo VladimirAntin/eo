@@ -18,8 +18,8 @@ public class NastavnikDto extends UserDto {
 
     public NastavnikDto() { }
 
-    public NastavnikDto(long id, String ime, String prezime, String username, Set<Authority> authorities) {
-        super(id, ime, prezime, username, authorities);
+    public NastavnikDto(long id, String ime, String prezime, String username, String email, Set<Authority> authorities) {
+        super(id, ime, prezime, username, email, authorities);
     }
 
     public ZvanjeDto getZvanje() {

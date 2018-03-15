@@ -21,6 +21,8 @@ public class UplataToUplataDto implements Converter<Uplata,UplataDto> {
 
     @Autowired
     private PredmetToPredmetDto toPredmetDto;
+    @Autowired
+    private UcenikToUcenikDto toUcenikDto;
 
     @Override
     public UplataDto convert(Uplata uplata) {
@@ -28,7 +30,7 @@ public class UplataToUplataDto implements Converter<Uplata,UplataDto> {
                 .setId(uplata.getId())
                 .setSuma(uplata.getSuma())
                 .setPredmet(toPredmetDto.convert(uplata.getPredmet()))
-                .setUcenik(uplata.getUcenik().getId());
+                .setUcenik(toUcenikDto.convert(uplata.getUcenik()));
     }
 
     public List<UplataDto> convert(Collection<Uplata> uplate){

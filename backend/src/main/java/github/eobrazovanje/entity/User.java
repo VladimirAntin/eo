@@ -37,6 +37,11 @@ public class User implements UserDetails {
     private String username;
 
     @NotNull
+    @Size(min = 10, max = 50)
+    @Column(unique = true)
+    private String email;
+
+    @NotNull
     @Size(min = 1, max = 256) //hash
     private String password;
 
@@ -47,11 +52,12 @@ public class User implements UserDetails {
     private Set<Authority> authorities = new HashSet<>();
     public User() { }
 
-    public User(long id, String ime, String prezime, String username, String password) {
+    public User(long id, String ime, String prezime, String username, String email, String password) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.username = username;
+        this.email = email;
         this.password = password;
     }
 
@@ -84,6 +90,15 @@ public class User implements UserDetails {
 
     public User setUsername(String username) {
         this.username = username;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public User setEmail(String email) {
+        this.email = email;
         return this;
     }
 

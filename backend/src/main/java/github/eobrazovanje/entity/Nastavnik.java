@@ -24,8 +24,8 @@ public class Nastavnik extends User {
 
     public Nastavnik() { }
 
-    public Nastavnik(long id, String ime, String prezime, String username, String password) {
-        super(id, ime, prezime, username, password);
+    public Nastavnik(long id, String ime, String prezime, String username, String email, String password) {
+        super(id, ime, prezime, username, email, password);
     }
 
     public Zvanje getZvanje() {

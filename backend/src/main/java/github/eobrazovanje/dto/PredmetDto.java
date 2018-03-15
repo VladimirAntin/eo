@@ -15,8 +15,9 @@ public class PredmetDto {
     private long id;
 
     @NotNull
-    @Size(min = 0, max = 50)
+    @Size(min = 4, max = 50)
     private String naziv;
+    private String opis;
 
     private int brojCasovaPredavanja;
     private int brojCasovaVezbi;
@@ -39,6 +40,15 @@ public class PredmetDto {
 
     public PredmetDto setNaziv(String naziv) {
         this.naziv = naziv;
+        return this;
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public PredmetDto setOpis(String opis) {
+        this.opis = opis;
         return this;
     }
 

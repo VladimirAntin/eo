@@ -17,7 +17,7 @@ public class UplataDto {
     private float suma;
 
     @NotNull
-    private long ucenik;
+    private UcenikDto ucenik;
 
     @NotNull
     private PredmetDto predmet;
@@ -42,11 +42,11 @@ public class UplataDto {
         return this;
     }
 
-    public long getUcenik() {
+    public UcenikDto getUcenik() {
         return ucenik;
     }
 
-    public UplataDto setUcenik(long ucenik) {
+    public UplataDto setUcenik(UcenikDto ucenik) {
         this.ucenik = ucenik;
         return this;
     }

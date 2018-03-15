@@ -76,7 +76,8 @@ export class NavigationComponent {
             }, 4000)
           }else{
             this.me = data;
-            if (window.location.href.indexOf('users') !== -1) {
+            if (window.location.href.lastIndexOf(`users/${this.me.username}`) !== -1 ||
+              window.location.href.lastIndexOf('users') !== -1) {
               window.location.reload();
             }
             this.snackBar.open('Success changed!','Ok', {

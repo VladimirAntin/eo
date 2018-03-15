@@ -22,6 +22,7 @@ public class PredmetToPredmetDto implements Converter<Predmet,PredmetDto>{
         return new PredmetDto()
                 .setId(predmet.getId())
                 .setNaziv(predmet.getNaziv())
+                .setOpis(predmet.getOpis())
                 .setBrojCasovaVezbi(predmet.getBrojCasovaVezbi())
                 .setBrojCasovaPredavanja(predmet.getBrojCasovaPredavanja())
                 .setAktivnosti(predmet.getAktivnosti());

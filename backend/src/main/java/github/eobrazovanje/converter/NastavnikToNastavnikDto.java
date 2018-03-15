@@ -26,7 +26,8 @@ public class NastavnikToNastavnikDto implements Converter<Nastavnik,NastavnikDto
 
     @Override
     public NastavnikDto convert(Nastavnik nastavnik) {
-        return new NastavnikDto(nastavnik.getId(),nastavnik.getIme(),nastavnik.getPrezime(),nastavnik.getUsername(), (Set<Authority>) nastavnik.getAuthorities())
+        return new NastavnikDto(nastavnik.getId(), nastavnik.getIme(), nastavnik.getPrezime(),
+                nastavnik.getUsername(), nastavnik.getEmail(), (Set<Authority>) nastavnik.getAuthorities())
                 .setZvanje(toZvanjeDto.convert(nastavnik.getZvanje()));
     }
 

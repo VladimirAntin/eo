@@ -6,12 +6,16 @@ import {HomeComponent} from './home/home.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {UsersComponent} from './users/users.component';
 import {UserComponent} from './users/user/user.component';
+import {PredmetiComponent} from './predmeti/predmeti.component';
+import {PredmetComponent} from './predmeti/predmet/predmet.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent},
   { path: 'users', component: UsersComponent},
   { path: 'users/:id', component: UserComponent},
+  { path: 'predmeti', component: PredmetiComponent},
+  { path: 'predmeti/:id', component: PredmetComponent},
   {path: '**', component: NotFoundComponent}
 ];
 

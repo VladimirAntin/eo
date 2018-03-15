@@ -20,8 +20,8 @@ public class UcenikDto extends UserDto{
 
     public UcenikDto() { }
 
-    public UcenikDto(long id, String ime, String prezime, String username, Set<Authority> authorities) {
-        super(id, ime, prezime, username, authorities);
+    public UcenikDto(long id, String ime, String prezime, String username, String email,Set<Authority> authorities) {
+        super(id, ime, prezime, username, email, authorities);
     }
 
     public String getBrojIndexa() {

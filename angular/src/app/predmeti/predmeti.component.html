@@ -1,0 +1,36 @@
+<div *ngIf="predmeti!=null">
+  <button mat-mini-fab color="primary" matTooltip="Add new" (click)="add()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <mat-form-field class="w-90 f20">
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput placeholder="Filter" [(ngModel)]="filter">
+  </mat-form-field>
+  <mat-list>
+    <mat-list-item *ngFor="let p of predmeti | search:'naziv':filter">
+      <mat-icon mat-list-icon>subject</mat-icon>
+      <h4 mat-line><i>{{p.naziv}}</i></h4>
+      <p mat-line>Broj casova predavanje: {{p.brojCasovaPredavanja}}</p>
+      <p mat-line>Broj casova vezbi: {{p.brojCasovaVezbi}}</p>
+      <p mat-line>
+        Aktivnosti:
+        <mat-chip-list>
+          <mat-chip *ngFor="let a of p.aktivnosti.split(';')" disabled>
+            {{a}}
+          </mat-chip>
+        </mat-chip-list>
+      </p>
+      <a mat-mini-fab  [routerLink]="['/predmeti',p.id]" matTooltip="Open" class="bg-dark">
+        <mat-icon>link</mat-icon>
+      </a>
+      <button mat-mini-fab color="primary" matTooltip="Update" (click)="edit(p)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" matTooltip="Delete" (click)="deletePredmet(p)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</div>
+<app-not-found *ngIf="predmeti===null" class="not-found"></app-not-found>

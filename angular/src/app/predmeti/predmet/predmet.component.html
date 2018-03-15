@@ -1,0 +1,102 @@
+<div *ngIf="predmet!=null">
+  <mat-tab-group>
+    <mat-tab label="Info">
+      <ng-template mat-tab-label>
+        <mat-icon>info_outline</mat-icon> Info
+      </ng-template>
+      <div class="m-5 row">
+        <mat-form-field class="col-md-12">
+          <input matInput placeholder="Naziv" [(ngModel)]="predmet.naziv" disabled>
+        </mat-form-field>
+        <mat-form-field class="col-md-12">
+          <input matInput placeholder="Opis" [(ngModel)]="predmet.opis" disabled>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput placeholder="Broj casova predavanja" [(ngModel)]="predmet.brojCasovaPredavanja" disabled>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput placeholder="Broj casova vezbi" [(ngModel)]="predmet.brojCasovaVezbi" disabled>
+        </mat-form-field>
+        <mat-form-field class="col-md-12">
+          <mat-chip-list #keywordList disabled>
+            <mat-chip *ngFor="let key of predmet.aktivnosti.split(';')" disabled>
+              {{key}}
+            </mat-chip>
+            <input matInput placeholder="Aktivnosti" [matChipInputFor]="keywordList" disabled>
+          </mat-chip-list>
+        </mat-form-field>
+        <div class="offset-md-4 col-md-2">
+          <button mat-mini-fab matTooltip="Edit" color="primary" (click)="edit()">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Ucenici">
+      <ng-template mat-tab-label>
+        <mat-icon>person</mat-icon> Ucenici
+        <span class="badge badge-pill badge-dark">{{ucenici.length}}</span>
+      </ng-template>
+      <div>
+        <mat-list>
+          <mat-list-item *ngFor="let u of ucenici">
+            <mat-icon mat-list-icon>person</mat-icon>
+            <h4 mat-line>{{u.ime + ' '+ u.prezime}}</h4>
+            <h4 mat-line>{{u.email}}</h4>
+            <h4 mat-line><b>{{u.brojIndexa}}</b></h4>
+            <a mat-button color="primary" [routerLink]="['/users',u.id]" matTooltip="Open">
+              <mat-icon>link</mat-icon>
+            </a>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-tab>
+    <mat-tab label="Predavaci">
+      <ng-template mat-tab-label>
+        <mat-icon>person</mat-icon> Predavaci
+        <span class="badge badge-pill badge-dark">{{nastavnici.length}}</span>
+      </ng-template>
+      <div>
+        <mat-list>
+          <mat-list-item *ngFor="let n of nastavnici">
+            <mat-icon mat-list-icon>person</mat-icon>
+            <h4 mat-line>{{n.ime + ' '+ n.prezime}}</h4>
+            <h4 mat-line>{{n.email}}</h4>
+            <h4 mat-line><b>{{n.zvanje.naziv}}</b></h4>
+            <a mat-button color="primary" [routerLink]="['/users',n.id]" matTooltip="Open">
+              <mat-icon>link</mat-icon>
+            </a>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-tab>
+    <mat-tab label="Uplate">
+      <ng-template mat-tab-label>
+        <mat-icon>payment</mat-icon> Uplate
+        <span class="badge badge-pill badge-dark">{{uplate.length}}</span>
+      </ng-template>
+      <div>
+        <mat-list>
+          <mat-list-item *ngFor="let u of uplate">
+            <mat-icon mat-list-icon>payment</mat-icon>
+            <h4 mat-line>Ime i prezime: <b>{{u.ucenik.ime + ' '+ u.ucenik.prezime}}</b></h4>
+            <span mat-line> Suma: <b>{{u.suma}}</b> din</span>
+            <a mat-button color="primary" [routerLink]="['/users',u.ucenik.id]" matTooltip="Open ucenik">
+              <mat-icon>link</mat-icon>
+            </a>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-tab>
+    <mat-tab label="Ispiti">
+      <ng-template mat-tab-label>
+        <mat-icon>web</mat-icon> Ispiti
+      </ng-template>
+      <div></div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<app-not-found *ngIf="predmet==null" class="not-found"></app-not-found>

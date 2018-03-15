@@ -28,6 +28,7 @@ public class UserDtoToUser implements Converter<UserDto,User> {
                 .setIme(dto.getIme())
                 .setPrezime(dto.getPrezime())
                 .setUsername(dto.getUsername())
+                .setEmail(dto.getEmail())
                 .setPassword(dto.getPassword()==null? userService.findOne(dto.getId()).getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()));
     }
 

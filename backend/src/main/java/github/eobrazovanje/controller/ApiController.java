@@ -66,6 +66,7 @@ public class ApiController {
         navItems.add(new NavItem("Home","/","home"));
         if(authorities.stream().anyMatch(t -> t.getAuthority().equals("ROLE_ADMIN"))) {
             navItems.add(new NavItem("Users","/users", "people"));
+            navItems.add(new NavItem("Predmeti","/predmeti", "subject"));
         }else if(authorities.stream().anyMatch(t -> t.getAuthority().equals("ROLE_PROFESOR"))){
             // bla bla za profesora
         }else {

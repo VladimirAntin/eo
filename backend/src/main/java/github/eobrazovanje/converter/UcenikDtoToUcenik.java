@@ -22,7 +22,7 @@ public class UcenikDtoToUcenik implements Converter<UcenikDto,Ucenik> {
 
     @Override
     public Ucenik convert(UcenikDto dto) {
-        return new Ucenik(dto.getId(),dto.getIme(),dto.getPrezime(),dto.getUsername(),
+        return new Ucenik(dto.getId(),dto.getIme(),dto.getPrezime(),dto.getUsername(), dto.getEmail(),
                 dto.getPassword()==null? userService.findOne(dto.getId()).getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()))
                 .setBrojIndexa(dto.getBrojIndexa());
     }

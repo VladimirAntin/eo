@@ -22,9 +22,11 @@ export class AddUserComponent {
   }
 
   change(){
-    this.enableB = (this.data.user.username.trim()==='' || this.data.user.ime.trim()==='' ||
-      this.data.user.prezime.trim()==='' || this.data.user.password.trim()==='') || (this.data.user.isUcenik() &&
+    this.enableB = (this.data.user.username.trim()==='' || this.data.user.email.trim()==='' ||
+      this.data.user.ime.trim()==='' || this.data.user.prezime.trim()==='' ||
+      this.data.user.password.trim()==='') || (this.data.user.isUcenik() &&
       (this.data.user.brojIndexa.trim()==='' || this.data.user.username.trim()==='' ||
+        this.data.user.email.trim()==='' ||
       this.data.user.ime.trim()==='' || this.data.user.prezime.trim()==='' || this.data.user.password.trim()===''))
   }
 }
