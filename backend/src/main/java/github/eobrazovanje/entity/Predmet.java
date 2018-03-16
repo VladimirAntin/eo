@@ -43,10 +43,10 @@ public class Predmet {
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Uplata> uplate = new HashSet<>();
 
-    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Ispit> ispiti = new HashSet<>();
-
     private String aktivnosti; // aktivnost; aktivnost; aktivnost;...
+
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Aktivnost> aktivnostSet = new HashSet<>();
 
     public Predmet() { }
 
@@ -122,21 +122,21 @@ public class Predmet {
         return this;
     }
 
-    public Set<Ispit> getIspiti() {
-        return ispiti;
-    }
-
-    public Predmet setIspiti(Set<Ispit> ispiti) {
-        this.ispiti = ispiti;
-        return this;
-    }
-
     public String getAktivnosti() {
         return aktivnosti;
     }
 
     public Predmet setAktivnosti(String aktivnosti) {
         this.aktivnosti = aktivnosti;
+        return this;
+    }
+
+    public Set<Aktivnost> getAktivnostSet() {
+        return aktivnostSet;
+    }
+
+    public Predmet setAktivnostSet(Set<Aktivnost> aktivnostSet) {
+        this.aktivnostSet = aktivnostSet;
         return this;
     }
 }

@@ -3,6 +3,7 @@ package github.eobrazovanje.converter;
 import github.eobrazovanje.dto.UcenikDto;
 import github.eobrazovanje.entity.Authority;
 import github.eobrazovanje.entity.Ucenik;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +21,15 @@ import java.util.stream.Collectors;
 @Component
 public class UcenikToUcenikDto implements Converter<Ucenik,UcenikDto> {
 
+    @Autowired
+    private AktivnostToAktivnostDto toAktivnostDto;
+
     @Override
     public UcenikDto convert(Ucenik ucenik) {
         return new UcenikDto(ucenik.getId(),ucenik.getIme(),ucenik.getPrezime(),ucenik.getUsername(),
                 ucenik.getEmail(), (Set<Authority>) ucenik.getAuthorities())
-                .setBrojIndexa(ucenik.getBrojIndexa());
+                .setBrojIndexa(ucenik.getBrojIndexa())
+                .setAktivnosti(toAktivnostDto.convert(ucenik.getAktivnosti()));
     }
 
     public List<UcenikDto> convert(Collection<Ucenik> ucenici){

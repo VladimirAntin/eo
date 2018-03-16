@@ -91,11 +91,32 @@
         </mat-list>
       </div>
     </mat-tab>
-    <mat-tab label="Ispiti">
+    <mat-tab label="Ispit">
       <ng-template mat-tab-label>
-        <mat-icon>web</mat-icon> Ispiti
+        <mat-icon>web</mat-icon> Ispit
       </ng-template>
-      <div></div>
+      <div>
+        <mat-list>
+          <mat-list-item *ngFor="let u of ucenici">
+            <mat-icon mat-list-icon>person</mat-icon>
+            <h4 mat-line>{{u.ime + ' '+ u.prezime}}</h4>
+            <h4 mat-line>{{u.email}}</h4>
+            <h4 mat-line><b>{{u.brojIndexa}}</b></h4>
+            <mat-list mat-line class="row col-md-3 border">
+              <mat-list-item *ngFor="let a of u.aktivnosti">
+                <h5 matLine>{{a.naziv}}</h5>
+                <h5>{{a.brojBodova}}</h5>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+              <mat-list-item>
+                <h5 matLine>Suma</h5>
+                <h5><b>{{sumBodovi(u.aktivnosti)}}</b></h5>
+              </mat-list-item>
+            </mat-list>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

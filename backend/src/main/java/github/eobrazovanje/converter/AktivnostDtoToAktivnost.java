@@ -2,7 +2,7 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.AktivnostDto;
 import github.eobrazovanje.entity.Aktivnost;
-import github.eobrazovanje.service.IspitService;
+import github.eobrazovanje.service.PredmetService;
 import github.eobrazovanje.service.UcenikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -18,10 +18,10 @@ import org.springframework.stereotype.Component;
 public class AktivnostDtoToAktivnost implements Converter<AktivnostDto,Aktivnost>{
 
     @Autowired
-    private IspitService ispitService;
+    private UcenikService ucenikService;
 
     @Autowired
-    private UcenikService ucenikService;
+    private PredmetService predmetService;
 
     @Override
     public Aktivnost convert(AktivnostDto dto) {
@@ -29,7 +29,7 @@ public class AktivnostDtoToAktivnost implements Converter<AktivnostDto,Aktivnost
                 .setId(dto.getId())
                 .setNaziv(dto.getNaziv())
                 .setBrojBodova(dto.getBrojBodova())
-                .setIspit(ispitService.findOne(dto.getIspit().getId()))
-                .setUcenik(ucenikService.findOne(dto.getUcenik().getId()));
+                .setPredmet(predmetService.findOne(dto.getPredmet()))
+                .setUcenik(ucenikService.findOne(dto.getUcenik()));
     }
 }

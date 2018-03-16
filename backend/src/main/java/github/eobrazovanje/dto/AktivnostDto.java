@@ -19,11 +19,10 @@ public class AktivnostDto {
     @Max(100)
     private int brojBodova;
 
-    @NotNull
-    private IspitDto ispit;
+    private long predmet;
 
     @NotNull
-    private UcenikDto ucenik;
+    private long ucenik;
 
     public AktivnostDto() { }
 
@@ -54,21 +53,21 @@ public class AktivnostDto {
         return this;
     }
 
-    public IspitDto getIspit() {
-        return ispit;
-    }
-
-    public AktivnostDto setIspit(IspitDto ispit) {
-        this.ispit = ispit;
-        return this;
-    }
-
-    public UcenikDto getUcenik() {
+    public long getUcenik() {
         return ucenik;
     }
 
-    public AktivnostDto setUcenik(UcenikDto ucenik) {
+    public AktivnostDto setUcenik(long ucenik) {
         this.ucenik = ucenik;
+        return this;
+    }
+
+    public long getPredmet() {
+        return predmet;
+    }
+
+    public AktivnostDto setPredmet(long predmet) {
+        this.predmet = predmet;
         return this;
     }
 }

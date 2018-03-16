@@ -26,8 +26,8 @@ public class Aktivnost {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ispit_id", referencedColumnName = "id")
-    private Ispit ispit;
+    @JoinColumn(name = "predmet_id", referencedColumnName = "id")
+    private Predmet predmet;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -63,12 +63,12 @@ public class Aktivnost {
         return this;
     }
 
-    public Ispit getIspit() {
-        return ispit;
+    public Predmet getPredmet() {
+        return predmet;
     }
 
-    public Aktivnost setIspit(Ispit ispit) {
-        this.ispit = ispit;
+    public Aktivnost setPredmet(Predmet predmet) {
+        this.predmet = predmet;
         return this;
     }
 

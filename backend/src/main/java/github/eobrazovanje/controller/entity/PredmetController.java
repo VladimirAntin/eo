@@ -51,9 +51,6 @@ public class PredmetController {
     @Autowired
     private UplataToUplataDto toUplataDto;
 
-    @Autowired
-    private IspitToIspitDto toIspitDto;
-
     @GetMapping
     public ResponseEntity all() {
         return ResponseEntity.ok(toPredmetDto.convert(predmetService.findAll()));
@@ -93,15 +90,6 @@ public class PredmetController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(toUplataDto.convert(predmet.getUplate()));
-    }
-
-    @GetMapping("/{id}/ispiti")
-    public ResponseEntity ispiti(@PathVariable long id) {
-        Predmet predmet = predmetService.findOne(id);
-        if(predmet==null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(toIspitDto.convert(predmet.getIspiti()));
     }
 
     @PostMapping

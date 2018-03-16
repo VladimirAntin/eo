@@ -2,10 +2,10 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.AktivnostDto;
 import github.eobrazovanje.entity.Aktivnost;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,23 +18,17 @@ import java.util.stream.Collectors;
 @Component
 public class AktivnostToAktivnostDto implements Converter<Aktivnost,AktivnostDto> {
 
-    @Autowired
-    private UcenikToUcenikDto toUcenikDto;
-
-    @Autowired
-    private IspitToIspitDto toIspitDto;
-
     @Override
     public AktivnostDto convert(Aktivnost aktivnost) {
         return new AktivnostDto()
                 .setId(aktivnost.getId())
                 .setNaziv(aktivnost.getNaziv())
                 .setBrojBodova(aktivnost.getBrojBodova())
-                .setIspit(toIspitDto.convert(aktivnost.getIspit()))
-                .setUcenik(toUcenikDto.convert(aktivnost.getUcenik()));
+                .setPredmet(aktivnost.getPredmet().getId())
+                .setUcenik(aktivnost.getUcenik().getId());
     }
 
-    public List<AktivnostDto> convert(List<Aktivnost> aktivnosts){
+    public List<AktivnostDto> convert(Collection<Aktivnost> aktivnosts){
         return aktivnosts.stream().map(this::convert).collect(Collectors.toList());
     }
 }

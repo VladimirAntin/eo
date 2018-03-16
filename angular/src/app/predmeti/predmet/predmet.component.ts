@@ -7,6 +7,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {Ucenik} from '../../model/ucenik';
 import {Nastavnik} from '../../model/nastavnik';
 import {Uplata} from '../../model/uplata';
+import {Aktivnost} from '../../model/aktivnost';
 
 @Component({
   selector: 'app-predmet',
@@ -25,6 +26,17 @@ export class PredmetComponent implements OnInit {
     this.get();
   }
 
+  sumBodovi(aktivnosti: Aktivnost[]){
+    if(aktivnosti.length === 0){
+      return 0;
+    }
+    let sum = 0;
+    aktivnosti.forEach(a => {
+      sum += a.brojBodova;
+    });
+    if(sum>100) return 100;
+    return sum;
+  }
   private get(){
     this.predmetService.get(this.id).subscribe(data => {
       this.predmet = data;
