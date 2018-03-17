@@ -5,6 +5,7 @@ import {Predmet} from '../model/predmet';
 import {Ucenik} from '../model/ucenik';
 import {Nastavnik} from '../model/nastavnik';
 import {Uplata} from '../model/uplata';
+import {Helper} from '../model/helper';
 
 @Injectable()
 export class PredmetService {
@@ -24,8 +25,14 @@ export class PredmetService {
   getUcenici(id: number): Observable<Ucenik[]> {
     return this.http.get<Ucenik[]>(`${this.predmeti}${id}/ucenici`, this.httpOptions);
   }
+  postUcenici(id: number, helpers: Helper[]): Observable<Ucenik[]> {
+    return this.http.post<Ucenik[]>(`${this.predmeti}${id}/ucenici`, helpers,this.httpOptions);
+  }
   getNastavnici(id: number): Observable<Nastavnik[]> {
     return this.http.get<Nastavnik[]>(`${this.predmeti}${id}/nastavnici`, this.httpOptions);
+  }
+  postNastavnici(id: number, helpers: Helper[]): Observable<Nastavnik[]> {
+    return this.http.post<Nastavnik[]>(`${this.predmeti}${id}/nastavnici`, helpers,this.httpOptions);
   }
   getUplate(id: number): Observable<Uplata[]> {
     return this.http.get<Uplata[]>(`${this.predmeti}${id}/uplate`, this.httpOptions);

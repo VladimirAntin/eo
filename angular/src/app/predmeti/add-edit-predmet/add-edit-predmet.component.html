@@ -19,7 +19,7 @@
   <mat-form-field class="full-width">
     <mat-chip-list #keywordList>
       <mat-chip *ngFor="let key of aktivnosti"
-                [removable]="true" (remove)="removeKey(key)">
+                [removable]="data.add" (remove)="removeKey(key)">
         {{key}}
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>

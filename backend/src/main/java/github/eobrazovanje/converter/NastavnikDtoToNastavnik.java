@@ -26,8 +26,12 @@ public class NastavnikDtoToNastavnik implements Converter<NastavnikDto,Nastavnik
 
     @Override
     public Nastavnik convert(NastavnikDto dto) {
-        return new Nastavnik(dto.getId(), dto.getIme(),dto.getPrezime(),dto.getUsername(), dto.getEmail(),
-                dto.getPassword()==null? userService.findOne(dto.getId()).getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()))
+        return new Nastavnik(dto.getId(),
+                dto.getIme().substring(0, 1).toUpperCase() + dto.getIme().substring(1),
+                dto.getPrezime().substring(0, 1).toUpperCase() + dto.getPrezime().substring(1)
+                ,dto.getUsername(), dto.getEmail(),
+                dto.getPassword()==null?
+                        userService.findOne(dto.getId()).getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()))
                 .setZvanje(zvanjeService.findOne(dto.getZvanje().getId()));
     }
 

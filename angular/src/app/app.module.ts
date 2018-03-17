@@ -32,13 +32,18 @@ import { PredmetiComponent } from './predmeti/predmeti.component';
 import {PredmetService} from './service/predmet.service';
 import { AddEditPredmetComponent } from './predmeti/add-edit-predmet/add-edit-predmet.component';
 import { PredmetComponent } from './predmeti/predmet/predmet.component';
+import { AddEditAktivnostComponent } from './predmeti/add-edit-aktivnost/add-edit-aktivnost.component';
+import {AktivnostService} from './service/aktivnost.service';
+import {NastavnikService} from './service/nastavnik.service';
+import {UcenikService} from './service/ucenik.service';
+import { AddUcenikNastavnikComponent } from './predmeti/add-ucenik-nastavnik/add-ucenik-nastavnik.component';
 
 enableProdMode();
 @NgModule({
   declarations: [
     AppComponent, LoginComponent, HomeComponent, NavigationComponent,
     NotFoundComponent, UsersComponent, UserComponent, SearchPipe,
-    AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent, PredmetiComponent, AddEditPredmetComponent, PredmetComponent
+    AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent, PredmetiComponent, AddEditPredmetComponent, PredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent
   ],
   imports: [
     AppRoutingModule, BrowserModule, HttpClientModule,
@@ -54,8 +59,9 @@ enableProdMode();
     MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule, MatSelectModule
   ],
   entryComponents: [AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent,
-    AddEditPredmetComponent],
-  providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService],
+    AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent],
+  providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService,
+    AktivnostService, NastavnikService, UcenikService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+  <mat-form-field class="full-width">
+    <mat-select placeholder="{{data.placeholder}}" [(ngModel)]="data.return_list" required
+                style="margin-bottom: 0.5em" multiple>
+      <mat-option *ngFor="let u of listService" [value]="u">
+        {{ u.ime + ' '+ u.prezime + ' - '}}
+        <b *ngIf="u.hasOwnProperty('brojIndexa')">{{u.brojIndexa}}</b>
+        <b *ngIf="u.hasOwnProperty('zvanje')">{{u.zvanje.naziv}}</b>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-icon-button [mat-dialog-close]="{result:true, return_list:data.return_list}"
+          color="primary" matTooltip="Add" [disabled]="data.return_list.length===0">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <button mat-icon-button mat-dialog-close matTooltip="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-dialog-actions>

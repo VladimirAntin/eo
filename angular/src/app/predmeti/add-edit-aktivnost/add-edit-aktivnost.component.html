@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Naziv predmeta" [(ngModel)]="data.predmet.naziv" disabled>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-select placeholder="Ucenik" [(ngModel)]="data.aktivnost.ucenik" required
+                style="margin-bottom: 0.5em" [disabled]="!data.add" (change)="changeUcenik()">
+      <mat-option *ngFor="let u of data.ucenici" [value]="u.id">
+        {{ u.ime + ' '+ u.prezime + ' - ' + u.brojIndexa}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+  <mat-select placeholder="Naziv" [(ngModel)]="data.aktivnost.naziv" required
+              [disabled]="!data.add" style="margin-bottom: 0.5em" (change)="change()">
+    <mat-option *ngFor="let a of aktivnostFliter" [value]="a">
+      {{a}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Broj bodova" type="number" max="100" min="0"
+           [(ngModel)]="data.aktivnost.brojBodova" required (input)="change()">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-icon-button [mat-dialog-close]="{result:true, aktivnost:data.aktivnost}"
+          color="primary" matTooltip="{{data.tooltip}}" [disabled]="enableB">
+    <mat-icon>{{data.icon}}</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <button mat-icon-button mat-dialog-close matTooltip="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-dialog-actions>

@@ -27,7 +27,7 @@ app-home, app-users, app-user, app-not-found, app-predmeti, app-predmet{
   border-radius: 0 0 30px 30px;
   padding: 1em;
   background-color: white;
-  opacity: 0.9;
+  /*opacity: 0.9;*/
   height: 74vh;
 }
 
@@ -39,7 +39,7 @@ app-users .mat-table{
   overflow-y: auto;
   height: 45vh;
 }
-app-predmeti mat-list{
+app-predmeti mat-list, app-predmet mat-list{
   overflow-y: auto;
   height: 50vh;
 }

@@ -17,6 +17,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 /*
   Created by IntelliJ IDEA.
   User: vladimir_antin
@@ -117,7 +119,7 @@ public class PredmetController {
         if(dto.getId()!=id){
             return new ResponseEntity(HttpStatus.BAD_REQUEST); //not send id
         }
-        Predmet predmet = predmetService.save(toPredmet.convert(dto));
+        Predmet predmet = predmetService.save(toPredmet.convert(dto, true));
         if(predmet==null){
             return new ResponseEntity(HttpStatus.CONFLICT); //predmet nije izmenjen
         }
@@ -135,21 +137,21 @@ public class PredmetController {
     }
 
     @PostMapping("/{id}/nastavnici")
-    public ResponseEntity postNastavnik(@PathVariable long id, @RequestBody HelperDto dto){
+    public ResponseEntity postNastavnik(@PathVariable long id, @RequestBody ArrayList<HelperDto> dtos){
         Predmet predmet = predmetService.findOne(id);
-        if(predmet.getNastavnici().stream().allMatch(n -> n.getId()!=dto.getId())){
-            Nastavnik nastavnik = nastavnikService.findOne(dto.getId());
-            if(nastavnik==null){
-                return new ResponseEntity<>(String.format("Korisnik sa id %d nije nastavnik", dto.getId()),HttpStatus.CONFLICT);
+        for (HelperDto dto:dtos) {
+            if(predmet.getNastavnici().stream().allMatch(n -> n.getId()!=dto.getId())){
+                Nastavnik nastavnik = nastavnikService.findOne(dto.getId());
+                if(nastavnik!=null){
+                    predmet.getNastavnici().add(nastavnik);
+                }
             }
-            predmet.getNastavnici().add(nastavnik);
-            predmet = predmetService.save(predmet);
-            if(predmet==null){
-                return new ResponseEntity<>("Trenutno nije moguce dodati nastavnika kao predavaca",HttpStatus.CONFLICT);
-            }
-            return ResponseEntity.ok().build();
         }
-        return new ResponseEntity<>("Nastavnik je vec predavac predmeta",HttpStatus.CONFLICT);
+        predmet = predmetService.save(predmet);
+        if(predmet==null){
+            return new ResponseEntity<>("Trenutno nije moguce dodati ni jednog nastavnika kao predavaca",HttpStatus.CONFLICT);
+        }
+        return ResponseEntity.ok(toNastavnikDto.convert(predmet.getNastavnici()));
     }
 
     @DeleteMapping("/{id}/nastavnici/{nastavnik}")
@@ -163,21 +165,21 @@ public class PredmetController {
     }
 
     @PostMapping("/{id}/ucenici")
-    public ResponseEntity postUcenici(@PathVariable long id, @RequestBody HelperDto dto){
+    public ResponseEntity postUcenici(@PathVariable long id, @RequestBody ArrayList<HelperDto> dtos){
         Predmet predmet = predmetService.findOne(id);
-        if(predmet.getUcenici().stream().allMatch(n -> n.getId()!=dto.getId())){
-            Ucenik ucenik = ucenikService.findOne(dto.getId());
-            if(ucenik==null){
-                return new ResponseEntity<>(String.format("Korisnik sa id %d nije ucenik", dto.getId()),HttpStatus.CONFLICT);
+        for (HelperDto dto:dtos) {
+            if(predmet.getUcenici().stream().allMatch(n -> n.getId()!=dto.getId())){
+                Ucenik ucenik = ucenikService.findOne(dto.getId());
+                if(ucenik!=null){
+                    predmet.getUcenici().add(ucenik);
+                }
             }
-            predmet.getUcenici().add(ucenik);
-            predmet = predmetService.save(predmet);
-            if(predmet==null){
-                return new ResponseEntity<>("Trenutno nije moguce dodati ucenika na predmet",HttpStatus.CONFLICT);
-            }
-            return ResponseEntity.ok().build();
         }
-        return new ResponseEntity<>("Ucenik je vec dadat u predmet",HttpStatus.CONFLICT);
+        predmet = predmetService.save(predmet);
+        if(predmet==null){
+            return new ResponseEntity<>("Trenutno nije moguce dodati ni jednog ucenika na predmet",HttpStatus.CONFLICT);
+        }
+        return ResponseEntity.ok(toUcenikDto.convert(predmet.getUcenici()));
     }
 
     @DeleteMapping("/{id}/ucenici/{ucenik}")

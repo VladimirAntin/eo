@@ -38,6 +38,9 @@
         <span class="badge badge-pill badge-dark">{{ucenici.length}}</span>
       </ng-template>
       <div>
+        <button mat-mini-fab (click)="addUcenikNastavnik()" color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
         <mat-list>
           <mat-list-item *ngFor="let u of ucenici">
             <mat-icon mat-list-icon>person</mat-icon>
@@ -58,6 +61,9 @@
         <span class="badge badge-pill badge-dark">{{nastavnici.length}}</span>
       </ng-template>
       <div>
+        <button mat-mini-fab (click)="addUcenikNastavnik(true)" color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
         <mat-list>
           <mat-list-item *ngFor="let n of nastavnici">
             <mat-icon mat-list-icon>person</mat-icon>
@@ -78,6 +84,9 @@
         <span class="badge badge-pill badge-dark">{{uplate.length}}</span>
       </ng-template>
       <div>
+        <button mat-mini-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
         <mat-list>
           <mat-list-item *ngFor="let u of uplate">
             <mat-icon mat-list-icon>payment</mat-icon>
@@ -96,23 +105,36 @@
         <mat-icon>web</mat-icon> Ispit
       </ng-template>
       <div>
+        <button mat-mini-fab color="primary" matTooltip="Add Aktivnost" (click)="addAktivnost()">
+          <mat-icon>add</mat-icon>
+        </button>
         <mat-list>
           <mat-list-item *ngFor="let u of ucenici">
             <mat-icon mat-list-icon>person</mat-icon>
             <h4 mat-line>{{u.ime + ' '+ u.prezime}}</h4>
-            <h4 mat-line>{{u.email}}</h4>
             <h4 mat-line><b>{{u.brojIndexa}}</b></h4>
-            <mat-list mat-line class="row col-md-3 border">
-              <mat-list-item *ngFor="let a of u.aktivnosti">
-                <h5 matLine>{{a.naziv}}</h5>
-                <h5>{{a.brojBodova}}</h5>
-                <mat-divider></mat-divider>
-              </mat-list-item>
-              <mat-list-item>
-                <h5 matLine>Suma</h5>
-                <h5><b>{{sumBodovi(u.aktivnosti)}}</b></h5>
-              </mat-list-item>
-            </mat-list>
+            <h4 mat-line><i>{{u.email}}</i></h4>
+            <table mat-line class="table table-bordered" style="border: none">
+                <thead>
+                  <tr>
+                    <th>Naziv Aktivnosti</th>
+                    <th>Broj bodova</th>
+                    <th></th>
+                  </tr>
+                </thead>
+              <tbody>
+                <tr *ngFor="let a of filterAktivnosti(u.aktivnosti)">
+                  <td>{{a.naziv}}</td>
+                  <td>{{a.brojBodova}}</td>
+                  <td>
+                    <button mat-mini-fab class="bg-dark" matTooltip="Edit" (click)="editAKtivnost(a, u)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+                <td colspan="2" class="text-right">Ukupno: <b>{{sumBodovi(u.aktivnosti)}}</b></td>
+              </tbody>
+            </table>
             <mat-divider></mat-divider>
           </mat-list-item>
         </mat-list>

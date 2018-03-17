@@ -1,12 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatPaginator, MatSnackBar, MatTableDataSource} from '@angular/material';
-import {UserService} from '../service/user.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { UserService } from '../service/user.service';
 import { UserApi } from '../model/user-api';
 import { AddUserComponent } from './add-user/add-user.component';
-import {Router} from '@angular/router';
-import {EditUserComponent} from './edit-user/edit-user.component';
-import {ChangePasswordComponent} from './change-password/change-password.component';
-import {UserPassword} from '../model/user-password';
+import { Router } from '@angular/router';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { UserPassword } from '../model/user-password';
 
 @Component({
   selector: 'app-users',
@@ -26,7 +26,7 @@ export class UsersComponent implements OnInit {
     this.users.filter = filterValue;
   }
   constructor(public dialog: MatDialog, private userService: UserService,
-              public snackBar: MatSnackBar, private _router: Router) {}
+    public snackBar: MatSnackBar, private _router: Router) { }
 
   ngOnInit() {
     this.users.paginator = this.paginator;
@@ -58,20 +58,20 @@ export class UsersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.add(result.user).subscribe( data => {
+        this.userService.add(result.user).subscribe(data => {
           this.users.data.push(data);
           this.users.paginator = this.paginator;
           this.snackBar.open(`Success added!: Open User with username:'${result.user.username}'\n`
             , 'Open', {
-            duration: 10000, verticalPosition: 'top'
-          }).onAction().subscribe(() => {
-            this._router.navigate(['/users', result.user.username]);
-          });
+              duration: 10000, verticalPosition: 'top'
+            }).onAction().subscribe(() => {
+              this._router.navigate(['/users', result.user.username]);
+            });
         }, () => {
           this.snackBar.open(
             `Error, user with username: '${result.user.username}' can not be added`, 'Ok', {
-            duration: 4000, verticalPosition: 'top'
-          });
+              duration: 4000, verticalPosition: 'top'
+            });
         });
       }
     });
@@ -89,8 +89,8 @@ export class UsersComponent implements OnInit {
   }
 
   updateUser(user) {
-    let index = this.users.data.indexOf(user);
-    let users = this.users.data;
+    const index = this.users.data.indexOf(user);
+    const users = this.users.data;
     const dialogRef = this.dialog.open(EditUserComponent, {
       data: {
         user: Object.assign(new UserApi(), user)
@@ -106,8 +106,8 @@ export class UsersComponent implements OnInit {
             , 'Open', {
               duration: 10000, verticalPosition: 'top'
             }).onAction().subscribe(() => {
-            this._router.navigate(['/users', result.user.username]);
-          });
+              this._router.navigate(['/users', result.user.username]);
+            });
         }, () => {
           this.snackBar.open(`Error, user with username ${result.user.username} is already exists`, 'Ok', {
             duration: 4000, verticalPosition: 'top'

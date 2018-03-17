@@ -2,6 +2,8 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.PredmetDto;
 import github.eobrazovanje.entity.Predmet;
+import github.eobrazovanje.service.PredmetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class PredmetDtoToPredmet implements Converter<PredmetDto,Predmet>{
 
+    @Autowired
+    private PredmetService predmetService;
+
     @Override
     public Predmet convert(PredmetDto dto) {
         return new Predmet()
@@ -23,5 +28,17 @@ public class PredmetDtoToPredmet implements Converter<PredmetDto,Predmet>{
                 .setNaziv(dto.getNaziv())
                 .setOpis(dto.getOpis())
                 .setAktivnosti(dto.getAktivnosti());
+    }
+
+    public Predmet convert(PredmetDto dto, boolean edit){
+        Predmet predmet = convert(dto);
+        Predmet predmetFromBase = predmetService.findOne(dto.getId());
+        if(edit){
+            predmet
+                    .setNastavnici(predmetFromBase.getNastavnici())
+                    .setUcenici(predmetFromBase.getUcenici());
+        }
+        return  predmet;
+
     }
 }
