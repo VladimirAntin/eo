@@ -88,7 +88,7 @@ INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,15);
 -- INSERT INTO aktivnost(broj_bodova,naziv) VALUES (2,'nesto');
 
 INSERT INTO uplata(suma,ucenik_id,predmet_id) VALUES (10000,9,1);
-INSERT INTO uplata(suma,ucenik_id,predmet_id) VALUES (10000,9,2);
+INSERT INTO uplata(suma,ucenik_id,predmet_id) VALUES (10000,10,2);
 
 INSERT INTO aktivnost(naziv,broj_bodova,predmet_id,ucenik_id) VALUES ('kolokvijum', 25, 1,9);
 INSERT INTO aktivnost(naziv,broj_bodova,predmet_id,ucenik_id) VALUES ('kolokvijum1', 25, 2,10);

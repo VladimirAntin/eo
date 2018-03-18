@@ -47,9 +47,12 @@
             <h4 mat-line>{{u.ime + ' '+ u.prezime}}</h4>
             <h4 mat-line>{{u.email}}</h4>
             <h4 mat-line><b>{{u.brojIndexa}}</b></h4>
-            <a mat-button color="primary" [routerLink]="['/users',u.id]" matTooltip="Open">
+            <a mat-mini-fab color="primary" [routerLink]="['/users',u.username]" matTooltip="Open">
               <mat-icon>link</mat-icon>
             </a>
+            <button mat-mini-fab color="warn" matTooltip="Delete" (click)="deleteUcenik(u)">
+              <mat-icon>delete</mat-icon>
+            </button>
             <mat-divider></mat-divider>
           </mat-list-item>
         </mat-list>
@@ -70,9 +73,12 @@
             <h4 mat-line>{{n.ime + ' '+ n.prezime}}</h4>
             <h4 mat-line>{{n.email}}</h4>
             <h4 mat-line><b>{{n.zvanje.naziv}}</b></h4>
-            <a mat-button color="primary" [routerLink]="['/users',n.id]" matTooltip="Open">
+            <a mat-mini-fab color="primary" [routerLink]="['/users',n.username]" matTooltip="Open">
               <mat-icon>link</mat-icon>
             </a>
+            <button mat-mini-fab color="warn" matTooltip="Delete" (click)="deleteNastavnik(n)">
+              <mat-icon>delete</mat-icon>
+            </button>
             <mat-divider></mat-divider>
           </mat-list-item>
         </mat-list>
@@ -84,7 +90,7 @@
         <span class="badge badge-pill badge-dark">{{uplate.length}}</span>
       </ng-template>
       <div>
-        <button mat-mini-fab color="primary">
+        <button mat-mini-fab color="primary" (click)="addUplata()">
           <mat-icon>add</mat-icon>
         </button>
         <mat-list>
@@ -92,7 +98,7 @@
             <mat-icon mat-list-icon>payment</mat-icon>
             <h4 mat-line>Ime i prezime: <b>{{u.ucenik.ime + ' '+ u.ucenik.prezime}}</b></h4>
             <span mat-line> Suma: <b>{{u.suma}}</b> din</span>
-            <a mat-button color="primary" [routerLink]="['/users',u.ucenik.id]" matTooltip="Open ucenik">
+            <a mat-button color="primary" [routerLink]="['/users',u.ucenik.username]" matTooltip="Open ucenik">
               <mat-icon>link</mat-icon>
             </a>
             <mat-divider></mat-divider>

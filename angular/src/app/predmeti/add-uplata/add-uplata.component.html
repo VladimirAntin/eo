@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Add uplata</h2>
+<mat-dialog-content>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Naziv predmeta" [(ngModel)]="data.predmet.naziv" disabled>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-select placeholder="Ucenik" [(ngModel)]="data.uplata.ucenik" required
+                style="margin-bottom: 0.5em" (change)="change()">
+      <mat-option *ngFor="let u of data.ucenici" [value]="u">
+        {{ u.ime + ' '+ u.prezime + ' - ' + u.brojIndexa}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Suma" type="number" min="10"
+           [(ngModel)]="data.uplata.suma" required (input)="change()">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-icon-button [mat-dialog-close]="{result:true, uplata:data.uplata}"
+          color="primary" matTooltip="Add" [disabled]="enableB">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <button mat-icon-button mat-dialog-close matTooltip="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-dialog-actions>

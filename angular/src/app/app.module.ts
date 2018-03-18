@@ -37,13 +37,17 @@ import {AktivnostService} from './service/aktivnost.service';
 import {NastavnikService} from './service/nastavnik.service';
 import {UcenikService} from './service/ucenik.service';
 import { AddUcenikNastavnikComponent } from './predmeti/add-ucenik-nastavnik/add-ucenik-nastavnik.component';
+import {UplataService} from './service/uplata.service';
+import { AddUplataComponent } from './predmeti/add-uplata/add-uplata.component';
 
 enableProdMode();
 @NgModule({
   declarations: [
     AppComponent, LoginComponent, HomeComponent, NavigationComponent,
     NotFoundComponent, UsersComponent, UserComponent, SearchPipe,
-    AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent, PredmetiComponent, AddEditPredmetComponent, PredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent
+    AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent, PredmetiComponent,
+    AddEditPredmetComponent, PredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent,
+    AddUplataComponent
   ],
   imports: [
     AppRoutingModule, BrowserModule, HttpClientModule,
@@ -59,9 +63,9 @@ enableProdMode();
     MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule, MatSelectModule
   ],
   entryComponents: [AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent,
-    AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent],
+    AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent, AddUplataComponent],
   providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService,
-    AktivnostService, NastavnikService, UcenikService],
+    AktivnostService, NastavnikService, UcenikService, UplataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

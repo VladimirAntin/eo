@@ -47,4 +47,12 @@ export class PredmetService {
     const id = typeof predmet === 'number' ? predmet : predmet.id;
     return this.http.delete<Predmet>(`${this.predmeti}${id}`, this.httpOptions);
   }
+
+  deleteNastavnik(predmet: number, nastavnik: number) {
+    return this.http.delete(`${this.predmeti}${predmet}/nastavnici/${nastavnik}`, this.httpOptions);
+  }
+  deleteUcenik(predmet: number, ucenik: number) {
+    return this.http.delete(`${this.predmeti}${predmet}/ucenici/${ucenik}`, this.httpOptions);
+  }
+
 }

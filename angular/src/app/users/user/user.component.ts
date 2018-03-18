@@ -25,19 +25,18 @@ export class UserComponent implements OnInit {
               private documentService: DokumentService, private authService: AuthService,
               public _router: Router, public dialog: MatDialog) {}
   ngOnInit() {
-    this.id = +this.route.snapshot.paramMap.get('id');
-    if ( isNaN(this.id) ) {
-      this.id = this.route.snapshot.paramMap.get('id');
-    }
+    this.id = this.route.snapshot.paramMap.get('id');
     this.get(0);
     this._router.events.filter((e) => e instanceof NavigationEnd)
       .subscribe((event: NavigationEnd) => {
         if (event.urlAfterRedirects.indexOf('users/') !== -1) {
           this.id = event.urlAfterRedirects.split('/').pop();
-          this.docs = [];
-          this.uplate = [];
-          this.predmeti = [];
-          this.get(1);
+          if(this.id!==''){
+            this.docs = [];
+            this.uplate = [];
+            this.predmeti = [];
+            this.get(1);
+          }
         }
       });
   }

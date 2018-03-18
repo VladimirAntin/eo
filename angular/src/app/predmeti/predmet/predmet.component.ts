@@ -13,6 +13,8 @@ import {AktivnostService} from '../../service/aktivnost.service';
 import {NastavnikService} from '../../service/nastavnik.service';
 import {UcenikService} from '../../service/ucenik.service';
 import {AddUcenikNastavnikComponent} from '../add-ucenik-nastavnik/add-ucenik-nastavnik.component';
+import {AddUplataComponent} from '../add-uplata/add-uplata.component';
+import {UplataService} from '../../service/uplata.service';
 
 @Component({
   selector: 'app-predmet',
@@ -25,7 +27,7 @@ export class PredmetComponent implements OnInit {
   uplate: Uplata[] = [];
   constructor(private route: ActivatedRoute, private predmetService: PredmetService,
               private dialog: MatDialog, private snackBar: MatSnackBar,
-              private aktivnostService: AktivnostService,
+              private aktivnostService: AktivnostService, private uplataService: UplataService,
               private nastavnikService: NastavnikService, private ucenikService: UcenikService) { }
 
   ngOnInit() {
@@ -172,5 +174,53 @@ export class PredmetComponent implements OnInit {
       }
     });
   }
+
+
+  addUplata() {
+    const dialogRef = this.dialog.open(AddUplataComponent, {
+      panelClass: 'dialog-600x400',
+      data: {
+        uplata: new Uplata(), predmet: Object.assign({}, this.predmet), ucenici: this.ucenici
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        result.uplata.ucenik.type = 'Ucenik';
+        this.uplataService.add(result.uplata).subscribe( (data) => {
+          this.uplate.push(data);
+          this.snackBar.open(`Successfully added!\n`, 'Ok', {
+            duration: 4000, verticalPosition: 'top'
+          });
+        }, () => {
+          this.snackBar.open('Error', 'Ok', {
+            duration: 4000, verticalPosition: 'top'
+          });
+        });
+      }
+    });
+  }
+
+  deleteNastavnik(nastavnik) {
+    let index = this.nastavnici.indexOf(nastavnik);
+    this.snackBar.open('Are you sure?', 'Yes', {
+      duration: 10000, verticalPosition: 'top'
+    }).onAction().subscribe(() => {
+      this.predmetService.deleteNastavnik(this.predmet.id, nastavnik.id).subscribe(() => {
+        this.nastavnici.splice(index,1);
+      });
+    });
+  }
+
+  deleteUcenik(ucenik) {
+    let index = this.ucenici.indexOf(ucenik);
+    this.snackBar.open('Are you sure?', 'Yes', {
+      duration: 10000, verticalPosition: 'top'
+    }).onAction().subscribe(() => {
+      this.predmetService.deleteUcenik(this.predmet.id, ucenik.id).subscribe(() => {
+        this.ucenici.splice(index,1);
+      });
+    });
+  }
+
 
 }
