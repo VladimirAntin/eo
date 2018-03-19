@@ -7,18 +7,22 @@ import {Zvanje} from '../model/zvanje';
 export class ZvanjeService {
 
   private zvanja = '/api/zvanja/';
-  private httpOptions = {
-    headers: new HttpHeaders(
-      { 'Authorization': `jwt ${localStorage.getItem('token')}`})
-  };
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Zvanje[]>  {
-    return this.http.get<Zvanje[]>(this.zvanja, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<Zvanje[]>(this.zvanja, httpOptions);
   }
 
   get(id: number): Observable<Zvanje>  {
-    return this.http.get<Zvanje>(`${this.zvanja}${id}`, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<Zvanje>(`${this.zvanja}${id}`, httpOptions);
   }
 
 }

@@ -12,42 +12,78 @@ import {UserPassword} from '../model/user-password';
 export class UserService {
 
   private users = '/api/users/';
-  private httpOptions = {
-    headers: new HttpHeaders(
-      { 'Authorization': `jwt ${localStorage.getItem('token')}`})
-  };
   constructor(private http: HttpClient) { }
   getAll(): Observable<UserApi[]> {
-    return this.http.get<UserApi[]>(this.users, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<UserApi[]>(this.users, httpOptions);
   }
 
   get(id: number | string): Observable<UserApi>  {
-    return this.http.get<UserApi>(`${this.users}${id}`, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<UserApi>(`${this.users}${id}`, httpOptions);
   }
   getAuthorities(id: number | string): Observable<Authority[]>  {
-    return this.http.get<Authority[]>(`${this.users}${id}/authorities`, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<Authority[]>(`${this.users}${id}/authorities`, httpOptions);
   }
   getPredmeti(id: number | string): Observable<Predmet[]>  {
-    return this.http.get<Predmet[]>(`${this.users}${id}/predmeti`, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<Predmet[]>(`${this.users}${id}/predmeti`, httpOptions);
   }
   getUplate(id: number | string): Observable<Uplata[]>  {
-    return this.http.get<Uplata[]>(`${this.users}${id}/uplate`, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<Uplata[]>(`${this.users}${id}/uplate`, httpOptions);
   }
   getDokumenta(id: number | string): Observable<Dokument[]>  {
-    return this.http.get<Dokument[]>(`${this.users}${id}/dokumenti`, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<Dokument[]>(`${this.users}${id}/dokumenti`, httpOptions);
   }
   add(user: UserApi): Observable<UserApi>  {
-    return this.http.post<UserApi>(this.users, user, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.post<UserApi>(this.users, user, httpOptions);
   }
   delete (user: UserApi | number): Observable<UserApi> {
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
     const id = typeof user === 'number' ? user : user.id;
-    return this.http.delete<UserApi>(`${this.users}${id}`, this.httpOptions);
+    return this.http.delete<UserApi>(`${this.users}${id}`, httpOptions);
   }
   update(user: UserApi) {
-    return this.http.put<UserApi>(`${this.users}${user.id}`, user, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.put<UserApi>(`${this.users}${user.id}`, user, httpOptions);
   }
   changePassword(id: number, user: UserPassword) {
-    return this.http.patch(`${this.users}${id}/password`, user, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.patch(`${this.users}${id}/password`, user, httpOptions);
   }
 
 }

@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import {UserApi} from '../model/user-api';
-import {AuthService} from '../service/auth.service';
-import {Nastavnik} from '../model/nastavnik';
-import {Ucenik} from '../model/ucenik';
-import {NavItem} from '../model/nav-item';
-import {NavigationEnd, Router} from '@angular/router';
+import { UserApi } from '../model/user-api';
+import { AuthService } from '../service/auth.service';
+import { Nastavnik } from '../model/nastavnik';
+import { Ucenik } from '../model/ucenik';
+import { NavItem } from '../model/nav-item';
+import { NavigationEnd, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import {ChangePasswordComponent} from '../users/change-password/change-password.component';
-import {EditUserComponent} from '../users/edit-user/edit-user.component';
-import {UserPassword} from '../model/user-password';
-import {UserService} from '../service/user.service';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import { ChangePasswordComponent } from '../users/change-password/change-password.component';
+import { EditUserComponent } from '../users/edit-user/edit-user.component';
+import { UserPassword } from '../model/user-password';
+import { UserService } from '../service/user.service';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-navigation',
@@ -19,21 +19,23 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 })
 export class NavigationComponent {
 
-  me: UserApi; nav_items: NavItem[];
+  me: UserApi; nav_items: NavItem[] = [];
   constructor(private authService: AuthService, private _router: Router, private userService: UserService,
-              private snackBar: MatSnackBar, private dialog: MatDialog) {
+    private snackBar: MatSnackBar, private dialog: MatDialog) {
     this._router.events.filter((e) => e instanceof NavigationEnd)
-      .subscribe((event: NavigationEnd) =>{
-      if(event.url!='/login'){
-        this.init();
-      }
-    });
+      .subscribe((event: NavigationEnd) => {
+        if (event.url != '/login') {
+          this.init();
+        }
+      });
   }
 
   init() {
-    if(this._router.url!=='/login'){
-      this.navItems();
-      this.getMe();
+    if (this._router.url !== '/login') {
+      if (this.nav_items.length === 0) {
+        this.navItems();
+        this.getMe();
+      }
     }
   }
 
@@ -51,7 +53,7 @@ export class NavigationComponent {
   }
 
   logout() {
-    this.authService.logout().subscribe(()=> {
+    this.authService.logout().subscribe(() => {
       this._router.navigateByUrl('/login');
     });
   }
@@ -65,22 +67,22 @@ export class NavigationComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.update(result.user).subscribe(data => {
-          if(this.me.username!==data.username){
-            this.snackBar.open('Success changed! You changed the username, please login','Ok', {
+          if (this.me.username !== data.username) {
+            this.snackBar.open('Success changed! You changed the username, please login', 'Ok', {
               duration: 4000, verticalPosition: 'top'
             });
             setTimeout(() => {
-              this.authService.logout().subscribe(()=> {
+              this.authService.logout().subscribe(() => {
                 this._router.navigateByUrl('/login');
               });
             }, 4000)
-          }else{
+          } else {
             this.me = data;
             if (window.location.href.lastIndexOf(`users/${this.me.username}`) !== -1 ||
               window.location.href.lastIndexOf('users') !== -1) {
               window.location.reload();
             }
-            this.snackBar.open('Success changed!','Ok', {
+            this.snackBar.open('Success changed!', 'Ok', {
               duration: 3000, verticalPosition: 'top'
             });
           }

@@ -7,16 +7,15 @@ import {Ucenik} from '../model/ucenik';
 export class UcenikService {
 
   private ucenici = '/api/ucenici/';
-  private httpOptions = {
-    headers: new HttpHeaders(
-      {'Authorization': `jwt ${localStorage.getItem('token')}`})
-  };
-
   constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<Ucenik[]> {
-    return this.http.get<Ucenik[]>(this.ucenici, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<Ucenik[]>(this.ucenici, httpOptions);
   }
 
 

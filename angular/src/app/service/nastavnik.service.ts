@@ -7,16 +7,15 @@ import {Nastavnik} from '../model/nastavnik';
 export class NastavnikService {
 
   private nastavnici = '/api/nastavnici/';
-  private httpOptions = {
-    headers: new HttpHeaders(
-      {'Authorization': `jwt ${localStorage.getItem('token')}`})
-  };
-
   constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<Nastavnik[]> {
-    return this.http.get<Nastavnik[]>(this.nastavnici, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<Nastavnik[]>(this.nastavnici, httpOptions);
   }
 
 }

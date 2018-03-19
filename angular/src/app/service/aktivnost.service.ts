@@ -6,19 +6,23 @@ import {Aktivnost} from '../model/aktivnost';
 @Injectable()
 export class AktivnostService {
 
-  private httpOptions = {
-    headers: new HttpHeaders(
-      { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-  };
   private aktivnosti = '/api/aktivnosti/';
   constructor(private http: HttpClient) { }
 
   add(akt: Aktivnost): Observable<Aktivnost> {
-    return this.http.post<Aktivnost>(`${this.aktivnosti}`, akt, this.httpOptions);
+  const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.post<Aktivnost>(`${this.aktivnosti}`, akt, httpOptions);
   }
 
   edit(akt: Aktivnost): Observable<Aktivnost> {
-    return this.http.put<Aktivnost>(`${this.aktivnosti}${akt.id}`, akt, this.httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.put<Aktivnost>(`${this.aktivnosti}${akt.id}`, akt, httpOptions);
   }
 
 }
