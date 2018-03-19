@@ -12,6 +12,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 /*
   Created by IntelliJ IDEA.
   User: vladimir_antin
@@ -40,10 +42,8 @@ public class DocumentController {
             return new ResponseEntity(HttpStatus.CONFLICT); //not send id
         }
         Dokument dokument = dokumentService.save(toDokument.convert(dto));
-        if(dokument==null){
-            return new ResponseEntity(HttpStatus.CONFLICT);
-        }
-        return ResponseEntity.ok(toDokumentDto.convert(dokument));
+        return Optional.ofNullable(dokument).isPresent() ?
+                ResponseEntity.status(HttpStatus.CREATED).body(toDokumentDto.convert(dokument)) : new ResponseEntity(HttpStatus.CONFLICT);
     }
 
     @DeleteMapping("/{id}")

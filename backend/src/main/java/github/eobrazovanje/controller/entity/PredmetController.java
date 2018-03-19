@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /*
   Created by IntelliJ IDEA.
@@ -61,37 +62,29 @@ public class PredmetController {
     @GetMapping("/{id}")
     public ResponseEntity one(@PathVariable long id) {
         Predmet predmet = predmetService.findOne(id);
-        if(predmet==null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(toPredmetDto.convert(predmet));
+        return Optional.ofNullable(predmet).isPresent() ?
+                ResponseEntity.ok(toPredmetDto.convert(predmet)) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}/nastavnici")
     public ResponseEntity nastavnici(@PathVariable long id) {
         Predmet predmet = predmetService.findOne(id);
-        if(predmet==null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(toNastavnikDto.convert(predmet.getNastavnici()));
+        return Optional.ofNullable(predmet).isPresent() ?
+                ResponseEntity.ok(toNastavnikDto.convert(predmet.getNastavnici())) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}/ucenici")
     public ResponseEntity ucenici(@PathVariable long id) {
         Predmet predmet = predmetService.findOne(id);
-        if(predmet==null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(toUcenikDto.convert(predmet.getUcenici()));
+        return Optional.ofNullable(predmet).isPresent() ?
+                ResponseEntity.ok(toUcenikDto.convert(predmet.getUcenici())) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}/uplate")
     public ResponseEntity uplate(@PathVariable long id) {
         Predmet predmet = predmetService.findOne(id);
-        if(predmet==null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(toUplataDto.convert(predmet.getUplate()));
+        return Optional.ofNullable(predmet).isPresent() ?
+                ResponseEntity.ok(toUplataDto.convert(predmet.getUplate())) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
@@ -104,10 +97,8 @@ public class PredmetController {
             return new ResponseEntity(HttpStatus.CONFLICT); //not send id
         }
         Predmet predmet = predmetService.save(toPredmet.convert(dto));
-        if(predmet==null){
-            return new ResponseEntity(HttpStatus.CONFLICT); //predmet nije sacuvan
-        }
-        return ResponseEntity.ok(toPredmetDto.convert(predmet));
+        return Optional.ofNullable(predmet).isPresent() ?
+                ResponseEntity.status(HttpStatus.CREATED).body(toPredmetDto.convert(predmet)) : new ResponseEntity(HttpStatus.CONFLICT);
     }
 
     @PutMapping("/{id}")
@@ -120,10 +111,8 @@ public class PredmetController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST); //not send id
         }
         Predmet predmet = predmetService.save(toPredmet.convert(dto, true));
-        if(predmet==null){
-            return new ResponseEntity(HttpStatus.CONFLICT); //predmet nije izmenjen
-        }
-        return ResponseEntity.ok(toPredmetDto.convert(predmet));
+        return Optional.ofNullable(predmet).isPresent() ?
+                ResponseEntity.ok(toPredmetDto.convert(predmet)) : new ResponseEntity(HttpStatus.CONFLICT);
     }
 
     @DeleteMapping("/{id}")
@@ -148,10 +137,9 @@ public class PredmetController {
             }
         }
         predmet = predmetService.save(predmet);
-        if(predmet==null){
-            return new ResponseEntity<>("Trenutno nije moguce dodati ni jednog nastavnika kao predavaca",HttpStatus.CONFLICT);
-        }
-        return ResponseEntity.ok(toNastavnikDto.convert(predmet.getNastavnici()));
+        return Optional.ofNullable(predmet).isPresent() ?
+                ResponseEntity.ok(toNastavnikDto.convert(predmet.getNastavnici())) :
+                new ResponseEntity<>("Trenutno nije moguce dodati ni jednog nastavnika kao predavaca",HttpStatus.CONFLICT);
     }
 
     @DeleteMapping("/{id}/nastavnici/{nastavnik}")
@@ -176,10 +164,9 @@ public class PredmetController {
             }
         }
         predmet = predmetService.save(predmet);
-        if(predmet==null){
-            return new ResponseEntity<>("Trenutno nije moguce dodati ni jednog ucenika na predmet",HttpStatus.CONFLICT);
-        }
-        return ResponseEntity.ok(toUcenikDto.convert(predmet.getUcenici()));
+        return Optional.ofNullable(predmet).isPresent() ?
+                ResponseEntity.ok(toUcenikDto.convert(predmet.getUcenici())) :
+                new ResponseEntity<>("Trenutno nije moguce dodati ni jednog ucenika na predmet",HttpStatus.CONFLICT);
     }
 
     @DeleteMapping("/{id}/ucenici/{ucenik}")

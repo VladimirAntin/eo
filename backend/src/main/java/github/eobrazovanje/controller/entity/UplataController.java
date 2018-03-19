@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 /*
   Created by IntelliJ IDEA.
   User: vladimir_antin
@@ -45,9 +47,7 @@ public class UplataController {
             return new ResponseEntity(HttpStatus.CONFLICT); //not send id
         }
         Uplata uplata = uplataService.save(toUplata.convert(dto));
-        if(uplata==null){
-            return new ResponseEntity(HttpStatus.CONFLICT); //predmet nije sacuvan
-        }
-        return ResponseEntity.ok(toUplataDto.convert(uplata));
+        return Optional.ofNullable(uplata).isPresent() ?
+                ResponseEntity.status(HttpStatus.CREATED).body(toUplataDto.convert(uplata)) : new ResponseEntity(HttpStatus.CONFLICT);
     }
 }

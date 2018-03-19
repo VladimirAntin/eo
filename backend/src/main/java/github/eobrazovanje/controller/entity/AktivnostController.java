@@ -14,6 +14,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 /*
   Created by IntelliJ IDEA.
   User: vladimir_antin
@@ -40,10 +42,8 @@ public class AktivnostController {
             return ResponseEntity.badRequest().build();
         }
         Aktivnost aktivnost = aktivnostService.save(toAktivnost.convert(dto));
-        if(aktivnost==null){
-            return new ResponseEntity(HttpStatus.CONFLICT);
-        }
-        return ResponseEntity.ok(toAktivnostDto.convert(aktivnost));
+        return Optional.ofNullable(aktivnost).isPresent() ?
+                ResponseEntity.status(HttpStatus.CREATED).body(toAktivnostDto.convert(aktivnost)) : new ResponseEntity(HttpStatus.CONFLICT);
     }
 
     @PutMapping("/{id}")
@@ -56,9 +56,7 @@ public class AktivnostController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST); //not send id
         }
         Aktivnost aktivnost = aktivnostService.save(toAktivnost.convert(dto));
-        if(aktivnost==null){
-            return new ResponseEntity(HttpStatus.CONFLICT);
-        }
-        return ResponseEntity.ok(toAktivnostDto.convert(aktivnost));
+        return Optional.ofNullable(aktivnost).isPresent() ?
+                ResponseEntity.ok(toAktivnostDto.convert(aktivnost)) : new ResponseEntity(HttpStatus.CONFLICT);
     }
 }

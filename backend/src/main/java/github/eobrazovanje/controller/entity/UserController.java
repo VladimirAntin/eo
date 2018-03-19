@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Optional;
 
 /*
   Created by IntelliJ IDEA.
@@ -69,15 +70,8 @@ public class UserController {
     @GetMapping(value = "/{id}") //username or id
     public ResponseEntity get(@PathVariable String id){
         User user = userService.findByUsernameOrId(id);
-        if(user==null){
-            return ResponseEntity.notFound().build();
-        }
-        if(user instanceof Nastavnik){
-            return ResponseEntity.ok(toNastavnikDto.convert((Nastavnik) user));
-        }else if(user instanceof Ucenik){
-            return ResponseEntity.ok(toUcenikDto.convert((Ucenik) user));
-        }
-        return ResponseEntity.ok(toUserDto.convert(user));
+        return Optional.ofNullable(user).isPresent() ?
+                ResponseEntity.ok(toUserDto.convert(user)) : ResponseEntity.notFound().build();
     }
 
     @GetMapping(value = "/{id}/predmeti")
@@ -97,10 +91,8 @@ public class UserController {
     @GetMapping(value = "/{id}/authorities")
     public ResponseEntity getAuthority(@PathVariable String id){
         User user = userService.findByUsernameOrId(id);
-        if(user==null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(user.getAuthorities());
+        return Optional.ofNullable(user).isPresent() ?
+                ResponseEntity.ok(user.getAuthorities()) : ResponseEntity.notFound().build();
     }
 
     @GetMapping(value = "/{id}/uplate")
@@ -146,30 +138,26 @@ public class UserController {
                 return new ResponseEntity(HttpStatus.CONFLICT); //zvanje not exist
             }
             user = userService.save(toNastavnik.convert((NastavnikDto) dto));
-            if(user==null){
-                return new ResponseEntity(HttpStatus.CONFLICT);
-            }
-            return ResponseEntity.ok(toNastavnikDto.convert((Nastavnik) user));
+            return Optional.ofNullable(user).isPresent() ?
+                    ResponseEntity.status(HttpStatus.CREATED).body(toNastavnikDto.convert((Nastavnik) user))
+                    : new ResponseEntity(HttpStatus.CONFLICT);
         }else if(dto instanceof UcenikDto){
             if(((UcenikDto) dto).getBrojIndexa()==null){
                 return new ResponseEntity(HttpStatus.CONFLICT); //brojIndexa not exist
             }
             if(userService.findByBrojIndexa(((UcenikDto) dto).getBrojIndexa())!=null){
                 return new ResponseEntity<>(String.format("Ucenik sa brojem indexa %s vec postoji, izaberite drugi index",
-                        ((UcenikDto) dto).getBrojIndexa()),
-                        HttpStatus.CONFLICT); //user nije izmenjen
+                        ((UcenikDto) dto).getBrojIndexa()), HttpStatus.CONFLICT);
             }
             user = userService.save(toUcenik.convert((UcenikDto) dto));
-            if(user==null){
-                return new ResponseEntity(HttpStatus.CONFLICT);
-            }
-            return ResponseEntity.ok(toUcenikDto.convert((Ucenik) user));
+            return Optional.ofNullable(user).isPresent() ?
+                    ResponseEntity.status(HttpStatus.CREATED).body(toUcenikDto.convert((Ucenik) user))
+                    : new ResponseEntity(HttpStatus.CONFLICT);
         }
         user = userService.save(toUser.convert(dto));
-        if(user==null){
-            return new ResponseEntity(HttpStatus.CONFLICT); //user nije sacuvan
-        }
-        return ResponseEntity.ok(toUserDto.convert(user));
+        return Optional.ofNullable(user).isPresent()?
+                ResponseEntity.status(HttpStatus.CREATED).body(toUserDto.convert(user))
+                : new ResponseEntity(HttpStatus.CONFLICT);
     }
 
     @PutMapping("/{id}")
@@ -195,28 +183,21 @@ public class UserController {
         dto.setPassword(null);
         if(dto instanceof NastavnikDto){
             user = userService.save(toNastavnik.convert((NastavnikDto) dto));
-            if(user==null){
-                return new ResponseEntity(HttpStatus.CONFLICT); //user nije izmenjen
-            }
-            return ResponseEntity.ok(toNastavnikDto.convert((Nastavnik)user));
+            return Optional.ofNullable(user).isPresent() ?
+                    ResponseEntity.ok(toNastavnikDto.convert((Nastavnik) user)) : new ResponseEntity(HttpStatus.CONFLICT);
         }else if(dto instanceof UcenikDto) {
             Ucenik ucenik = userService.findByBrojIndexa(((UcenikDto) dto).getBrojIndexa());
             if(ucenik!=null && ucenik.getId()!=dto.getId()) {
                 return new ResponseEntity<>(String.format("Ucenik sa brojem indexa %s vec postoji, izaberite drugi index",
-                        ((UcenikDto) dto).getBrojIndexa()),
-                        HttpStatus.CONFLICT);
+                        ((UcenikDto) dto).getBrojIndexa()), HttpStatus.CONFLICT);
             }
             user = userService.save(toUcenik.convert((UcenikDto) dto));
-            if(user==null){
-                return new ResponseEntity(HttpStatus.CONFLICT); //user nije izmenjen
-            }
-            return ResponseEntity.ok(toUcenikDto.convert((Ucenik) user));
+            return Optional.ofNullable(user).isPresent() ?
+                    ResponseEntity.ok(toUcenikDto.convert((Ucenik) user)) : new ResponseEntity(HttpStatus.CONFLICT);
         }
         user = userService.save(toUser.convert(dto));
-        if(user==null){
-            return new ResponseEntity(HttpStatus.CONFLICT); //user nije izmenjen
-        }
-        return ResponseEntity.ok(toUserDto.convert(user));
+        return Optional.ofNullable(user).isPresent() ?
+                ResponseEntity.ok(toUserDto.convert(user)) : new ResponseEntity(HttpStatus.CONFLICT);
     }
 
     @PatchMapping("/{id}/password")
@@ -241,21 +222,17 @@ public class UserController {
             }
         }
         user = userService.savePassword(toUser.changePassword(dto,user));
-        if(user!=null){
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.badRequest().build();
+        return Optional.ofNullable(user).isPresent()?
+                ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity delete(@PathVariable String id){
         User user = userService.findByUsernameOrId(id);
-        if(user==null){
-            return ResponseEntity.notFound().build();
+        Optional.ofNullable(user).ifPresent(u->userService.delete(u.getId()));
+        return Optional.ofNullable(user).isPresent()?
+                ResponseEntity.noContent().build() :ResponseEntity.notFound().build();
         }
-        userService.delete(user.getId());
-        return ResponseEntity.noContent().build();
-    }
 
 }

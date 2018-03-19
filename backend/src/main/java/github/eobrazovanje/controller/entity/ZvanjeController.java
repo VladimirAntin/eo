@@ -1,6 +1,7 @@
 package github.eobrazovanje.controller.entity;
 
 import github.eobrazovanje.converter.ZvanjeToZvanjeDto;
+import github.eobrazovanje.entity.Zvanje;
 import github.eobrazovanje.service.ZvanjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 /*
   Created by IntelliJ IDEA.
@@ -32,7 +35,9 @@ public class ZvanjeController {
 
     @GetMapping("/{id}")
     public ResponseEntity getOne(@PathVariable long id){
-        return ResponseEntity.ok(toZvanjeDto.convert(zvanjeService.findOne(id)));
+        Zvanje zvanje = zvanjeService.findOne(id);
+        return Optional.ofNullable(zvanje).isPresent()?
+            ResponseEntity.ok(toZvanjeDto.convert(zvanje)) : ResponseEntity.notFound().build();
     }
 
 }
