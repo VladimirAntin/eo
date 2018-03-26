@@ -29,9 +29,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${jwt.cookie}")
-    private String TOKEN_COOKIE;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -57,7 +54,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
-
 
     @Autowired
     TokenHelper tokenHelper;
@@ -85,15 +81,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authenticationFailureHandler).and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
-                .logoutSuccessHandler(logoutSuccess)
-                .deleteCookies(TOKEN_COOKIE);
+                .logoutSuccessHandler(logoutSuccess);
 
         // disable csrf for the login request
         http.cors().and().csrf().disable();
-//                .ignoringAntMatchers("/auth/login","/api/**")
-//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {

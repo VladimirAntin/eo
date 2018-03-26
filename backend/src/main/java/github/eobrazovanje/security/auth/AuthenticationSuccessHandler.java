@@ -22,9 +22,6 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
     @Value("${jwt.expires_in}")
     private int EXPIRES_IN;
 
-    @Value("${jwt.cookie}")
-    private String TOKEN_COOKIE;
-
 	@Autowired
 	TokenHelper tokenHelper;
 
@@ -38,14 +35,6 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
 		User user = (User)authentication.getPrincipal();
 
 		String jws = tokenHelper.generateToken( user.getUsername() );
-
-        // Create token auth Cookie
-        Cookie authCookie = new Cookie( TOKEN_COOKIE, ( jws ) );
-		authCookie.setPath( "/" );
-		authCookie.setHttpOnly( true );
-		authCookie.setMaxAge( EXPIRES_IN );
-		// Add cookie to response
-		response.addCookie( authCookie );
 		// JWT is also in the response
 		UserTokenState userTokenState = new UserTokenState(jws, EXPIRES_IN);
 		String jwtResponse = objectMapper.writeValueAsString( userTokenState );

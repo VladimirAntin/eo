@@ -27,7 +27,6 @@ public class LogoutSuccess implements LogoutSuccessHandler {
         response.setContentType("application/json");
         response.getWriter().write( objectMapper.writeValueAsString( result ) );
         response.setStatus(HttpServletResponse.SC_OK);
-
     }
 
 }

@@ -29,23 +29,12 @@ public class AuthController {
     @Value("${jwt.expires_in}")
     private int EXPIRES_IN;
 
-    @Value("${jwt.cookie}")
-    private String TOKEN_COOKIE;
-
     @GetMapping(value = "/refresh")
     public ResponseEntity<?> refreshAuthenticationToken(HttpServletRequest request, HttpServletResponse response) {
 
         String authToken = tokenHelper.getToken( request );
         if (authToken != null && tokenHelper.canTokenBeRefreshed(authToken)) {
-            // TODO check user password last update
             String refreshedToken = tokenHelper.refreshToken(authToken);
-
-            Cookie authCookie = new Cookie( TOKEN_COOKIE, ( refreshedToken ) );
-            authCookie.setPath( "/" );
-            authCookie.setHttpOnly( true );
-//            authCookie.setMaxAge( EXPIRES_IN );
-            // Add cookie to response
-//            response.addCookie( authCookie );
 
             UserTokenState userTokenState = new UserTokenState(refreshedToken, EXPIRES_IN);
             return ResponseEntity.ok(userTokenState);
@@ -54,5 +43,4 @@ public class AuthController {
             return ResponseEntity.accepted().body(userTokenState);
         }
     }
-
 }

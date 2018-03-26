@@ -25,17 +25,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private UserDetailsService userDetailsService;
 
-
     public TokenAuthenticationFilter(TokenHelper tokenHelper, UserDetailsService userDetailsService) {
         this.tokenHelper = tokenHelper;
         this.userDetailsService = userDetailsService;
     }
 
-
-
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)  {
-
 
         String username = null;
         String authToken = tokenHelper.getToken(request);
@@ -61,7 +57,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         }
-
         try {
             chain.doFilter(request, response);
         } catch (IOException e) {
