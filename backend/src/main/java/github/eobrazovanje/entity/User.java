@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,6 +46,10 @@ public class User implements UserDetails {
     @Size(min = 1, max = 256) //hash
     private String password;
 
+    @NotNull
+    private boolean online;
+    private Date lastOnline;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -59,6 +64,17 @@ public class User implements UserDetails {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(long id, String ime, String prezime, String username, String email, String password, boolean online, Date lastOnline) {
+        this.id = id;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.online = online;
+        this.lastOnline = lastOnline;
     }
 
     public long getId() {
@@ -109,6 +125,24 @@ public class User implements UserDetails {
 
     public User setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+        return this;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public User setOnline(boolean online) {
+        this.online = online;
+        return this;
+    }
+
+    public Date getLastOnline() {
+        return lastOnline;
+    }
+
+    public User setLastOnline(Date lastOnline) {
+        this.lastOnline = lastOnline;
         return this;
     }
 

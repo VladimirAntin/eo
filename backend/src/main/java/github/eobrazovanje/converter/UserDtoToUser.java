@@ -9,6 +9,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /*
   Created by IntelliJ IDEA.
   User: vladimir_antin
@@ -23,13 +25,19 @@ public class UserDtoToUser implements Converter<UserDto,User> {
 
     @Override
     public User convert(UserDto dto) {
+        User backUser = null;
+        if(dto.getId()!=0){
+            backUser = userService.findOne(dto.getId());
+        }
         return new User()
                 .setId(dto.getId())
                 .setIme(dto.getIme().substring(0, 1).toUpperCase() + dto.getIme().substring(1))
                 .setPrezime(dto.getPrezime().substring(0, 1).toUpperCase() + dto.getPrezime().substring(1))
                 .setUsername(dto.getUsername())
                 .setEmail(dto.getEmail())
-                .setPassword(dto.getPassword()==null? userService.findOne(dto.getId()).getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()));
+                .setOnline(backUser!=null? backUser.isOnline() : false)
+                .setLastOnline(backUser!=null? backUser.getLastOnline() : new Date())
+                .setPassword(dto.getPassword()==null? backUser.getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()));
     }
 
 

@@ -43,6 +43,15 @@ export class AuthService {
     return this.http.get<UserApi>('/api/me', httpOptions);
   }
 
+  offline(): Observable<UserApi> {
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.get<UserApi>('/api/offline', httpOptions);
+  }
+
+
   nav_items(): Observable<NavItem[]> {
     const httpOptions = {
       headers: new HttpHeaders(

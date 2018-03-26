@@ -5,6 +5,7 @@ import github.eobrazovanje.entity.Authority;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,10 @@ public class UcenikDto extends UserDto{
 
     public UcenikDto(long id, String ime, String prezime, String username, String email,Set<Authority> authorities) {
         super(id, ime, prezime, username, email, authorities);
+    }
+
+    public UcenikDto(long id, String ime, String prezime, String username, String email, boolean online, Date lastOnline, Set<Authority> authorities) {
+        super(id, ime, prezime, username, email, online, lastOnline, authorities);
     }
 
     public String getBrojIndexa() {

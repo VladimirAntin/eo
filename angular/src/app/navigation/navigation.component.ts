@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import { UserApi } from '../model/user-api';
 import { AuthService } from '../service/auth.service';
-import { Nastavnik } from '../model/nastavnik';
-import { Ucenik } from '../model/ucenik';
 import { NavItem } from '../model/nav-item';
 import { NavigationEnd, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
@@ -24,14 +22,21 @@ export class NavigationComponent {
     private snackBar: MatSnackBar, private dialog: MatDialog) {
     this._router.events.filter((e) => e instanceof NavigationEnd)
       .subscribe((event: NavigationEnd) => {
-        if (event.url != '/login') {
+        if (event.url !== '/login') {
           this.init();
         }
       });
   }
 
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHander(event) {
+    this.authService.offline().subscribe();
+    return true;
+  }
+
   init() {
     if (this._router.url !== '/login') {
+      this.nav_items = [];
       if (this.nav_items.length === 0) {
         this.navItems();
         this.getMe();
@@ -53,8 +58,10 @@ export class NavigationComponent {
   }
 
   logout() {
-    this.authService.logout().subscribe(() => {
-      this._router.navigateByUrl('/login');
+    this.authService.offline().subscribe(() =>{
+      this.authService.logout().subscribe(() => {
+        this._router.navigateByUrl('/login');
+      });
     });
   }
 
@@ -75,7 +82,7 @@ export class NavigationComponent {
               this.authService.logout().subscribe(() => {
                 this._router.navigateByUrl('/login');
               });
-            }, 4000)
+            }, 4000);
           } else {
             this.me = data;
             if (window.location.href.lastIndexOf(`users/${this.me.username}`) !== -1 ||

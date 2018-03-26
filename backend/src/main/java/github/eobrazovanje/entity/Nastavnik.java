@@ -2,6 +2,7 @@ package github.eobrazovanje.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +27,10 @@ public class Nastavnik extends User {
 
     public Nastavnik(long id, String ime, String prezime, String username, String email, String password) {
         super(id, ime, prezime, username, email, password);
+    }
+
+    public Nastavnik(long id, String ime, String prezime, String username, String email, String password, boolean online, Date lastOnline) {
+        super(id, ime, prezime, username, email, password, online, lastOnline);
     }
 
     public Zvanje getZvanje() {

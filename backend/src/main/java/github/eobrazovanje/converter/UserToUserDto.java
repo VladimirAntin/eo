@@ -32,10 +32,12 @@ public class UserToUserDto implements Converter<User,UserDto> {
 
         if(user instanceof Nastavnik){
             return new NastavnikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername(),user.getEmail(),
+                    user.isOnline(), user.getLastOnline(),
                     (Set<Authority>) user.getAuthorities())
                     .setZvanje(toZvanjeDto.convert(((Nastavnik) user).getZvanje()));
         }else if(user instanceof Ucenik){
             return new UcenikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername(), user.getEmail(),
+                    user.isOnline(), user.getLastOnline(),
                     (Set<Authority>) user.getAuthorities())
                     .setBrojIndexa(((Ucenik) user).getBrojIndexa());
         }
@@ -45,6 +47,8 @@ public class UserToUserDto implements Converter<User,UserDto> {
                 .setPrezime(user.getPrezime())
                 .setUsername(user.getUsername())
                 .setEmail(user.getEmail())
+                .setOnline(user.isOnline())
+                .setLastOnline(user.getLastOnline())
                 .setAuthorities((Set<Authority>) user.getAuthorities());
     }
 

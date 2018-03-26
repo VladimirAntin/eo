@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -48,10 +49,12 @@ public class ApiController {
     @Value("${jwt.expires_in}")
     private long EXPIRES_IN;
 
-
     @GetMapping("/me")
     public ResponseEntity get(Principal principal) {
         User user = userService.findByUsername(principal.getName());
+        user.setOnline(true);
+        user.setLastOnline(new Date());
+        userService.save(user);
         if(user instanceof Nastavnik){
             return ResponseEntity.ok(toNastavnikDto.convert((Nastavnik) user));
         }else if(user instanceof Ucenik){
@@ -74,5 +77,14 @@ public class ApiController {
         }
         navItems.add(new NavItem("Profile","/users/"+principal.getName(), "person"));
         return ResponseEntity.ok(navItems);
+    }
+
+    @GetMapping("/offline")
+    public ResponseEntity offline(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        user.setOnline(false);
+        user.setLastOnline(new Date());
+        userService.save(user);
+        return ResponseEntity.ok(toUserDto.convert(user)); //admin
     }
 }

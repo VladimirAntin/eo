@@ -2,12 +2,15 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.NastavnikDto;
 import github.eobrazovanje.entity.Nastavnik;
+import github.eobrazovanje.entity.User;
 import github.eobrazovanje.service.UserService;
 import github.eobrazovanje.service.ZvanjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /*
   Created by IntelliJ IDEA.
@@ -26,12 +29,16 @@ public class NastavnikDtoToNastavnik implements Converter<NastavnikDto,Nastavnik
 
     @Override
     public Nastavnik convert(NastavnikDto dto) {
+        User backUser = null;
+        if(dto.getId()!=0){
+            backUser = userService.findOne(dto.getId());
+        }
         return new Nastavnik(dto.getId(),
                 dto.getIme().substring(0, 1).toUpperCase() + dto.getIme().substring(1),
-                dto.getPrezime().substring(0, 1).toUpperCase() + dto.getPrezime().substring(1)
-                ,dto.getUsername(), dto.getEmail(),
-                dto.getPassword()==null?
-                        userService.findOne(dto.getId()).getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()))
+                dto.getPrezime().substring(0, 1).toUpperCase() + dto.getPrezime().substring(1),
+                dto.getUsername(), dto.getEmail(), dto.getPassword()==null?
+                        backUser.getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()),
+                backUser!=null? backUser.isOnline() : false, backUser!=null? backUser.getLastOnline() : new Date())
                 .setZvanje(zvanjeService.findOne(dto.getZvanje().getId()));
     }
 

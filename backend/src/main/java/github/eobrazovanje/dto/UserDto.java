@@ -6,6 +6,7 @@ import github.eobrazovanje.entity.Authority;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,6 +44,9 @@ public class UserDto {
     @Size(min = 1, max = 256) //hash
     private String password;
 
+    private boolean online;
+    private Date lastOnline;
+
     private Set<Authority> authorities = new HashSet<>();
 
     public UserDto() { }
@@ -54,6 +58,17 @@ public class UserDto {
         this.username = username;
         this.email = email;
         this.authorities = authorities;
+    }
+
+    public UserDto(long id, String ime, String prezime, String username, String email, boolean online, Date lastOnline, Set<Authority> authorities) {
+        this.id = id;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.username = username;
+        this.email = email;
+        this.authorities = authorities;
+        this.online = online;
+        this.lastOnline = lastOnline;
     }
 
     public long getId() {
@@ -116,6 +131,24 @@ public class UserDto {
 
     public UserDto setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+        return this;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public UserDto setOnline(boolean online) {
+        this.online = online;
+        return this;
+    }
+
+    public Date getLastOnline() {
+        return lastOnline;
+    }
+
+    public UserDto setLastOnline(Date lastOnline) {
+        this.lastOnline = lastOnline;
         return this;
     }
 }

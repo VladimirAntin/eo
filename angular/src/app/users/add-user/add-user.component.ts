@@ -10,6 +10,7 @@ import { Zvanje } from '../../model/zvanje';
 
 export class AddUserComponent {
 
+  // tslint:disable-next-line:max-line-length
   re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   types: string[] = ['User', 'Nastavnik', 'Ucenik'];
   zvanja: Zvanje[] = []; enableB = true;

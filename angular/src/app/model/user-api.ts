@@ -8,6 +8,8 @@ export class UserApi {
     username: string;
     email: string;
     password: string;
+    online: boolean;
+    lastOnline: Date;
     authorities: Authority[];
 
     constructor() {
@@ -18,6 +20,8 @@ export class UserApi {
       this.username = '';
       this.email = '';
       this.password = '';
+      this.online = false;
+      this.lastOnline = new Date();
       this.authorities = [];
     }
 

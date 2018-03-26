@@ -15,7 +15,7 @@ import { UserPassword } from '../model/user-password';
 })
 export class UsersComponent implements OnInit {
 
-  displayedColumns = ['name', 'surname', 'username', 'email', 'type', 'options'];
+  displayedColumns = ['name', 'surname', 'username', 'email', 'type', 'online', 'options'];
   users = new MatTableDataSource();
   loading: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;

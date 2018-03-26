@@ -3,6 +3,7 @@ package github.eobrazovanje.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +37,10 @@ public class Ucenik extends User {
 
     public Ucenik(long id, String ime, String prezime, String username, String email, String password) {
         super(id, ime, prezime, username, email, password);
+    }
+
+    public Ucenik(long id, String ime, String prezime, String username, String email, String password, boolean online, Date lastOnline) {
+        super(id, ime, prezime, username, email, password, online, lastOnline);
     }
 
     public String getBrojIndexa() {
