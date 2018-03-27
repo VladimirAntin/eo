@@ -15,6 +15,8 @@ import {UcenikService} from '../../service/ucenik.service';
 import {AddUcenikNastavnikComponent} from '../add-ucenik-nastavnik/add-ucenik-nastavnik.component';
 import {AddUplataComponent} from '../add-uplata/add-uplata.component';
 import {UplataService} from '../../service/uplata.service';
+import {AuthService} from '../../service/auth.service';
+import {UserApi} from '../../model/user-api';
 
 @Component({
   selector: 'app-predmet',
@@ -24,11 +26,12 @@ import {UplataService} from '../../service/uplata.service';
 export class PredmetComponent implements OnInit {
 
   id: number; predmet: Predmet; ucenici: Ucenik[] = []; nastavnici: Nastavnik[] = [];
-  uplate: Uplata[] = [];
+  uplate: Uplata[] = []; isUcenik = false; me: UserApi;
   constructor(private route: ActivatedRoute, private predmetService: PredmetService,
               private dialog: MatDialog, private snackBar: MatSnackBar,
               private aktivnostService: AktivnostService, private uplataService: UplataService,
-              private nastavnikService: NastavnikService, private ucenikService: UcenikService) { }
+              private nastavnikService: NastavnikService, private ucenikService: UcenikService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id');
@@ -58,6 +61,12 @@ export class PredmetComponent implements OnInit {
       this.predmetService.getUcenici(this.id).subscribe(data => this.ucenici = data);
       this.predmetService.getNastavnici(this.id).subscribe(data => this.nastavnici = data);
       this.predmetService.getUplate(this.id).subscribe(data => this.uplate = data);
+      this.authService.me().subscribe(data => {
+        this.me = data;
+        this.isUcenik = this.me.authorities
+          .filter(a => a.name.substring(5).toLowerCase()==='student').length===1;
+      });
+
     });
   }
 

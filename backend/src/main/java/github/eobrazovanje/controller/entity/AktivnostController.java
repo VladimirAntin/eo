@@ -36,7 +36,7 @@ public class AktivnostController {
     private AktivnostToAktivnostDto toAktivnostDto;
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN','PROFESOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
     public ResponseEntity post(@RequestBody @Validated AktivnostDto dto, Errors errors){
         if(errors.hasErrors()){
             return ResponseEntity.badRequest().build();
@@ -47,7 +47,7 @@ public class AktivnostController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
     public ResponseEntity put(@PathVariable long id, @RequestBody @Validated AktivnostDto dto, Errors errors){
         if(errors.hasErrors()){
             return ResponseEntity.badRequest().build();

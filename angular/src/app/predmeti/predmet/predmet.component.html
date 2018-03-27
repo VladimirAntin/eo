@@ -25,7 +25,7 @@
             <input matInput placeholder="Aktivnosti" [matChipInputFor]="keywordList" disabled>
           </mat-chip-list>
         </mat-form-field>
-        <div class="offset-md-4 col-md-2">
+        <div class="offset-md-4 col-md-2" *ngIf="!isUcenik">
           <button mat-mini-fab matTooltip="Edit" color="primary" (click)="edit()">
             <mat-icon>edit</mat-icon>
           </button>
@@ -38,7 +38,7 @@
         <span class="badge badge-pill badge-dark">{{ucenici.length}}</span>
       </ng-template>
       <div>
-        <button mat-mini-fab (click)="addUcenikNastavnik()" color="primary">
+        <button mat-mini-fab (click)="addUcenikNastavnik()" color="primary" *ngIf="!isUcenik">
           <mat-icon>add</mat-icon>
         </button>
         <mat-list>
@@ -50,7 +50,7 @@
             <a mat-mini-fab color="primary" [routerLink]="['/users',u.username]" matTooltip="Open">
               <mat-icon>link</mat-icon>
             </a>
-            <button mat-mini-fab color="warn" matTooltip="Delete" (click)="deleteUcenik(u)">
+            <button mat-mini-fab color="warn" matTooltip="Delete" (click)="deleteUcenik(u)" *ngIf="!isUcenik">
               <mat-icon>delete</mat-icon>
             </button>
             <mat-divider></mat-divider>
@@ -64,7 +64,7 @@
         <span class="badge badge-pill badge-dark">{{nastavnici.length}}</span>
       </ng-template>
       <div>
-        <button mat-mini-fab (click)="addUcenikNastavnik(true)" color="primary">
+        <button mat-mini-fab (click)="addUcenikNastavnik(true)" color="primary" *ngIf="!isUcenik">
           <mat-icon>add</mat-icon>
         </button>
         <mat-list>
@@ -76,7 +76,7 @@
             <a mat-mini-fab color="primary" [routerLink]="['/users',n.username]" matTooltip="Open">
               <mat-icon>link</mat-icon>
             </a>
-            <button mat-mini-fab color="warn" matTooltip="Delete" (click)="deleteNastavnik(n)">
+            <button mat-mini-fab color="warn" matTooltip="Delete" (click)="deleteNastavnik(n)" *ngIf="!isUcenik">
               <mat-icon>delete</mat-icon>
             </button>
             <mat-divider></mat-divider>
@@ -90,7 +90,7 @@
         <span class="badge badge-pill badge-dark">{{uplate.length}}</span>
       </ng-template>
       <div>
-        <button mat-mini-fab color="primary" (click)="addUplata()">
+        <button mat-mini-fab color="primary" (click)="addUplata()" *ngIf="isAdmin">
           <mat-icon>add</mat-icon>
         </button>
         <mat-list>
@@ -111,7 +111,7 @@
         <mat-icon>web</mat-icon> Ispit
       </ng-template>
       <div>
-        <button mat-mini-fab color="primary" matTooltip="Add Aktivnost" (click)="addAktivnost()">
+        <button mat-mini-fab color="primary" matTooltip="Add Aktivnost" (click)="addAktivnost()" *ngIf="!isUcenik">
           <mat-icon>add</mat-icon>
         </button>
         <mat-list>
@@ -133,7 +133,7 @@
                   <td>{{a.naziv}}</td>
                   <td>{{a.brojBodova}}</td>
                   <td>
-                    <button mat-mini-fab class="bg-dark" matTooltip="Edit" (click)="editAKtivnost(a, u)">
+                    <button mat-mini-fab class="bg-dark" matTooltip="Edit" (click)="editAKtivnost(a, u)" *ngIf="!isUcenik">
                       <mat-icon>edit</mat-icon>
                     </button>
                   </td>

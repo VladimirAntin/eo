@@ -139,4 +139,13 @@ public class Predmet {
         this.aktivnostSet = aktivnostSet;
         return this;
     }
+
+    public boolean isUcenikNaPredmetu(String username) {
+        return this.ucenici.stream().anyMatch(u -> u.getUsername().equals(username));
+    }
+    public boolean isNastavnikNaPredmetu(String username) {
+        return this.nastavnici.stream().anyMatch(u -> u.getUsername().equals(username));
+    }
+
+
 }

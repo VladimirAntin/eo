@@ -1,6 +1,6 @@
 
 INSERT INTO authority(name) VALUES ('ROLE_ADMIN');
-INSERT INTO authority(name) VALUES ('ROLE_PROFESOR');
+INSERT INTO authority(name) VALUES ('ROLE_PROFESSOR');
 INSERT INTO authority(name) VALUES ('ROLE_STUDENT');
 
 INSERT INTO zvanje(naziv) VALUES ('Docent');

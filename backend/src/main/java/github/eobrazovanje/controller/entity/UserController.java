@@ -169,13 +169,12 @@ public class UserController {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         User loginUser = userService.findByUsername(principal.getName());
-        if(loginUser.getAuthorities().stream().noneMatch(a->a.getAuthority().equals("ROLE_ADMIN"))
-                && loginUser.getId()!=id){
+        if(!loginUser.isAdmin() && loginUser.getId()!=id){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
         User userb = userService.findOne(dto.getId());
-        if(loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN")) &&
-                userb.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN")) &&
+        if(loginUser.isAdmin() &&
+                userb.isAdmin() &&
                 userb.getId()!=loginUser.getId()){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
@@ -208,12 +207,12 @@ public class UserController {
                 loginUser.getAuthorities().stream().noneMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-        if(loginUser.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN")) &&
-                user.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN")) &&
+        if(loginUser.isAdmin() &&
+                user.isAdmin() &&
                 user.getId()!=loginUser.getId()){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-        if(loginUser.getAuthorities().stream().noneMatch(a-> a.getAuthority().equals("ROLE_ADMIN"))){
+        if(!loginUser.isAdmin()){
             if(!dto.getNewPassword().equals(dto.getNewPasswordRepeat())){
                 return ResponseEntity.badRequest().build();
             }

@@ -180,4 +180,14 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public boolean isAdmin(){
+        return this.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"));
+    }
+    public boolean isNastavnik(){
+        return this.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_PROFESSOR"));
+    }
+    public boolean isUcenik(){
+        return this.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_STUDENT"));
+    }
 }

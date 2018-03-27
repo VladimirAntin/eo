@@ -36,6 +36,11 @@
           </mat-chip>
         </mat-chip-list>
         </div>
+        <div class="">
+          <span *ngIf="user.online"> <mat-icon class="text-success text-sm-center">lens</mat-icon> <i>Online</i></span>
+          <span *ngIf="!user.online"> <mat-icon class="text-danger text-sm-center">lens</mat-icon>
+            <i>{{user.lastOnline | date: 'dd.MM.yyyy. HH:mm'}}</i></span>
+        </div>
       </div>
     </mat-tab>
     <mat-tab label="Predmeti" *ngIf="predmeti && predmeti.length!==0">
@@ -89,7 +94,7 @@
         Dokumenti <span class="badge badge-pill badge-dark">{{docs.length}}</span>
       </ng-template>
       <div>
-        <button mat-mini-fab matTooltip="Add document" color="primary" (click)="addDoc()">
+        <button mat-mini-fab matTooltip="Add document" color="primary" (click)="addDoc()" *ngIf="isAdmin || me.username===user.username">
           <mat-icon>add</mat-icon>
         </button>
         <mat-list>

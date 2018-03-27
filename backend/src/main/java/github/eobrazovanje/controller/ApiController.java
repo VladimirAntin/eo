@@ -64,17 +64,18 @@ public class ApiController {
     }
     @GetMapping("nav_items")
     public ResponseEntity getNav(Principal principal){
-        Collection<? extends GrantedAuthority> authorities = userService.findByUsername(principal.getName()).getAuthorities();
+        User user = userService.findByUsername(principal.getName());
         List<NavItem> navItems = new ArrayList<>();
         navItems.add(new NavItem("Home","/","home"));
-        if(authorities.stream().anyMatch(t -> t.getAuthority().equals("ROLE_ADMIN"))) {
+        if(user.isAdmin()) {
             navItems.add(new NavItem("Users","/users", "people"));
             navItems.add(new NavItem("Predmeti","/predmeti", "subject"));
-        }else if(authorities.stream().anyMatch(t -> t.getAuthority().equals("ROLE_PROFESOR"))){
+        }else if(user.isNastavnik()){
             // bla bla za profesora
         }else {
             // bla bla za ucenika
         }
+        navItems.add(new NavItem("Inbox","/inbox/"+principal.getName(), "inbox"));
         navItems.add(new NavItem("Profile","/users/"+principal.getName(), "person"));
         return ResponseEntity.ok(navItems);
     }

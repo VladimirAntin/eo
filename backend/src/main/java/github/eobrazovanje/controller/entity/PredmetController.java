@@ -17,6 +17,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -60,31 +61,47 @@ public class PredmetController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity one(@PathVariable long id) {
+    public ResponseEntity one(@PathVariable long id, Principal principal) {
         Predmet predmet = predmetService.findOne(id);
-        return Optional.ofNullable(predmet).isPresent() ?
-                ResponseEntity.ok(toPredmetDto.convert(predmet)) : ResponseEntity.notFound().build();
+        if(predmet.isUcenikNaPredmetu(principal.getName()) ||
+                predmet.isNastavnikNaPredmetu(principal.getName())){
+            return Optional.ofNullable(predmet).isPresent() ?
+                    ResponseEntity.ok(toPredmetDto.convert(predmet)) : ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/{id}/nastavnici")
-    public ResponseEntity nastavnici(@PathVariable long id) {
+    public ResponseEntity nastavnici(@PathVariable long id, Principal principal) {
         Predmet predmet = predmetService.findOne(id);
-        return Optional.ofNullable(predmet).isPresent() ?
-                ResponseEntity.ok(toNastavnikDto.convert(predmet.getNastavnici())) : ResponseEntity.notFound().build();
+        if(predmet.isUcenikNaPredmetu(principal.getName()) ||
+                predmet.isNastavnikNaPredmetu(principal.getName())){
+            return Optional.ofNullable(predmet).isPresent() ?
+                    ResponseEntity.ok(toNastavnikDto.convert(predmet.getNastavnici())) : ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/{id}/ucenici")
-    public ResponseEntity ucenici(@PathVariable long id) {
+    public ResponseEntity ucenici(@PathVariable long id, Principal principal) {
         Predmet predmet = predmetService.findOne(id);
-        return Optional.ofNullable(predmet).isPresent() ?
-                ResponseEntity.ok(toUcenikDto.convert(predmet.getUcenici())) : ResponseEntity.notFound().build();
+        if(predmet.isUcenikNaPredmetu(principal.getName()) ||
+                predmet.isNastavnikNaPredmetu(principal.getName())){
+            return Optional.ofNullable(predmet).isPresent() ?
+                    ResponseEntity.ok(toUcenikDto.convert(predmet.getUcenici())) : ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/{id}/uplate")
-    public ResponseEntity uplate(@PathVariable long id) {
+    public ResponseEntity uplate(@PathVariable long id, Principal principal) {
         Predmet predmet = predmetService.findOne(id);
-        return Optional.ofNullable(predmet).isPresent() ?
-                ResponseEntity.ok(toUplataDto.convert(predmet.getUplate())) : ResponseEntity.notFound().build();
+        if(predmet.isUcenikNaPredmetu(principal.getName()) ||
+                predmet.isNastavnikNaPredmetu(principal.getName())){
+            return Optional.ofNullable(predmet).isPresent() ?
+                    ResponseEntity.ok(toUplataDto.convert(predmet.getUplate())) : ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping
@@ -102,13 +119,18 @@ public class PredmetController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESOR')")
-    public ResponseEntity put(@PathVariable long id, @RequestBody @Validated PredmetDto dto, Errors errors){
+    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
+    public ResponseEntity put(@PathVariable long id, @RequestBody @Validated PredmetDto dto,
+                              Errors errors, Principal principal){
         if(errors.hasErrors()){
             return ResponseEntity.badRequest().build();
         }
         if(dto.getId()!=id){
             return new ResponseEntity(HttpStatus.BAD_REQUEST); //not send id
+        }
+        Predmet predmetBack = predmetService.findOne(dto.getId());
+        if(!predmetBack.isNastavnikNaPredmetu(principal.getName())){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         Predmet predmet = predmetService.save(toPredmet.convert(dto, true));
         return Optional.ofNullable(predmet).isPresent() ?
@@ -116,6 +138,7 @@ public class PredmetController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity delete(@PathVariable long id){
         Predmet predmet = predmetService.findOne(id);
         if(predmet==null){
@@ -126,6 +149,7 @@ public class PredmetController {
     }
 
     @PostMapping("/{id}/nastavnici")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity postNastavnik(@PathVariable long id, @RequestBody ArrayList<HelperDto> dtos){
         Predmet predmet = predmetService.findOne(id);
         for (HelperDto dto:dtos) {
@@ -143,6 +167,7 @@ public class PredmetController {
     }
 
     @DeleteMapping("/{id}/nastavnici/{nastavnik}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity deleteNastavnik(@PathVariable long id, @PathVariable long nastavnik){
         Predmet predmet = predmetService.findOne(id);
         if(predmet==null){
@@ -153,8 +178,13 @@ public class PredmetController {
     }
 
     @PostMapping("/{id}/ucenici")
-    public ResponseEntity postUcenici(@PathVariable long id, @RequestBody ArrayList<HelperDto> dtos){
+    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
+    public ResponseEntity postUcenici(@PathVariable long id, @RequestBody ArrayList<HelperDto> dtos,
+                                      Principal principal){
         Predmet predmet = predmetService.findOne(id);
+        if(!predmet.isNastavnikNaPredmetu(principal.getName())){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         for (HelperDto dto:dtos) {
             if(predmet.getUcenici().stream().allMatch(n -> n.getId()!=dto.getId())){
                 Ucenik ucenik = ucenikService.findOne(dto.getId());
@@ -170,6 +200,7 @@ public class PredmetController {
     }
 
     @DeleteMapping("/{id}/ucenici/{ucenik}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity deleteUcenici(@PathVariable long id, @PathVariable long ucenik){
         Predmet predmet = predmetService.findOne(id);
         if(predmet==null){
