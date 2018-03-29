@@ -19,20 +19,62 @@ public class NastavnikDto extends UserDto {
 
     public NastavnikDto() { }
 
-    public NastavnikDto(long id, String ime, String prezime, String username, String email, Set<Authority> authorities) {
-        super(id, ime, prezime, username, email, authorities);
-    }
-
-    public NastavnikDto(long id, String ime, String prezime, String username, String email, boolean online, Date lastOnline, Set<Authority> authorities) {
-        super(id, ime, prezime, username, email, online, lastOnline, authorities);
-    }
-
     public ZvanjeDto getZvanje() {
         return zvanje;
     }
 
     public NastavnikDto setZvanje(ZvanjeDto zvanje) {
         this.zvanje = zvanje;
+        return this;
+    }
+
+    public NastavnikDto setId(long id) {
+        super.setId(id);
+        return this;
+    }
+
+    public NastavnikDto setIme(String ime) {
+        super.setIme(ime);
+        return this;
+    }
+
+    public NastavnikDto setPrezime(String prezime) {
+        super.setPrezime(prezime);
+        return this;
+    }
+
+    public NastavnikDto setUsername(String username) {
+        super.setUsername(username);
+        return this;
+    }
+
+    public NastavnikDto setEmail(String email) {
+        super.setEmail(email);
+        return this;
+    }
+
+    public NastavnikDto setPassword(String password) {
+        super.setPassword(password);
+        return this;
+    }
+
+    public NastavnikDto setAuthorities(Set<Authority> authorities) {
+        super.setAuthorities(authorities);
+        return this;
+    }
+
+    public NastavnikDto setOnline(boolean online) {
+        super.setOnline(online);
+        return this;
+    }
+
+    public NastavnikDto setLastOnline(Date lastOnline) {
+        super.setLastOnline(lastOnline);
+        return this;
+    }
+
+    public NastavnikDto setPicture(String picture) {
+        super.setPicture(picture);
         return this;
     }
 }

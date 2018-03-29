@@ -5,41 +5,46 @@
         <mat-icon>info_outline</mat-icon> Info
       </ng-template>
       <div class="m-5 row">
-        <mat-form-field class="col-md-12">
-          <input matInput placeholder="Username" [(ngModel)]="user.username" disabled>
-        </mat-form-field>
-        <mat-form-field class="col-md-6">
-          <input matInput placeholder="First name" [(ngModel)]="user.ime" disabled>
-        </mat-form-field>
-        <mat-form-field class="col-md-6">
-          <input matInput placeholder="Last name" [(ngModel)]="user.prezime" disabled>
-        </mat-form-field>
-        <mat-form-field class="col-md-6">
-          <input matInput placeholder="Email" [(ngModel)]="user.email" disabled>
-        </mat-form-field>
-        <mat-form-field class="col-md-6">
-          <input matInput placeholder="Type" [(ngModel)]="user.type" disabled>
-        </mat-form-field>
-        <mat-form-field *ngIf="user.isNastavnik()" class="col-md-4">
-          <input matInput placeholder="Zvanje"
-                 [(ngModel)]="user.zvanje.naziv" disabled>
-        </mat-form-field>
-        <mat-form-field *ngIf="user.isUcenik()" class="col-md-4">
-          <input matInput placeholder="Broj Indexa"
-                 [(ngModel)]="user.brojIndexa" disabled>
-        </mat-form-field>
-        <div class="col-md-4">
-          <span>Authorities</span>
-        <mat-chip-list>
-          <mat-chip *ngFor="let key of user.authorities" disabled>
-            {{key.name.substring(5).toLowerCase()}}
-          </mat-chip>
-        </mat-chip-list>
+        <div class="col-md-3">
+          <img [src]="user.href" class="rounded border border-dark" *ngIf="user.href" height="150">
         </div>
-        <div class="">
-          <span *ngIf="user.online"> <mat-icon class="text-success text-sm-center">lens</mat-icon> <i>Online</i></span>
-          <span *ngIf="!user.online"> <mat-icon class="text-danger text-sm-center">lens</mat-icon>
+        <div class="col-md-9 row">
+          <mat-form-field class="col-md-12">
+            <input matInput placeholder="Username" [(ngModel)]="user.username" disabled>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="First name" [(ngModel)]="user.ime" disabled>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="Last name" [(ngModel)]="user.prezime" disabled>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="Email" [(ngModel)]="user.email" disabled>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="Type" [(ngModel)]="user.type" disabled>
+          </mat-form-field>
+          <mat-form-field *ngIf="user.isNastavnik()" class="col-md-4">
+            <input matInput placeholder="Zvanje"
+                   [(ngModel)]="user.zvanje.naziv" disabled>
+          </mat-form-field>
+          <mat-form-field *ngIf="user.isUcenik()" class="col-md-4">
+            <input matInput placeholder="Broj Indexa"
+                   [(ngModel)]="user.brojIndexa" disabled>
+          </mat-form-field>
+          <div class="col-md-4">
+            <span>Authorities</span>
+            <mat-chip-list>
+              <mat-chip *ngFor="let key of user.authorities" disabled>
+                {{key.name.substring(5).toLowerCase()}}
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+          <div class="">
+            <span *ngIf="user.online"> <mat-icon class="text-success text-sm-center">lens</mat-icon> <i>Online</i></span>
+            <span *ngIf="!user.online"> <mat-icon class="text-danger text-sm-center">lens</mat-icon>
             <i>{{user.lastOnline | date: 'dd.MM.yyyy. HH:mm'}}</i></span>
+          </div>
         </div>
       </div>
     </mat-tab>

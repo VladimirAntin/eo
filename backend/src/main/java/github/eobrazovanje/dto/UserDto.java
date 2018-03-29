@@ -45,7 +45,10 @@ public class UserDto {
     private String password;
 
     private boolean online;
+
     private Date lastOnline;
+
+    private String picture;
 
     private Set<Authority> authorities = new HashSet<>();
 
@@ -149,6 +152,15 @@ public class UserDto {
 
     public UserDto setLastOnline(Date lastOnline) {
         this.lastOnline = lastOnline;
+        return this;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public UserDto setPicture(String picture) {
+        this.picture = picture;
         return this;
     }
 }

@@ -11,6 +11,8 @@ export class UserApi {
     online: boolean;
     lastOnline: Date;
     authorities: Authority[];
+    picture: string;
+    href;
 
     constructor() {
       this.id = 0;
@@ -23,6 +25,7 @@ export class UserApi {
       this.online = false;
       this.lastOnline = new Date();
       this.authorities = [];
+      this.picture = '';
     }
 
   public isNastavnik(): boolean {

@@ -39,6 +39,7 @@ import {UcenikService} from './service/ucenik.service';
 import { AddUcenikNastavnikComponent } from './predmeti/add-ucenik-nastavnik/add-ucenik-nastavnik.component';
 import {UplataService} from './service/uplata.service';
 import { AddUplataComponent } from './predmeti/add-uplata/add-uplata.component';
+import {FileService} from './service/file.service';
 
 enableProdMode();
 @NgModule({
@@ -65,7 +66,7 @@ enableProdMode();
   entryComponents: [AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent,
     AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent, AddUplataComponent],
   providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService,
-    AktivnostService, NastavnikService, UcenikService, UplataService],
+    AktivnostService, NastavnikService, UcenikService, UplataService, FileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

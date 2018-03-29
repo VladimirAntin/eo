@@ -26,8 +26,16 @@ public class UcenikToUcenikDto implements Converter<Ucenik,UcenikDto> {
 
     @Override
     public UcenikDto convert(Ucenik ucenik) {
-        return new UcenikDto(ucenik.getId(),ucenik.getIme(),ucenik.getPrezime(),ucenik.getUsername(),
-                ucenik.getEmail(), ucenik.isOnline(), ucenik.getLastOnline(),(Set<Authority>) ucenik.getAuthorities())
+        return new UcenikDto()
+                .setId(ucenik.getId())
+                .setIme(ucenik.getIme())
+                .setPrezime(ucenik.getPrezime())
+                .setUsername(ucenik.getUsername())
+                .setEmail(ucenik.getEmail())
+                .setOnline(ucenik.isOnline())
+                .setLastOnline(ucenik.getLastOnline())
+                .setAuthorities((Set<Authority>) ucenik.getAuthorities())
+                .setPicture(ucenik.getPicture())
                 .setBrojIndexa(ucenik.getBrojIndexa())
                 .setAktivnosti(toAktivnostDto.convert(ucenik.getAktivnosti()));
     }

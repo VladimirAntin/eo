@@ -35,14 +35,6 @@ public class Ucenik extends User {
 
     public Ucenik() { }
 
-    public Ucenik(long id, String ime, String prezime, String username, String email, String password) {
-        super(id, ime, prezime, username, email, password);
-    }
-
-    public Ucenik(long id, String ime, String prezime, String username, String email, String password, boolean online, Date lastOnline) {
-        super(id, ime, prezime, username, email, password, online, lastOnline);
-    }
-
     public String getBrojIndexa() {
         return brojIndexa;
     }
@@ -85,6 +77,56 @@ public class Ucenik extends User {
 
     public Ucenik setDokumenti(Set<Dokument> dokumenti) {
         this.dokumenti = dokumenti;
+        return this;
+    }
+
+    public Ucenik setId(long id) {
+        super.setId(id);
+        return this;
+    }
+
+    public Ucenik setIme(String ime) {
+        super.setIme(ime);
+        return this;
+    }
+
+    public Ucenik setPrezime(String prezime) {
+        super.setPrezime(prezime);
+        return this;
+    }
+
+    public Ucenik setUsername(String username) {
+        super.setUsername(username);
+        return this;
+    }
+
+    public Ucenik setEmail(String email) {
+        super.setEmail(email);
+        return this;
+    }
+
+    public Ucenik setPassword(String password) {
+        super.setPassword(password);
+        return this;
+    }
+
+    public Ucenik setAuthorities(Set<Authority> authorities) {
+        super.setAuthorities(authorities);
+        return this;
+    }
+
+    public Ucenik setOnline(boolean online) {
+        super.setOnline(online);
+        return this;
+    }
+
+    public Ucenik setLastOnline(Date lastOnline) {
+        super.setLastOnline(lastOnline);
+        return this;
+    }
+
+    public Ucenik setPicture(String picture) {
+        super.setPicture(picture);
         return this;
     }
 }

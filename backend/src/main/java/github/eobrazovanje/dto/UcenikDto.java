@@ -25,14 +25,6 @@ public class UcenikDto extends UserDto{
 
     public UcenikDto() { }
 
-    public UcenikDto(long id, String ime, String prezime, String username, String email,Set<Authority> authorities) {
-        super(id, ime, prezime, username, email, authorities);
-    }
-
-    public UcenikDto(long id, String ime, String prezime, String username, String email, boolean online, Date lastOnline, Set<Authority> authorities) {
-        super(id, ime, prezime, username, email, online, lastOnline, authorities);
-    }
-
     public String getBrojIndexa() {
         return brojIndexa;
     }
@@ -48,6 +40,56 @@ public class UcenikDto extends UserDto{
 
     public UcenikDto setAktivnosti(List<AktivnostDto> aktivnosti) {
         this.aktivnosti = aktivnosti;
+        return this;
+    }
+
+    public UcenikDto setId(long id) {
+        super.setId(id);
+        return this;
+    }
+
+    public UcenikDto setIme(String ime) {
+        super.setIme(ime);
+        return this;
+    }
+
+    public UcenikDto setPrezime(String prezime) {
+        super.setPrezime(prezime);
+        return this;
+    }
+
+    public UcenikDto setUsername(String username) {
+        super.setUsername(username);
+        return this;
+    }
+
+    public UcenikDto setEmail(String email) {
+        super.setEmail(email);
+        return this;
+    }
+
+    public UcenikDto setPassword(String password) {
+        super.setPassword(password);
+        return this;
+    }
+
+    public UcenikDto setAuthorities(Set<Authority> authorities) {
+        super.setAuthorities(authorities);
+        return this;
+    }
+
+    public UcenikDto setOnline(boolean online) {
+        super.setOnline(online);
+        return this;
+    }
+
+    public UcenikDto setLastOnline(Date lastOnline) {
+        super.setLastOnline(lastOnline);
+        return this;
+    }
+
+    public UcenikDto setPicture(String picture) {
+        super.setPicture(picture);
         return this;
     }
 }

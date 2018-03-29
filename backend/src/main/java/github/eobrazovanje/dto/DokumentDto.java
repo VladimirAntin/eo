@@ -17,6 +17,8 @@ public class DokumentDto {
     @NotNull
     private TipDokumentaDto tipDokumenta;
 
+    private String filename;
+
     public DokumentDto() { }
 
     public long getId() {
@@ -43,6 +45,15 @@ public class DokumentDto {
 
     public DokumentDto setTipDokumenta(TipDokumentaDto tipDokumenta) {
         this.tipDokumenta = tipDokumenta;
+        return this;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public DokumentDto setFilename(String filename) {
+        this.filename = filename;
         return this;
     }
 }

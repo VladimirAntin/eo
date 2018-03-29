@@ -35,9 +35,11 @@ public class UserDtoToUser implements Converter<UserDto,User> {
                 .setPrezime(dto.getPrezime().substring(0, 1).toUpperCase() + dto.getPrezime().substring(1))
                 .setUsername(dto.getUsername())
                 .setEmail(dto.getEmail())
-                .setOnline(backUser!=null? backUser.isOnline() : false)
+                .setOnline(backUser != null && backUser.isOnline())
                 .setLastOnline(backUser!=null? backUser.getLastOnline() : new Date())
-                .setPassword(dto.getPassword()==null? backUser.getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()));
+                .setPicture(dto.getPicture())
+                .setPassword(dto.getPassword()==null?
+                        backUser.getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()));
     }
 
 

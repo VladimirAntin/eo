@@ -26,6 +26,8 @@ public class Dokument {
     @JoinColumn(name = "tip_id", referencedColumnName = "id")
     private TipDokumenta tipDokumenta;
 
+    private String filename;
+
     public Dokument() { }
 
     public long getId() {
@@ -52,6 +54,15 @@ public class Dokument {
 
     public Dokument setTipDokumenta(TipDokumenta tipDokumenta) {
         this.tipDokumenta = tipDokumenta;
+        return this;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public Dokument setFilename(String filename) {
+        this.filename = filename;
         return this;
     }
 }

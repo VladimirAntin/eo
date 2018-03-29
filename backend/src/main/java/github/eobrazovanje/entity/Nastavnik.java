@@ -25,14 +25,6 @@ public class Nastavnik extends User {
 
     public Nastavnik() { }
 
-    public Nastavnik(long id, String ime, String prezime, String username, String email, String password) {
-        super(id, ime, prezime, username, email, password);
-    }
-
-    public Nastavnik(long id, String ime, String prezime, String username, String email, String password, boolean online, Date lastOnline) {
-        super(id, ime, prezime, username, email, password, online, lastOnline);
-    }
-
     public Zvanje getZvanje() {
         return zvanje;
     }
@@ -51,5 +43,53 @@ public class Nastavnik extends User {
         return this;
     }
 
+    public Nastavnik setId(long id) {
+        super.setId(id);
+        return this;
+    }
 
+    public Nastavnik setIme(String ime) {
+        super.setIme(ime);
+        return this;
+    }
+
+    public Nastavnik setPrezime(String prezime) {
+        super.setPrezime(prezime);
+        return this;
+    }
+
+    public Nastavnik setUsername(String username) {
+        super.setUsername(username);
+        return this;
+    }
+
+    public Nastavnik setEmail(String email) {
+        super.setEmail(email);
+        return this;
+    }
+
+    public Nastavnik setPassword(String password) {
+        super.setPassword(password);
+        return this;
+    }
+
+    public Nastavnik setAuthorities(Set<Authority> authorities) {
+        super.setAuthorities(authorities);
+        return this;
+    }
+
+    public Nastavnik setOnline(boolean online) {
+        super.setOnline(online);
+        return this;
+    }
+
+    public Nastavnik setLastOnline(Date lastOnline) {
+        super.setLastOnline(lastOnline);
+        return this;
+    }
+
+    public Nastavnik setPicture(String picture) {
+        super.setPicture(picture);
+        return this;
+    }
 }

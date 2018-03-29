@@ -31,14 +31,28 @@ public class UserToUserDto implements Converter<User,UserDto> {
     public UserDto convert(User user) {
 
         if(user instanceof Nastavnik){
-            return new NastavnikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername(),user.getEmail(),
-                    user.isOnline(), user.getLastOnline(),
-                    (Set<Authority>) user.getAuthorities())
+            return new NastavnikDto()
+                    .setId(user.getId())
+                    .setIme(user.getIme())
+                    .setPrezime(user.getPrezime())
+                    .setUsername(user.getUsername())
+                    .setEmail(user.getEmail())
+                    .setOnline(user.isOnline())
+                    .setLastOnline(user.getLastOnline())
+                    .setPicture(user.getPicture())
+                    .setAuthorities((Set<Authority>) user.getAuthorities())
                     .setZvanje(toZvanjeDto.convert(((Nastavnik) user).getZvanje()));
         }else if(user instanceof Ucenik){
-            return new UcenikDto(user.getId(), user.getIme(),user.getPrezime(),user.getUsername(), user.getEmail(),
-                    user.isOnline(), user.getLastOnline(),
-                    (Set<Authority>) user.getAuthorities())
+            return new UcenikDto()
+                    .setId(user.getId())
+                    .setIme(user.getIme())
+                    .setPrezime(user.getPrezime())
+                    .setUsername(user.getUsername())
+                    .setEmail(user.getEmail())
+                    .setOnline(user.isOnline())
+                    .setLastOnline(user.getLastOnline())
+                    .setPicture(user.getPicture())
+                    .setAuthorities((Set<Authority>) user.getAuthorities())
                     .setBrojIndexa(((Ucenik) user).getBrojIndexa());
         }
         return new UserDto()
@@ -49,6 +63,7 @@ public class UserToUserDto implements Converter<User,UserDto> {
                 .setEmail(user.getEmail())
                 .setOnline(user.isOnline())
                 .setLastOnline(user.getLastOnline())
+                .setPicture(user.getPicture())
                 .setAuthorities((Set<Authority>) user.getAuthorities());
     }
 

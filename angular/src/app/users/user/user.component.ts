@@ -10,6 +10,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {AddDocComponent} from './add-doc/add-doc.component';
 import {DokumentService} from '../../service/dokument.service';
 import {Ucenik} from '../../model/ucenik';
+import {FileService} from '../../service/file.service';
 
 @Component({
   selector: 'app-user',
@@ -23,7 +24,7 @@ export class UserComponent implements OnInit {
   isAdmin = false;
   constructor(private route: ActivatedRoute, private userService: UserService, public snackBar: MatSnackBar,
               private documentService: DokumentService, private authService: AuthService,
-              public _router: Router, public dialog: MatDialog) {}
+              public _router: Router, public dialog: MatDialog, private fileService: FileService) {}
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.get(0);
@@ -43,6 +44,7 @@ export class UserComponent implements OnInit {
   private get(num: number) {
     this.userService.get(this.id).subscribe(data => {
       this.user = Object.assign(new UserApi(), data);
+      this.fileService.getBlobUser(this.user);
       if(this.user.isNastavnik()){
         this.userService.getPredmeti(this.user.id).subscribe(data => this.predmeti=data);
       }else if(this.user.isUcenik()){

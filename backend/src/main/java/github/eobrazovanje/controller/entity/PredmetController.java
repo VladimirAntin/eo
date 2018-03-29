@@ -5,10 +5,12 @@ import github.eobrazovanje.dto.PredmetDto;
 import github.eobrazovanje.entity.Nastavnik;
 import github.eobrazovanje.entity.Predmet;
 import github.eobrazovanje.entity.Ucenik;
+import github.eobrazovanje.entity.User;
 import github.eobrazovanje.helpers.HelperDto;
 import github.eobrazovanje.service.NastavnikService;
 import github.eobrazovanje.service.PredmetService;
 import github.eobrazovanje.service.UcenikService;
+import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +43,9 @@ public class PredmetController {
     private UcenikService ucenikService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private PredmetToPredmetDto toPredmetDto;
 
     @Autowired
@@ -62,9 +67,10 @@ public class PredmetController {
 
     @GetMapping("/{id}")
     public ResponseEntity one(@PathVariable long id, Principal principal) {
+        User loginUser = userService.findByUsername(principal.getName());
         Predmet predmet = predmetService.findOne(id);
         if(predmet.isUcenikNaPredmetu(principal.getName()) ||
-                predmet.isNastavnikNaPredmetu(principal.getName())){
+                predmet.isNastavnikNaPredmetu(principal.getName() ) || loginUser.isAdmin()){
             return Optional.ofNullable(predmet).isPresent() ?
                     ResponseEntity.ok(toPredmetDto.convert(predmet)) : ResponseEntity.notFound().build();
         }
@@ -73,9 +79,10 @@ public class PredmetController {
 
     @GetMapping("/{id}/nastavnici")
     public ResponseEntity nastavnici(@PathVariable long id, Principal principal) {
+        User loginUser = userService.findByUsername(principal.getName());
         Predmet predmet = predmetService.findOne(id);
         if(predmet.isUcenikNaPredmetu(principal.getName()) ||
-                predmet.isNastavnikNaPredmetu(principal.getName())){
+                predmet.isNastavnikNaPredmetu(principal.getName()) || loginUser.isAdmin()){
             return Optional.ofNullable(predmet).isPresent() ?
                     ResponseEntity.ok(toNastavnikDto.convert(predmet.getNastavnici())) : ResponseEntity.notFound().build();
         }
@@ -84,9 +91,10 @@ public class PredmetController {
 
     @GetMapping("/{id}/ucenici")
     public ResponseEntity ucenici(@PathVariable long id, Principal principal) {
+        User loginUser = userService.findByUsername(principal.getName());
         Predmet predmet = predmetService.findOne(id);
         if(predmet.isUcenikNaPredmetu(principal.getName()) ||
-                predmet.isNastavnikNaPredmetu(principal.getName())){
+                predmet.isNastavnikNaPredmetu(principal.getName()) || loginUser.isAdmin()){
             return Optional.ofNullable(predmet).isPresent() ?
                     ResponseEntity.ok(toUcenikDto.convert(predmet.getUcenici())) : ResponseEntity.notFound().build();
         }
@@ -95,9 +103,10 @@ public class PredmetController {
 
     @GetMapping("/{id}/uplate")
     public ResponseEntity uplate(@PathVariable long id, Principal principal) {
+        User loginUser = userService.findByUsername(principal.getName());
         Predmet predmet = predmetService.findOne(id);
         if(predmet.isUcenikNaPredmetu(principal.getName()) ||
-                predmet.isNastavnikNaPredmetu(principal.getName())){
+                predmet.isNastavnikNaPredmetu(principal.getName()) || loginUser.isAdmin()){
             return Optional.ofNullable(predmet).isPresent() ?
                     ResponseEntity.ok(toUplataDto.convert(predmet.getUplate())) : ResponseEntity.notFound().build();
         }
@@ -128,8 +137,9 @@ public class PredmetController {
         if(dto.getId()!=id){
             return new ResponseEntity(HttpStatus.BAD_REQUEST); //not send id
         }
+        User loginUser = userService.findByUsername(principal.getName());
         Predmet predmetBack = predmetService.findOne(dto.getId());
-        if(!predmetBack.isNastavnikNaPredmetu(principal.getName())){
+        if(!predmetBack.isNastavnikNaPredmetu(principal.getName()) || !loginUser.isAdmin()){
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         Predmet predmet = predmetService.save(toPredmet.convert(dto, true));
@@ -181,8 +191,9 @@ public class PredmetController {
     @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
     public ResponseEntity postUcenici(@PathVariable long id, @RequestBody ArrayList<HelperDto> dtos,
                                       Principal principal){
+        User loginUser = userService.findByUsername(principal.getName());
         Predmet predmet = predmetService.findOne(id);
-        if(!predmet.isNastavnikNaPredmetu(principal.getName())){
+        if(!predmet.isNastavnikNaPredmetu(principal.getName()) || !loginUser.isAdmin()){
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         for (HelperDto dto:dtos) {

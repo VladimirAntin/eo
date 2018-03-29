@@ -31,7 +31,8 @@ public class DokumentToDokumentDto implements Converter<Dokument,DokumentDto>{
         return new DokumentDto()
                 .setId(dokument.getId())
                 .setUcenik(toUcenikDto.convert(dokument.getUcenik()))
-                .setTipDokumenta(toTipDokumentaDto.convert(dokument.getTipDokumenta()));
+                .setTipDokumenta(toTipDokumentaDto.convert(dokument.getTipDokumenta()))
+                .setFilename(dokument.getFilename());
     }
 
     public List<DokumentDto> convert(Collection<Dokument> dokuments){

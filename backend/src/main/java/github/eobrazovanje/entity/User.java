@@ -48,7 +48,10 @@ public class User implements UserDetails {
 
     @NotNull
     private boolean online;
+
     private Date lastOnline;
+
+    private String picture;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
@@ -66,7 +69,8 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User(long id, String ime, String prezime, String username, String email, String password, boolean online, Date lastOnline) {
+    public User(long id, String ime, String prezime, String username, String email, String password,
+                boolean online, Date lastOnline) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
@@ -143,6 +147,15 @@ public class User implements UserDetails {
 
     public User setLastOnline(Date lastOnline) {
         this.lastOnline = lastOnline;
+        return this;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public User setPicture(String picture) {
+        this.picture = picture;
         return this;
     }
 
