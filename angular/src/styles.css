@@ -4,7 +4,7 @@
 @import "~material-design-icons/iconfont/material-icons.css";
 
 body {
-  margin: 2%;
+  margin: 1%;
 }
 img {
   margin: 2%;
@@ -25,14 +25,12 @@ img {
 
 app-home, app-users, app-user, app-not-found, app-predmeti, app-predmet{
   float: right;
-  width: 83%;
-  border-top-style: solid;
-  border-top-color: red;
+  width: 84%;
   border-radius: 0 0 30px 30px;
   padding: 1em;
   background-color: white;
-  /*opacity: 0.9;*/
-  height: 74vh;
+  opacity: 0.94;
+  height: 86vh;
 }
 
 .not-found {
@@ -41,11 +39,11 @@ app-home, app-users, app-user, app-not-found, app-predmeti, app-predmet{
 
 app-users .mat-table{
   overflow-y: auto;
-  height: 45vh;
+  height: 55vh;
 }
 app-predmeti mat-list, app-predmet mat-list{
   overflow-y: auto;
-  height: 50vh;
+  height: 70vh;
 }
 
 ::-webkit-scrollbar-track {
@@ -85,14 +83,39 @@ app-predmeti mat-list, app-predmet mat-list{
 }
 
 @media screen and (max-width: 60em){
+  body{
+    width: 100%;
+    height: 100%;
+  }
   app-home, app-users, app-user, app-not-found, app-predmeti, app-predmet{
     width: 100%;
-    height: 90vh;
+    height: 100%;
+  }
+  app-users .mat-table, app-predmeti mat-list, app-predmet mat-list{
+    height: 60vh;
   }
   .mobile-false {
     display: none;
   }
   .mobile{
     display: unset;
+  }
+
+  #ispiti{
+    width: 120%;
+  }
+
+  .mat-row, .mat-header-row {
+    width: 450vw;
+  }
+  .mat-header-row {
+  position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1;
+    background-color: inherit;
+  }
+  .mat-table {
+  overflow: scroll;
   }
 }

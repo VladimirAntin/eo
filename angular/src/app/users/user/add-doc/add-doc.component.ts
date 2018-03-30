@@ -21,4 +21,11 @@ export class AddDocComponent {
     }));
   }
 
+  fileChange(event) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length === 1) {
+      this.data.file = fileList[0];
+    }
+  }
+
 }

@@ -90,7 +90,7 @@
         <span class="badge badge-pill badge-dark">{{uplate.length}}</span>
       </ng-template>
       <div>
-        <button mat-mini-fab color="primary" (click)="addUplata()" *ngIf="isAdmin">
+        <button mat-mini-fab color="primary" (click)="addUplata()" *ngIf="!isUcenik">
           <mat-icon>add</mat-icon>
         </button>
         <mat-list>
@@ -110,7 +110,7 @@
       <ng-template mat-tab-label>
         <mat-icon>web</mat-icon> Ispit
       </ng-template>
-      <div>
+      <div id="ispiti">
         <button mat-mini-fab color="primary" matTooltip="Add Aktivnost" (click)="addAktivnost()" *ngIf="!isUcenik">
           <mat-icon>add</mat-icon>
         </button>

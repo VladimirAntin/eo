@@ -75,14 +75,14 @@ INSERT INTO predmet_ucenik(predmet_id, ucenik_id) VALUES (5,13);
 INSERT INTO predmet_ucenik(predmet_id, ucenik_id) VALUES (2,14);
 INSERT INTO predmet_ucenik(predmet_id, ucenik_id) VALUES (3,15);
 
-INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,8);
-INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,9);
-INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,10);
-INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,11);
-INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,12);
-INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,13);
-INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,14);
-INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,15);
+-- INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,8);
+-- INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,9);
+-- INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,10);
+-- INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,11);
+-- INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,12);
+-- INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,13);
+-- INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,14);
+-- INSERT INTO dokument(tip_id,ucenik_id) VALUES (1,15);
 
 -- INSERT INTO aktivnost(broj_bodova,naziv) VALUES (5,'nesto');
 -- INSERT INTO aktivnost(broj_bodova,naziv) VALUES (2,'nesto');

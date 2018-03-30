@@ -67,12 +67,12 @@ export class UserComponent implements OnInit {
       panelClass: 'dialog-600x400',
       data: {
         doc: new Dokument().setUcenik(this.user as Ucenik),
-        docs: this.docs
+        docs: this.docs, file: null
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.documentService.add(result.doc).subscribe( data => {
+        this.documentService.add(result.doc, result.file).subscribe( data => {
           this.docs.push(data);
           this.snackBar.open('Successfully added!', 'Ok', {
             duration: 4000, verticalPosition: 'top'
@@ -95,5 +95,9 @@ export class UserComponent implements OnInit {
       this.documentService.delete(doc).subscribe(() => this.docs.splice(index, 1),
         () => {});
     });
+  }
+
+  download(file) {
+    this.fileService.downloadFile(file);
   }
 }

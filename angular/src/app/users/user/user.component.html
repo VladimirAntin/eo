@@ -106,6 +106,9 @@
           <mat-list-item *ngFor="let d of docs">
             <mat-icon mat-list-icon>note</mat-icon>
             <h4 mat-line><i>{{d.tipDokumenta.naziv}}</i></h4>
+            <button mat-button color="primary" (click)="download(d.filename)" matTooltip="Download file" *ngIf="d.filename">
+              <mat-icon>file_download</mat-icon>
+            </button>
             <button mat-button color="warn" matTooltip="Delete" (click)="deleteDoc(d)"
                     *ngIf="me && user && (me.username===user.username || isAdmin)">
               <mat-icon>delete</mat-icon>

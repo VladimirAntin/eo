@@ -9,12 +9,16 @@ export class DokumentService {
   private docs = '/api/dokumenti/';
   constructor(private http: HttpClient) { }
 
-  add(doc: Dokument): Observable<Dokument> {
+  add(doc: Dokument, file: File): Observable<Dokument> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('ucenik', String(doc.ucenik.username));
+    formData.append('tipDokumenta', String(doc.tipDokumenta.id));
     const httpOptions = {
       headers: new HttpHeaders(
         { 'Authorization': `jwt ${localStorage.getItem('token')}` })
     };
-    return this.http.post<Dokument>(`${this.docs}`, doc, httpOptions);
+    return this.http.post<Dokument>(`${this.docs}`, formData, httpOptions);
   }
 
   delete(doc: Dokument | number): Observable<Dokument> {

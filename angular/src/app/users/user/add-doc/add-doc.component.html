@@ -12,10 +12,15 @@
   <mat-form-field class="full-width">
     <input matInput placeholder="Ucenik" [(ngModel)]="data.doc.ucenik.username" disabled>
   </mat-form-field>
+  <button mat-raised-button (click)="upload_file.click()" color="primary">
+    <mat-icon>file_upload</mat-icon>
+    Upload document
+  </button>
+  <input hidden type="file" placeholder="Upload" required #upload_file (change)="fileChange($event)">
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-icon-button [mat-dialog-close]="{result:true, doc:data.doc}"
-          color="primary" matTooltip="Add" [disabled]="data.doc.tipDokumenta.id===0">
+  <button mat-icon-button [mat-dialog-close]="{result:true, doc:data.doc, file: data.file}"
+          color="primary" matTooltip="Add" [disabled]="data.doc.tipDokumenta.id===0 || data.file ==null">
     <mat-icon>add</mat-icon>
   </button>
   <span class="spacer"></span>

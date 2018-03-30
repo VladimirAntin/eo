@@ -9,6 +9,7 @@ import github.eobrazovanje.entity.Nastavnik;
 import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
 import github.eobrazovanje.service.UserService;
+import github.eobrazovanje.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -60,6 +63,13 @@ public class UserController {
 
     @Autowired
     private DokumentToDokumentDto toDokumentDto;
+
+    private final StorageService storageService;
+
+    @Autowired
+    public UserController(StorageService storageService) {
+        this.storageService = storageService;
+    }
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
@@ -169,7 +179,7 @@ public class UserController {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         User loginUser = userService.findByUsername(principal.getName());
-        if(!loginUser.isAdmin() && loginUser.getId()!=id){
+        if(!loginUser.isAdmin() && loginUser.getId()!=dto.getId()){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
         User userb = userService.findOne(dto.getId());
@@ -232,6 +242,28 @@ public class UserController {
         Optional.ofNullable(user).ifPresent(u->userService.delete(u.getId()));
         return Optional.ofNullable(user).isPresent()?
                 ResponseEntity.noContent().build() :ResponseEntity.notFound().build();
+    }
+    @SuppressWarnings("unchecked")
+    @PutMapping("{id}/picture")
+    public ResponseEntity uploadFile(@PathVariable long id, @RequestParam("file") MultipartFile file,
+                                     Principal principal) {
+        User loginUser = userService.findByUsername(principal.getName());
+        if(!loginUser.isAdmin() && loginUser.getId()!=id){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
+        String filename = file.getOriginalFilename();
+        if(filename.toLowerCase().endsWith(".png") || filename.toLowerCase().endsWith(".jpg")
+                || filename.toLowerCase().endsWith(".jpeg") || filename.toLowerCase().endsWith(".gif")){
+            String urlPhoto="profiles/"+ String.valueOf(id)+".png";
 
+            User user = userService.findOne(id);
+            user.setPicture("api/files/"+urlPhoto);
+            user = userService.save(user);
+            if(user!=null){
+                storageService.store(file,urlPhoto);
+                return new ResponseEntity(HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity(HttpStatus.CONFLICT);
+    }
 }

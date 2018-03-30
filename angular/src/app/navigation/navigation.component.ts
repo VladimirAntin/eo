@@ -28,10 +28,9 @@ export class NavigationComponent {
       });
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  beforeUnloadHander(event) {
+  @HostListener('window:unload', ['$event'])
+  unloadHander(event) {
     this.authService.offline().subscribe();
-    return true;
   }
 
   init() {
@@ -121,4 +120,17 @@ export class NavigationComponent {
     });
   }
 
+  fileChange(event) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length === 1) {
+      const file = fileList[0];
+      this.userService.changePicture(this.me.id, file).subscribe(() => {
+          window.location.reload();
+      });
+    } else {
+      this.snackBar.open('Only one file can be uploaded', 'Ok', {
+        duration: 4000, verticalPosition: 'top'
+      });
+    }
+  }
 }

@@ -5,6 +5,8 @@ export class Dokument {
   id: number;
   ucenik: Ucenik;
   tipDokumenta: TipDokumenta;
+  filename: string;
+  href;
 
   constructor(){
     this.id = 0;

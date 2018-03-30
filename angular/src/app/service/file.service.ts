@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserApi} from '../model/user-api';
 import {DomSanitizer} from '@angular/platform-browser';
-
+import { saveAs } from 'file-saver';
 @Injectable()
 export class FileService {
 
@@ -20,4 +20,14 @@ export class FileService {
       }, () => {});
   }
 
+  downloadFile(filename: string) {
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}`})
+    };
+    this.http.get(filename, {headers: httpOptions.headers, responseType: 'blob'})
+      .subscribe(data => {
+        saveAs(data, filename.substr(6));
+      }, () => {});
+  }
 }

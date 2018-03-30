@@ -86,4 +86,15 @@ export class UserService {
     return this.http.patch(`${this.users}${id}/password`, user, httpOptions);
   }
 
+  changePicture(id: number, file: File) {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
+    };
+    return this.http.put(`${this.users}${id}/picture`, formData, httpOptions);
+  }
+
+
 }

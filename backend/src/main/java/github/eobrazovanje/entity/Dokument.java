@@ -26,6 +26,7 @@ public class Dokument {
     @JoinColumn(name = "tip_id", referencedColumnName = "id")
     private TipDokumenta tipDokumenta;
 
+    @NotNull
     private String filename;
 
     public Dokument() { }

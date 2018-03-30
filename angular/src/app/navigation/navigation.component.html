@@ -1,5 +1,5 @@
 <div *ngIf="_router.url!=='/login'">
-  <mat-nav-list class="mat-elevation-z20">
+  <mat-nav-list class="mat-elevation-z24">
     <a matSubheader routerLink="/">
       <img width="25" alt="E-learn" src="../../assets/student.png">
       E-learn
@@ -23,6 +23,12 @@
       </div>
       <span class="spacer"></span>
       <div class="mobile-false">
+        <button mat-raised-button *ngIf="_router.url.split('/').pop()===(me.username)"
+                (click)="upload_file.click()" color="primary">
+          <mat-icon>file_upload</mat-icon>
+          Change profile picture
+        </button>
+        <input hidden type="file" placeholder="Upload" accept="image/*" required #upload_file (change)="fileChange($event)">
         <button mat-raised-button color="primary" (click)="changePassword()">
           <mat-icon>edit</mat-icon>
           Change password
@@ -42,6 +48,12 @@
           {{nav.name}}
         </button>
         <mat-divider></mat-divider>
+        <button mat-menu-item class="text-primary" *ngIf="_router.url.split('/').pop()===(me.username)"
+                (click)="upload_file.click()">
+          <mat-icon>file_upload</mat-icon>
+          Change profile picture
+        </button>
+
         <button mat-menu-item class="text-primary">
           <mat-icon>edit</mat-icon>
           Change password

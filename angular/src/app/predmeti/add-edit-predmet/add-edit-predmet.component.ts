@@ -20,13 +20,16 @@ export class AddEditPredmetComponent {
   addKey(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-    if ((value || '').trim()) {
+    if ((value || '').trim() && this.aktivnosti.indexOf(value.trim())===-1) {
       this.aktivnosti.push(value.trim());
+    }else {
+      return;
     }
     if (input) {
       input.value = '';
     }
     this.data.predmet.aktivnosti= this.aktivnosti.join(';');
+
   }
   removeKey(key: string): void {
     const index = this.aktivnosti.indexOf(key);
