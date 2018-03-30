@@ -99,13 +99,18 @@
         Dokumenti <span class="badge badge-pill badge-dark">{{docs.length}}</span>
       </ng-template>
       <div>
-        <button mat-mini-fab matTooltip="Add document" color="primary" (click)="addDoc()" *ngIf="isAdmin || me.username===user.username">
+        <button mat-mini-fab matTooltip="Add document" color="primary" (click)="addDoc()"
+                *ngIf="me!=null && user!=null && (isAdmin || me.username===user.username)">
           <mat-icon>add</mat-icon>
         </button>
         <mat-list>
           <mat-list-item *ngFor="let d of docs">
             <mat-icon mat-list-icon>note</mat-icon>
             <h4 mat-line><i>{{d.tipDokumenta.naziv}}</i></h4>
+            <button mat-button color="primary" (click)="openDoc(d)"
+                    matTooltip="open" *ngIf="supportedType(d.filename)">
+              <mat-icon>link</mat-icon>
+            </button>
             <button mat-button color="primary" (click)="download(d.filename)" matTooltip="Download file" *ngIf="d.filename">
               <mat-icon>file_download</mat-icon>
             </button>

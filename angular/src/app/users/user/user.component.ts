@@ -11,6 +11,8 @@ import {AddDocComponent} from './add-doc/add-doc.component';
 import {DokumentService} from '../../service/dokument.service';
 import {Ucenik} from '../../model/ucenik';
 import {FileService} from '../../service/file.service';
+import {DialogDocumentComponent} from '../../dialog-document/dialog-document.component';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user',
@@ -24,7 +26,8 @@ export class UserComponent implements OnInit {
   isAdmin = false;
   constructor(private route: ActivatedRoute, private userService: UserService, public snackBar: MatSnackBar,
               private documentService: DokumentService, private authService: AuthService,
-              public _router: Router, public dialog: MatDialog, private fileService: FileService) {}
+              public _router: Router, public dialog: MatDialog, private fileService: FileService,
+              private domSanitizer: DomSanitizer) {}
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.get(0);
@@ -99,5 +102,25 @@ export class UserComponent implements OnInit {
 
   download(file) {
     this.fileService.downloadFile(file);
+  }
+
+  openDoc(doc) {
+    this.fileService.getBlobDoc(doc).subscribe(data => {
+      doc.href = this.domSanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(data));
+      const dialogRef = this.dialog.open(DialogDocumentComponent, {
+        panelClass: 'fullscreen-dialog',
+        data: {
+          href: doc.href
+        }
+      });
+
+    }, () => {});
+  }
+
+
+  supportedType(filename): boolean {
+    const name = filename.toLowerCase();
+    return name.endsWith('.png') || name.endsWith('.jpg')
+      || name.endsWith('.pdf') || name.endsWith('.jpeg') || name.endsWith('.gif');
   }
 }

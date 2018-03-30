@@ -6,7 +6,7 @@
     </a>
     <mat-divider></mat-divider>
     <br>
-    <mat-spinner *ngIf="!nav_items || nav_items.length==0"></mat-spinner>
+    <mat-spinner *ngIf="me!=null && (!nav_items || nav_items.length==0)"></mat-spinner>
     <button *ngFor="let nav of nav_items" [routerLink]="[nav.route]" class="btn btn-block"
             [ngClass]="{'btn-dark':_router.url===nav.route,
                  'btn-outline-dark':_router.url!==nav.route}">
@@ -23,7 +23,7 @@
       </div>
       <span class="spacer"></span>
       <div class="mobile-false">
-        <button mat-raised-button *ngIf="_router.url.split('/').pop()===(me.username)"
+        <button mat-raised-button *ngIf="me!=null && _router.url.split('/').pop()===(me.username)"
                 (click)="upload_file.click()" color="primary">
           <mat-icon>file_upload</mat-icon>
           Change profile picture
@@ -48,7 +48,7 @@
           {{nav.name}}
         </button>
         <mat-divider></mat-divider>
-        <button mat-menu-item class="text-primary" *ngIf="_router.url.split('/').pop()===(me.username)"
+        <button mat-menu-item class="text-primary" *ngIf="me!=null && _router.url.split('/').pop()===(me.username)"
                 (click)="upload_file.click()">
           <mat-icon>file_upload</mat-icon>
           Change profile picture

@@ -40,6 +40,7 @@ import { AddUcenikNastavnikComponent } from './predmeti/add-ucenik-nastavnik/add
 import {UplataService} from './service/uplata.service';
 import { AddUplataComponent } from './predmeti/add-uplata/add-uplata.component';
 import {FileService} from './service/file.service';
+import { DialogDocumentComponent } from './dialog-document/dialog-document.component';
 
 enableProdMode();
 @NgModule({
@@ -48,7 +49,8 @@ enableProdMode();
     NotFoundComponent, UsersComponent, UserComponent, SearchPipe,
     AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent, PredmetiComponent,
     AddEditPredmetComponent, PredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent,
-    AddUplataComponent
+    AddUplataComponent,
+    DialogDocumentComponent
   ],
   imports: [
     AppRoutingModule, BrowserModule, HttpClientModule,
@@ -64,7 +66,9 @@ enableProdMode();
     MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule, MatSelectModule
   ],
   entryComponents: [AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent,
-    AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent, AddUplataComponent],
+    AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent, AddUplataComponent,
+    DialogDocumentComponent],
+
   providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService,
     AktivnostService, NastavnikService, UcenikService, UplataService, FileService],
   bootstrap: [AppComponent]
