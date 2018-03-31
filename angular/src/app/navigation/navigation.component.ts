@@ -9,6 +9,7 @@ import { EditUserComponent } from '../users/edit-user/edit-user.component';
 import { UserPassword } from '../model/user-password';
 import { UserService } from '../service/user.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
+import {MessageService} from '../service/message.service';
 
 @Component({
   selector: 'app-navigation',
@@ -17,9 +18,9 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 })
 export class NavigationComponent {
 
-  me: UserApi; nav_items: NavItem[] = [];
+  me: UserApi; nav_items: NavItem[] = []; messages = 0;
   constructor(private authService: AuthService, private _router: Router, private userService: UserService,
-    private snackBar: MatSnackBar, private dialog: MatDialog) {
+    private snackBar: MatSnackBar, private dialog: MatDialog, private messageService: MessageService) {
     this._router.events.filter((e) => e instanceof NavigationEnd)
       .subscribe((event: NavigationEnd) => {
         if (event.url !== '/login') {
@@ -35,12 +36,18 @@ export class NavigationComponent {
 
   init() {
     if (this._router.url !== '/login') {
-      this.nav_items = [];
       if (this.nav_items.length === 0) {
         this.navItems();
         this.getMe();
+        this.countNewMessage()
+      }else{
+        this.countNewMessage();
       }
     }
+  }
+
+  private countNewMessage() {
+    this.messageService.countUnread().subscribe(data => this.messages=data);
   }
 
   private navItems() {
@@ -118,19 +125,5 @@ export class NavigationComponent {
         });
       }
     });
-  }
-
-  fileChange(event) {
-    const fileList: FileList = event.target.files;
-    if (fileList.length === 1) {
-      const file = fileList[0];
-      this.userService.changePicture(this.me.id, file).subscribe(() => {
-          window.location.reload();
-      });
-    } else {
-      this.snackBar.open('Only one file can be uploaded', 'Ok', {
-        duration: 4000, verticalPosition: 'top'
-      });
-    }
   }
 }

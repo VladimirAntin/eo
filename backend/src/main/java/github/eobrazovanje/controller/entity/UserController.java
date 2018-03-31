@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<java.util.List<UserDto>> getAll(){
         return ResponseEntity.ok(toUserDto.convert(userService.findAll()));
     }

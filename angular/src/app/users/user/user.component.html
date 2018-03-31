@@ -7,6 +7,17 @@
       <div class="m-5 row">
         <div class="col-md-3">
           <img [src]="user.href" class="rounded border border-dark" *ngIf="user.href" height="150">
+          <button mat-raised-button *ngIf="me!=null && user!=null && user.username===me.username"
+                  (click)="upload_file.click()" color="primary">
+            <mat-icon>file_upload</mat-icon>
+            Change profile picture
+          </button>
+          <input hidden type="file" placeholder="Upload" accept="image/*" required #upload_file (change)="fileChange($event)">
+          <button mat-raised-button [routerLink]="['/inbox',user.id]"
+                  *ngIf="me!=null && user!=null && user.username!==me.username">
+            <mat-icon>message</mat-icon>
+            Send Message
+          </button>
         </div>
         <div class="col-md-9 row">
           <mat-form-field class="col-md-12">

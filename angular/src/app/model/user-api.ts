@@ -13,6 +13,7 @@ export class UserApi {
     authorities: Authority[];
     picture: string;
     href;
+    unread: number;
 
     constructor() {
       this.id = 0;

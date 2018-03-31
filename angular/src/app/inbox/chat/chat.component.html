@@ -1,0 +1,29 @@
+<div *ngIf="user!==null" class="container-fluid">
+  <a mat-button color="primary" [routerLink]="['/users',user.username]">
+    <img [src]="user.href" width="24">
+    <span>{{user.ime + ' '+ user.prezime}}</span>
+  </a>
+  <span *ngIf="user.online"> <mat-icon class="text-success text-sm-center">lens</mat-icon> <i>Online</i></span>
+  <span *ngIf="!user.online"> <mat-icon class="text-danger text-sm-center">lens</mat-icon> <i>{{user.lastOnline | date: 'dd.MM.yyyy. HH:mm'}}</i></span>
+  <div id="messages" class="container" #messages [scrollTop]="messages.scrollHeight">
+    <div *ngFor="let c of chat; let i = index" class="row">
+      <img [src]="user.href" height="16"  *ngIf="c.sender===user.id">
+      <h4 class="rounded font-16 col-8" matTooltip="{{c.date | date: 'dd.MM.yyyy. HH:mm'}}"
+          [ngClass]="{'badge-primary':c.recipient===me.id,
+                'badge-dark offset-2':c.recipient!==me.id}">
+        {{c.text}}
+      </h4>
+      <img [src]="me.href" height="16" *ngIf="c.sender===me.id">
+    </div>
+  </div>
+  <div class="row"  (keypress)="clickEnter($event,newMessage)">
+    <mat-form-field class="col-10">
+      <textarea matInput placeholder="Message" [(ngModel)]="newMessage.text" style="resize: none"></textarea>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" class="align-text-bottom" (click)="send(newMessage)"
+            [disabled]="newMessage.text.trim()===''">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>
+<app-not-found *ngIf="user===null" class="not-found"></app-not-found>

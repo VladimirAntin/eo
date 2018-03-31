@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { UserPassword } from '../model/user-password';
+import {AuthService} from '../service/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -17,7 +18,7 @@ export class UsersComponent implements OnInit {
 
   displayedColumns = ['name', 'surname', 'username', 'email', 'type', 'online', 'options'];
   users = new MatTableDataSource();
-  loading: boolean;
+  loading: boolean; isAdmin = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   applyFilter(filterValue: string) {
@@ -25,8 +26,13 @@ export class UsersComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.users.filter = filterValue;
   }
-  constructor(public dialog: MatDialog, private userService: UserService,
-    public snackBar: MatSnackBar, private _router: Router) { }
+  constructor(public dialog: MatDialog, private userService: UserService, private authService: AuthService,
+    public snackBar: MatSnackBar, private _router: Router) {
+    this.authService.me().subscribe(data => {
+      this.isAdmin = data.authorities
+        .filter(a => a.name.substring(5).toLowerCase()==='admin').length===1;
+    });
+  }
 
   ngOnInit() {
     this.users.paginator = this.paginator;

@@ -75,7 +75,7 @@ public class ApiController {
         }else {
             // bla bla za ucenika
         }
-        navItems.add(new NavItem("Inbox","/inbox/", "inbox"));
+        navItems.add(new NavItem("Inbox","/inbox", "message"));
         navItems.add(new NavItem("Profile","/users/"+principal.getName(), "person"));
         return ResponseEntity.ok(navItems);
     }

@@ -123,4 +123,19 @@ export class UserComponent implements OnInit {
     return name.endsWith('.png') || name.endsWith('.jpg')
       || name.endsWith('.pdf') || name.endsWith('.jpeg') || name.endsWith('.gif');
   }
+
+
+  fileChange(event) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length === 1) {
+      const file = fileList[0];
+      this.userService.changePicture(this.me.id, file).subscribe(() => {
+        window.location.reload();
+      });
+    } else {
+      this.snackBar.open('Only one file can be uploaded', 'Ok', {
+        duration: 4000, verticalPosition: 'top'
+      });
+    }
+  }
 }

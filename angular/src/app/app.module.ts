@@ -7,7 +7,7 @@ import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import {
-  MatButtonModule, MatChipsModule, MatDialogModule,
+  MatButtonModule, MatChipsModule, MatDialogModule, MatExpansionModule,
   MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatSelectModule,
   MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
@@ -41,6 +41,9 @@ import {UplataService} from './service/uplata.service';
 import { AddUplataComponent } from './predmeti/add-uplata/add-uplata.component';
 import {FileService} from './service/file.service';
 import { DialogDocumentComponent } from './dialog-document/dialog-document.component';
+import {MessageService} from './service/message.service';
+import { InboxComponent } from './inbox/inbox.component';
+import { ChatComponent } from './inbox/chat/chat.component';
 
 enableProdMode();
 @NgModule({
@@ -50,27 +53,30 @@ enableProdMode();
     AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent, PredmetiComponent,
     AddEditPredmetComponent, PredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent,
     AddUplataComponent,
-    DialogDocumentComponent
+    DialogDocumentComponent,
+    InboxComponent,
+    ChatComponent
   ],
   imports: [
     AppRoutingModule, BrowserModule, HttpClientModule,
     FormsModule, BrowserAnimationsModule, MatFormFieldModule, MatChipsModule, MatInputModule,
     MatListModule, MatIconModule, MatProgressSpinnerModule, MatSnackBarModule, MatToolbarModule,
     MatButtonModule, MatPaginatorModule, MatTableModule, MatDialogModule, MatTooltipModule,
-    MatTabsModule, MatMenuModule, MatSelectModule, MatSortModule
+    MatTabsModule, MatMenuModule, MatSelectModule, MatSortModule, MatExpansionModule
   ],
   exports: [
     FormsModule,
     MatFormFieldModule, MatInputModule, MatListModule, MatIconModule, MatProgressSpinnerModule,
     MatSnackBarModule, MatToolbarModule, MatButtonModule, MatPaginatorModule, MatTableModule,
-    MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule, MatSelectModule
+    MatDialogModule, MatTooltipModule, MatTabsModule, MatChipsModule, MatMenuModule, MatSelectModule,
+    MatExpansionModule
   ],
   entryComponents: [AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent,
     AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent, AddUplataComponent,
     DialogDocumentComponent],
 
   providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService,
-    AktivnostService, NastavnikService, UcenikService, UplataService, FileService],
+    AktivnostService, NastavnikService, UcenikService, UplataService, FileService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-<div *ngIf="users.data!==null">
+<div *ngIf="isAdmin">
   <div style="padding: 8px 24px 0">
     <mat-toolbar>
       <button mat-mini-fab color="primary" matTooltip="Add new user" (click)="addUser()">
@@ -70,4 +70,4 @@
                  [pageSizeOptions]="[5, 10, 20, 50, 100]">
   </mat-paginator>
 </div>
-<app-not-found *ngIf="users.data===null" class="not-found"></app-not-found>
+<app-not-found *ngIf="!isAdmin" class="not-found"></app-not-found>
