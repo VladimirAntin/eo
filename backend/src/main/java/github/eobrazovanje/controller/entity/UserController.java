@@ -261,7 +261,7 @@ public class UserController {
             user = userService.save(user);
             if(user!=null){
                 storageService.store(file,urlPhoto);
-                return new ResponseEntity(HttpStatus.OK);
+                return new ResponseEntity(toUserDto.convert(user),HttpStatus.OK);
             }
         }
         return new ResponseEntity(HttpStatus.CONFLICT);
