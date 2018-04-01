@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/public/**",
                         "/favicon.ico"
                 ).permitAll()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/auth/**", "/chatting/**").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, userDetailsService), BasicAuthenticationFilter.class)
                 .formLogin()
@@ -88,7 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         // TokenAuthenticationFilter will ignore the below paths
         web.ignoring();
     }

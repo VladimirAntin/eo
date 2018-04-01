@@ -19,6 +19,10 @@ import {MessageService} from '../service/message.service';
 export class NavigationComponent {
 
   me: UserApi; nav_items: NavItem[] = []; messages = 0;
+  serverUrl = '/chatting/ws';
+  stompClient = null;
+  Stomp;
+  sockjsClient;
   constructor(private authService: AuthService, private _router: Router, private userService: UserService,
     private snackBar: MatSnackBar, private dialog: MatDialog, private messageService: MessageService) {
     this._router.events.filter((e) => e instanceof NavigationEnd)
@@ -39,11 +43,21 @@ export class NavigationComponent {
       if (this.nav_items.length === 0) {
         this.navItems();
         this.getMe();
-        this.countNewMessage()
+        this.countNewMessage();
       }else{
         this.countNewMessage();
       }
     }
+  }
+
+  connect() {
+    const socket = new this.sockjsClient(this.serverUrl);
+    this.stompClient = this.Stomp.over(socket);
+    this.stompClient.debug = null;
+    const that = this;
+    this.stompClient.connect({}, () => {
+      that.stompClient.subscribe(`/chatting/topic/${that.me.id}`, () => that.countNewMessage());
+    });
   }
 
   private countNewMessage() {
@@ -57,9 +71,14 @@ export class NavigationComponent {
   }
 
   private getMe() {
-    this.authService.me().subscribe(data => this.me = data, err => {
-      this._router.navigateByUrl('/login');
-      this.authService.removeToken();
+    this.authService.me().subscribe(data => {
+      this.me = data;
+      this.Stomp = require('stompjs');
+      this.sockjsClient = require('sockjs-client');
+      this.connect();
+    }, err => {
+        this._router.navigateByUrl('/login');
+        this.authService.removeToken();
     });
   }
 

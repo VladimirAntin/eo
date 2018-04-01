@@ -39,7 +39,7 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item *ngFor="let nav of nav_items" [routerLink]="[nav.route]">
           <mat-icon matListIcon>{{nav.icon}}</mat-icon>
-          {{nav.name}} <span class="badge badge-pill badge-light" *ngIf="nav.icon==='inbox'">{{messages}}</span>
+          {{nav.name}} <span class="badge badge-pill badge-light" *ngIf="nav.route==='/inbox'">{{messages}}</span>
         </button>
         <mat-divider></mat-divider>
         <button mat-menu-item class="text-primary">
