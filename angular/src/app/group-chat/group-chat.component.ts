@@ -15,10 +15,8 @@ import {Chat} from '../model/chat';
 export class GroupChatComponent implements OnInit {
 
   chat: Chat[]; me: UserApi; newMessage = new Chat();
-  serverUrl = '/chatting/ws';
-  stompClient = null;
-  Stomp;
-  sockjsClient;
+  serverUrl = '/chatting/ws'; loading = true;
+  stompClient = null; Stomp; sockjsClient;
 
   constructor(private chatService: ChatService,
                 private userService: UserService, private authService: AuthService,
@@ -27,6 +25,7 @@ export class GroupChatComponent implements OnInit {
   ngOnInit() {
     this.chatService.getAll().subscribe(data => {
       this.chat = data;
+      this.loading = false;
       this.authService.me().subscribe(data => {
         this.me = data;
         this.fileService.getBlobUser(this.me);
@@ -56,9 +55,12 @@ export class GroupChatComponent implements OnInit {
   }
 
   send(message: Message) {
-    this.stompClient.send('/chatting/group',
-      {'Authorization': localStorage.getItem('token')}, JSON.stringify(message));
-    this.newMessage.text = '';
+    message.text = message.text.trim();
+    if(message.text!==''){
+      this.stompClient.send('/chatting/group',
+        {'Authorization': localStorage.getItem('token')}, JSON.stringify(message));
+      this.newMessage.text = '';
+    }
   }
 
 }

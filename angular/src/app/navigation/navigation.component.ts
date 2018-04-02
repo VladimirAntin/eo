@@ -40,11 +40,10 @@ export class NavigationComponent {
 
   init() {
     if (this._router.url !== '/login') {
+      this,this.nav_items = [];
       if (this.nav_items.length === 0) {
         this.navItems();
         this.getMe();
-        this.countNewMessage();
-      }else{
         this.countNewMessage();
       }
     }

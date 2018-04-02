@@ -1,7 +1,8 @@
 <div class="container-fluid">
+  <mat-spinner *ngIf="loading"></mat-spinner>
   <div id="messages" class="container" #messages [scrollTop]="messages.scrollHeight">
-    <div *ngFor="let c of chat; let i = index" class="row">
-      <button *ngIf="c!=null && me!=null && c.sender.id!==me.id && chat[i-1>0?i-1:i].sender.id!=c.sender.id"
+    <div *ngFor="let c of chat; let i = index; let first = first" class="row">
+      <button *ngIf="c!=null && me!=null && c.sender.id!==me.id && (chat[i>0?i-1:i].sender.id!=c.sender.id || first)"
               class="btn btn-link btn-sm col-4 offset-2" [routerLink]="['/users',c.sender.username]">
         {{c.sender.ime + ' '+ c.sender.prezime}}
       </button>
@@ -13,7 +14,7 @@
       <img [src]="me.href" height="16" *ngIf="c!=null && me!=null && c.sender.id===me.id">
     </div>
   </div>
-  <div class="row"  (keypress)="clickEnter($event,newMessage)">
+  <div class="row" (keypress)="clickEnter($event,newMessage)">
     <mat-form-field class="col-10">
       <textarea matInput placeholder="Message" [(ngModel)]="newMessage.text" style="resize: none"></textarea>
     </mat-form-field>

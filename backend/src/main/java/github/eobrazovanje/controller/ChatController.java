@@ -64,23 +64,26 @@ public class ChatController {
     public void sendSingle(@DestinationVariable long id, @Payload MessageDto message,
                            SimpMessageHeaderAccessor headerAccessor) {
         try {
-            String loginUsername = tokenHelper.getUsernameFromToken(
-                    headerAccessor.getNativeHeader("Authorization").get(0));
-            User loginUser = userService.findByUsername(loginUsername);
-            if(loginUser!=null){
-                message.setId(0)
-                        .setSender(loginUser.getId())
-                        .setRecipient(id)
-                        .setSeen(false)
-                        .setDate(new Date());
-                Message newMessage = messageService.save(toMessage.convert(message));
-                simpMessagingTemplate.convertAndSend(
-                        "/chatting/topic/"+String.valueOf(id),
-                        toMessageDto.convert(newMessage));
-                simpMessagingTemplate.convertAndSend(
-                        "/chatting/topic/"+String.valueOf(message.getSender()),
-                        toMessageDto.convert(newMessage));
+            message.setText(message.getText().trim());
+            if (!message.getText().equals("")){
+                String loginUsername = tokenHelper.getUsernameFromToken(
+                        headerAccessor.getNativeHeader("Authorization").get(0));
+                User loginUser = userService.findByUsername(loginUsername);
+                if(loginUser!=null){
+                    message.setId(0)
+                            .setSender(loginUser.getId())
+                            .setRecipient(id)
+                            .setSeen(false)
+                            .setDate(new Date());
+                    Message newMessage = messageService.save(toMessage.convert(message));
+                    simpMessagingTemplate.convertAndSend(
+                            "/chatting/topic/"+String.valueOf(id),
+                            toMessageDto.convert(newMessage));
+                    simpMessagingTemplate.convertAndSend(
+                            "/chatting/topic/"+String.valueOf(message.getSender()),
+                            toMessageDto.convert(newMessage));
 
+                }
             }
         }catch (Exception e){ }
     }
@@ -89,18 +92,20 @@ public class ChatController {
     public void sendGroup(@Payload ChatDto dto,
                            SimpMessageHeaderAccessor headerAccessor) {
         try {
-            String loginUsername = tokenHelper.getUsernameFromToken(
-                    headerAccessor.getNativeHeader("Authorization").get(0));
-            User loginUser = userService.findByUsername(loginUsername);
-            if(loginUser!=null){
-                dto.setId(0)
-                    .setDate(new Date());
-                dto.getSender().setId(loginUser.getId());
-                Chat newMessage = chatService.save(toChat.convert(dto));
-                simpMessagingTemplate.convertAndSend(
-                        "/chatting/topic/group",
-                        toChatDto.convert(newMessage));
-
+            dto.setText(dto.getText().trim());
+            if(!dto.getText().equals("")){
+                String loginUsername = tokenHelper.getUsernameFromToken(
+                        headerAccessor.getNativeHeader("Authorization").get(0));
+                User loginUser = userService.findByUsername(loginUsername);
+                if(loginUser!=null){
+                    dto.setId(0)
+                            .setDate(new Date());
+                    dto.getSender().setId(loginUser.getId());
+                    Chat newMessage = chatService.save(toChat.convert(dto));
+                    simpMessagingTemplate.convertAndSend(
+                            "/chatting/topic/group",
+                            toChatDto.convert(newMessage));
+                }
             }
         }catch (Exception e){ }
     }

@@ -142,7 +142,7 @@ public class UserController {
             return new ResponseEntity(HttpStatus.CONFLICT); //username exist
         }
         User user;
-
+        dto.setPicture("/api/files/profiles/default.png");
         if(dto instanceof NastavnikDto){
             if(((NastavnikDto) dto).getZvanje().getId()==0){
                 return new ResponseEntity(HttpStatus.CONFLICT); //zvanje not exist
