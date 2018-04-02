@@ -22,12 +22,12 @@ public class Message {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender", referencedColumnName = "id")
+    @JoinColumn(name = "recipient", referencedColumnName = "id")
     private User recipient;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recipient", referencedColumnName = "id")
+    @JoinColumn(name = "sender", referencedColumnName = "id")
     private User sender;
 
     @NotNull

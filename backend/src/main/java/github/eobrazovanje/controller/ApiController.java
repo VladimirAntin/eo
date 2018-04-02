@@ -76,6 +76,7 @@ public class ApiController {
             // bla bla za ucenika
         }
         navItems.add(new NavItem("Inbox","/inbox", "message"));
+        navItems.add(new NavItem("Group Chat","/group_chat", "chat"));
         navItems.add(new NavItem("Profile","/users/"+principal.getName(), "person"));
         return ResponseEntity.ok(navItems);
     }

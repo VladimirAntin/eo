@@ -44,6 +44,8 @@ import { DialogDocumentComponent } from './dialog-document/dialog-document.compo
 import {MessageService} from './service/message.service';
 import { InboxComponent } from './inbox/inbox.component';
 import { ChatComponent } from './inbox/chat/chat.component';
+import { GroupChatComponent } from './group-chat/group-chat.component';
+import {ChatService} from './service/chat.service';
 
 enableProdMode();
 @NgModule({
@@ -55,7 +57,8 @@ enableProdMode();
     AddUplataComponent,
     DialogDocumentComponent,
     InboxComponent,
-    ChatComponent
+    ChatComponent,
+    GroupChatComponent
   ],
   imports: [
     AppRoutingModule, BrowserModule, HttpClientModule,
@@ -76,7 +79,7 @@ enableProdMode();
     DialogDocumentComponent],
 
   providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService,
-    AktivnostService, NastavnikService, UcenikService, UplataService, FileService, MessageService],
+    AktivnostService, NastavnikService, UcenikService, UplataService, FileService, MessageService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -39,7 +39,6 @@ export class ChatComponent implements OnInit {
         this.sockjsClient = require('sockjs-client');
         this.connect();
       });
-
     });
   }
 
@@ -47,13 +46,6 @@ export class ChatComponent implements OnInit {
     if(event.keyCode == 13) {
       this.send(message);
     }
-  }
-
-  sendNovi(message: Message) {
-    this.messageService.send(this.id, message).subscribe(data => {
-      this.chat.push(data);
-      this.newMessage.text = '';
-    });
   }
 
   connect() {

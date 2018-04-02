@@ -94,26 +94,4 @@ public class MessageController {
                 messageService.findAllByRecipient(principal.getName())));
     }
 
-
-    @PostMapping("/{id}")
-    public ResponseEntity post(@PathVariable long id, @RequestBody @Validated MessageDto dto,
-                               Principal principal, Errors errors){
-        if(errors.hasErrors()){
-            return ResponseEntity.badRequest().build();
-        }
-        if(dto.getId()!=0){
-            return new ResponseEntity(HttpStatus.CONFLICT); //not send id
-        }
-        User loginUser = userService.findByUsername(principal.getName());
-        dto.setSender(loginUser.getId())
-                .setRecipient(id)
-                .setSeen(false)
-                .setDate(new Date());
-        Message message = messageService.save(toMessage.convert(dto));
-        if(message==null){
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(toMessageDto.convert(message));
-    }
-
 }

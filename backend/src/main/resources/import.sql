@@ -101,11 +101,8 @@ INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 2',2,1
 INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 4',1,2,'2018-3-31',false);
 INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 3',2,1,'2018-3-31',false);
 INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 4',2,1,'2018-3-31',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka',1,2,'2018-3-30',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka',2,1,'2018-3-30',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 2',1,2,'2018-3-31',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 3',1,2,'2018-3-30',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 2',2,1,'2018-3-31',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 4',1,2,'2018-3-31',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 3',2,1,'2018-3-31',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 4',2,1,'2018-3-31',false);
+
+
+INSERT INTO chat(text,sender,date) VALUES ('nova poruka grupa',1,'2018-4-01');
+INSERT INTO chat(text,sender,date) VALUES ('nova poruka grupa 2',2,'2018-4-01');
+

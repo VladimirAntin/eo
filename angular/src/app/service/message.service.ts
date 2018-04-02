@@ -44,13 +44,4 @@ export class MessageService {
     return this.http.get<Message[]>(`${this.messages}${id}`, httpOptions);
   }
 
-  send(id: number,message: Message): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.post<Message>(`${this.messages}${id}`, message, httpOptions);
-  }
-
-
 }

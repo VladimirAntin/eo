@@ -1,11 +1,16 @@
 package github.eobrazovanje.controller;
 
+import github.eobrazovanje.converter.ChatDtoToChat;
+import github.eobrazovanje.converter.ChatToChatDto;
 import github.eobrazovanje.converter.MessageDtoToMessage;
 import github.eobrazovanje.converter.MessageToMessageDto;
+import github.eobrazovanje.dto.ChatDto;
 import github.eobrazovanje.dto.MessageDto;
+import github.eobrazovanje.entity.Chat;
 import github.eobrazovanje.entity.Message;
 import github.eobrazovanje.entity.User;
 import github.eobrazovanje.security.TokenHelper;
+import github.eobrazovanje.service.ChatService;
 import github.eobrazovanje.service.MessageService;
 import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +51,15 @@ public class ChatController {
     @Autowired
     private MessageDtoToMessage toMessage;
 
+    @Autowired
+    private ChatService chatService;
+
+    @Autowired
+    private ChatToChatDto toChatDto;
+
+    @Autowired
+    private ChatDtoToChat toChat;
+
     @MessageMapping("/chatting/{id}")
     public void sendSingle(@DestinationVariable long id, @Payload MessageDto message,
                            SimpMessageHeaderAccessor headerAccessor) {
@@ -66,6 +80,26 @@ public class ChatController {
                 simpMessagingTemplate.convertAndSend(
                         "/chatting/topic/"+String.valueOf(message.getSender()),
                         toMessageDto.convert(newMessage));
+
+            }
+        }catch (Exception e){ }
+    }
+
+    @MessageMapping("/chatting/group")
+    public void sendGroup(@Payload ChatDto dto,
+                           SimpMessageHeaderAccessor headerAccessor) {
+        try {
+            String loginUsername = tokenHelper.getUsernameFromToken(
+                    headerAccessor.getNativeHeader("Authorization").get(0));
+            User loginUser = userService.findByUsername(loginUsername);
+            if(loginUser!=null){
+                dto.setId(0)
+                    .setDate(new Date());
+                dto.getSender().setId(loginUser.getId());
+                Chat newMessage = chatService.save(toChat.convert(dto));
+                simpMessagingTemplate.convertAndSend(
+                        "/chatting/topic/group",
+                        toChatDto.convert(newMessage));
 
             }
         }catch (Exception e){ }

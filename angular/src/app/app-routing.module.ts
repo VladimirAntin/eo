@@ -9,6 +9,7 @@ import {PredmetiComponent} from './predmeti/predmeti.component';
 import {PredmetComponent} from './predmeti/predmet/predmet.component';
 import {InboxComponent} from './inbox/inbox.component';
 import {ChatComponent} from './inbox/chat/chat.component';
+import {GroupChatComponent} from './group-chat/group-chat.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
   { path: 'predmeti', component: PredmetiComponent},
   { path: 'predmeti/:id', component: PredmetComponent},
   { path: 'inbox', component: InboxComponent},
+  { path: 'group_chat', component: GroupChatComponent},
   { path: 'inbox/:id', component: ChatComponent},
   {path: '**', component: NotFoundComponent}
 ];

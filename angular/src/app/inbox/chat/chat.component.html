@@ -7,7 +7,7 @@
   <span *ngIf="user!=null && !user.online"> <mat-icon class="text-danger text-sm-center">lens</mat-icon>
     <i>{{user.lastOnline | date: 'dd.MM.yyyy. HH:mm'}}</i></span>
   <div id="messages" class="container" #messages [scrollTop]="messages.scrollHeight">
-    <div *ngFor="let c of chat; let i = index" class="row">
+    <div *ngFor="let c of chat" class="row">
       <img [src]="user.href" height="16"  *ngIf="c!=null && me!=null && c.sender===user.id">
       <h4 class="rounded font-16 col-8" matTooltip="{{c.date | date: 'dd.MM.yyyy. HH:mm'}}" *ngIf="c!=null && user!=null"
           [ngClass]="{'badge-primary':me && (c.recipient===me.id),

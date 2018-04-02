@@ -1,0 +1,16 @@
+div.container-fluid{
+  width: 60%;
+}
+#messages{
+  padding: 2em;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 50vh;
+}
+
+@media screen and (max-width: 60em){
+  div.container-fluid{
+    width: 100%;
+  }
+
+}
