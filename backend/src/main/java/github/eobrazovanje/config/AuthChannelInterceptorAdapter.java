@@ -4,6 +4,7 @@ import github.eobrazovanje.entity.User;
 import github.eobrazovanje.security.TokenHelper;
 import github.eobrazovanje.security.auth.TokenBasedAuthentication;
 import github.eobrazovanje.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -29,6 +30,8 @@ public class AuthChannelInterceptorAdapter extends ChannelInterceptorAdapter {
     private UserDetailsService userDetailsService;
 
     private UserService userService;
+    @Value("${jwt.header}")
+    private String AUTH_HEADER;
 
     public AuthChannelInterceptorAdapter(final TokenHelper tokenHelper,
                                          UserDetailsService userDetailsService,
@@ -42,7 +45,7 @@ public class AuthChannelInterceptorAdapter extends ChannelInterceptorAdapter {
     public Message<?> preSend(final Message<?> message, final MessageChannel channel) {
         final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
         try {
-            final String auth = accessor.getFirstNativeHeader("Authorization");
+            final String auth = accessor.getFirstNativeHeader(AUTH_HEADER);
             final String user = tokenHelper.getUsernameFromToken(auth);
             accessor.setUser(new TokenBasedAuthentication(userDetailsService.loadUserByUsername(user)));
         }catch (Exception e){
