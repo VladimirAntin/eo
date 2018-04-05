@@ -54,8 +54,9 @@ export class NavigationComponent {
     this.stompClient = this.Stomp.over(socket);
     this.stompClient.debug = null;
     const that = this;
-    this.stompClient.connect({}, () => {
-      that.stompClient.subscribe(`/chatting/topic/${that.me.id}`, () => that.countNewMessage());
+    this.stompClient.connect({'Authorization':localStorage.getItem('token')}, () => {
+      that.stompClient.subscribe(`/chatting/topic/${that.me.id}`, () => that.countNewMessage(),
+        {'Authorization':localStorage.getItem('token')});
     });
   }
 

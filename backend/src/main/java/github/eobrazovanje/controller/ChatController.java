@@ -22,6 +22,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.security.Principal;
 import java.util.Date;
 
 /*
@@ -61,14 +62,11 @@ public class ChatController {
     private ChatDtoToChat toChat;
 
     @MessageMapping("/chatting/{id}")
-    public void sendSingle(@DestinationVariable long id, @Payload MessageDto message,
-                           SimpMessageHeaderAccessor headerAccessor) {
+    public void sendSingle(@DestinationVariable long id, @Payload MessageDto message, Principal principal) {
         try {
             message.setText(message.getText().trim());
             if (!message.getText().equals("")){
-                String loginUsername = tokenHelper.getUsernameFromToken(
-                        headerAccessor.getNativeHeader("Authorization").get(0));
-                User loginUser = userService.findByUsername(loginUsername);
+                User loginUser = userService.findByUsername(principal.getName());
                 if(loginUser!=null){
                     message.setId(0)
                             .setSender(loginUser.getId())
@@ -90,13 +88,11 @@ public class ChatController {
 
     @MessageMapping("/chatting/group")
     public void sendGroup(@Payload ChatDto dto,
-                           SimpMessageHeaderAccessor headerAccessor) {
+                           Principal principal) {
         try {
             dto.setText(dto.getText().trim());
             if(!dto.getText().equals("")){
-                String loginUsername = tokenHelper.getUsernameFromToken(
-                        headerAccessor.getNativeHeader("Authorization").get(0));
-                User loginUser = userService.findByUsername(loginUsername);
+                User loginUser = userService.findByUsername(principal.getName());
                 if(loginUser!=null){
                     dto.setId(0)
                             .setDate(new Date());

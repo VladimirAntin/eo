@@ -41,10 +41,10 @@ export class GroupChatComponent implements OnInit {
     this.stompClient = this.Stomp.over(socket);
     this.stompClient.debug = null;
     const that = this;
-    this.stompClient.connect({}, () => {
+    this.stompClient.connect({'Authorization':localStorage.getItem('token')}, () => {
       that.stompClient.subscribe('/chatting/topic/group', (chat) =>{
         that.chat.push(JSON.parse(chat.body));
-      });
+      }, {'Authorization':localStorage.getItem('token')});
     });
   }
 
