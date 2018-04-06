@@ -21,9 +21,9 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class UserComponent implements OnInit {
 
-  id; user: UserApi; me: UserApi; docs: Dokument[] = [];
+  id; user: UserApi = new UserApi(); me: UserApi; docs: Dokument[] = [];
   uplate: Uplata[] = []; predmeti: Predmet[] = [];
-  isAdmin = false;
+  isAdmin = false; loading = true;
   constructor(private route: ActivatedRoute, private userService: UserService, public snackBar: MatSnackBar,
               private documentService: DokumentService, private authService: AuthService,
               public _router: Router, public dialog: MatDialog, private fileService: FileService,
@@ -47,6 +47,7 @@ export class UserComponent implements OnInit {
   private get(num: number) {
     this.userService.get(this.id).subscribe(data => {
       this.user = Object.assign(new UserApi(), data);
+      this.loading = false;
       this.fileService.getBlobUser(this.user);
       if(this.user.isNastavnik()){
         this.userService.getPredmeti(this.user.id).subscribe(data => this.predmeti=data);

@@ -14,7 +14,7 @@ import {Chat} from '../model/chat';
 })
 export class GroupChatComponent implements OnInit {
 
-  chat: Chat[]; me: UserApi; newMessage = new Chat();
+  chat: Chat[] = []; me: UserApi; newMessage = new Chat(); total = 0; page = 0;
   serverUrl = '/chatting/ws'; loading = true;
   stompClient = null; Stomp; sockjsClient;
 
@@ -23,8 +23,9 @@ export class GroupChatComponent implements OnInit {
                 private fileService: FileService) { }
 
   ngOnInit() {
-    this.chatService.getAll().subscribe(data => {
-      this.chat = data;
+    this.chatService.getAll(this.page).subscribe(data => {
+      this.total = Number(data.headers.get('total'));
+      this.chat = data.body;
       this.loading = false;
       this.authService.me().subscribe(data => {
         this.me = data;
@@ -36,6 +37,16 @@ export class GroupChatComponent implements OnInit {
     });
   }
 
+  seemore(){
+    this.loading = true;
+    this.page++;
+    this.chatService.getAll(this.page).subscribe(data => {
+      this.total = Number(data.headers.get('total'));
+      this.chat = data.body.concat(this.chat);
+      this.loading = false;
+    });
+  }
+
   connect() {
     const socket = new this.sockjsClient(this.serverUrl);
     this.stompClient = this.Stomp.over(socket);
@@ -44,6 +55,7 @@ export class GroupChatComponent implements OnInit {
     this.stompClient.connect({'Authorization':localStorage.getItem('token')}, () => {
       that.stompClient.subscribe('/chatting/topic/group', (chat) =>{
         that.chat.push(JSON.parse(chat.body));
+        that.total++;
       }, {'Authorization':localStorage.getItem('token')});
     });
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {UserApi} from '../model/user-api';
 import {Message} from '../model/message';
@@ -36,12 +36,12 @@ export class MessageService {
     return this.http.get<number>(`${this.messages}${id}/unread`, httpOptions);
   }
 
-  chatUser(id: number): Observable<Message[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Message[]>(`${this.messages}${id}`, httpOptions);
+  chatUser(id: number, page: number): Observable<HttpResponse<Message[]>> {
+    const headers = new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` });
+    return this.http.get<Message[]>(`${this.messages}${id}?page=${page}`, {
+      headers: headers, observe: 'response'
+    });
   }
 
 }

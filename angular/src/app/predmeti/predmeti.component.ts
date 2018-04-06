@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Predmet} from '../model/predmet';
 import {PredmetService} from '../service/predmet.service';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar, PageEvent} from '@angular/material';
 import {AddEditPredmetComponent} from './add-edit-predmet/add-edit-predmet.component';
 import {Router} from '@angular/router';
-import {UserApi} from '../model/user-api';
 
 @Component({
   selector: 'app-predmeti',
@@ -13,14 +12,33 @@ import {UserApi} from '../model/user-api';
 })
 export class PredmetiComponent implements OnInit {
 
-  predmeti: Predmet[]; filter;
+  predmeti: Predmet[] = []; filter = ''; loading = true; num = 5; page = 0; length = 0;
   constructor(private predmetService: PredmetService, private dialog: MatDialog,
               private snackBar: MatSnackBar, private _router: Router) {}
 
   ngOnInit() {
-    this.predmetService.getAll().subscribe(data => this.predmeti = data)
+    this.getAll();
   }
 
+  changePage(e: PageEvent) {
+    this.page = e.pageIndex;
+    this.num = e.pageSize;
+    this.getAll();
+  }
+
+  changeFilter(){
+    this.page = 0;
+    this.getAll();
+  }
+
+  getAll (){
+    this.predmetService.getAll(this.filter, this.page, this.num).subscribe(data => {
+      this.length = Number(data.headers.get('total'));
+      this.loading = false;
+      this.predmeti = data.body;
+    }, error => this.predmeti = null)
+
+  }
   add() {
     const dialogRef = this.dialog.open(AddEditPredmetComponent, {
       panelClass: 'dialog-600x400',

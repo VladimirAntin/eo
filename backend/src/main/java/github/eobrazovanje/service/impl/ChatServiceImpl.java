@@ -4,6 +4,8 @@ import github.eobrazovanje.entity.Chat;
 import github.eobrazovanje.repo.ChatRepo;
 import github.eobrazovanje.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,13 +23,8 @@ public class ChatServiceImpl implements ChatService {
     private ChatRepo repo;
 
     @Override
-    public List<Chat> findAllOrderByDateDesc() {
-        return repo.findAllByOrderByDateDesc();
-    }
-
-    @Override
-    public List<Chat> findAllOrderByDate() {
-        return repo.findAllByOrderByDate();
+    public Page<Chat> findAllOrderByDate(int brojStranice, int brojPrikazanih) {
+        return repo.findAllByOrderByDate(new PageRequest(brojStranice, brojPrikazanih));
     }
 
     @Override

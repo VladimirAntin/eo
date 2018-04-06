@@ -1,5 +1,6 @@
 <div *ngIf="predmet!=null">
-  <mat-tab-group>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <mat-tab-group *ngIf="!loading">
     <mat-tab label="Info">
       <ng-template mat-tab-label>
         <mat-icon>info_outline</mat-icon> Info

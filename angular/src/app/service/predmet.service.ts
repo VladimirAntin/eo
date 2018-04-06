@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Predmet} from '../model/predmet';
 import {Ucenik} from '../model/ucenik';
@@ -12,12 +12,15 @@ export class PredmetService {
 
   private predmeti = '/api/predmeti/';
   constructor(private http: HttpClient) { }
-  getAll(): Observable<Predmet[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Predmet[]>(this.predmeti, httpOptions);
+  getAll(naziv: string, page: number, num: number): Observable<HttpResponse<Predmet[]>> {
+    naziv = naziv==undefined? '': naziv;
+    page = page==undefined? 0: page;
+    num = num==undefined? 5: num;
+    const headers=  new HttpHeaders(
+        { 'Authorization': `jwt ${localStorage.getItem('token')}` });
+    return this.http.get<Predmet[]>(`${this.predmeti}?naziv=${naziv}&page=${page}&num=${num}`, {
+      headers: headers, observe: 'response'
+    });
   }
   get(id: number): Observable<Predmet> {
     const httpOptions = {

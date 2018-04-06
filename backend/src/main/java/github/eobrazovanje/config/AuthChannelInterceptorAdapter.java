@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /*
   Created by IntelliJ IDEA.
@@ -32,7 +33,7 @@ public class AuthChannelInterceptorAdapter extends ChannelInterceptorAdapter {
     private UserDetailsService userDetailsService;
 
     private UserService userService;
-    @Value("${jwt.header}")
+
     private String AUTH_HEADER;
 
     public AuthChannelInterceptorAdapter(final TokenHelper tokenHelper,
@@ -41,6 +42,7 @@ public class AuthChannelInterceptorAdapter extends ChannelInterceptorAdapter {
         this.tokenHelper = tokenHelper;
         this.userDetailsService = userDetailsService;
         this.userService = userService;
+        this.AUTH_HEADER = ResourceBundle.getBundle("application").getString("jwt.header");
     }
 
     @Override

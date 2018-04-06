@@ -1,8 +1,7 @@
 package github.eobrazovanje.service;
 
 import github.eobrazovanje.entity.Chat;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 /*
   Created by IntelliJ IDEA.
@@ -12,8 +11,7 @@ import java.util.List;
 */
 public interface ChatService {
 
-    List<Chat> findAllOrderByDateDesc();
-    List<Chat> findAllOrderByDate();
+    Page<Chat> findAllOrderByDate(int brojStranice, int brojPrikazanih);
 
     Chat save(Chat chat);
 }

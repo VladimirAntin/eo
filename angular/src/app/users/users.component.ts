@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
 
   displayedColumns = ['name', 'surname', 'username', 'email', 'type', 'online', 'options'];
   users = new MatTableDataSource();
-  loading: boolean; isAdmin = false;
+  loading = true; isAdmin;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   applyFilter(filterValue: string) {
@@ -40,7 +40,6 @@ export class UsersComponent implements OnInit {
   }
 
   getAll(): void {
-    this.loading = true;
     this.userService.getAll().subscribe(data => {
       this.users.data = data;
       this.users.paginator = this.paginator;

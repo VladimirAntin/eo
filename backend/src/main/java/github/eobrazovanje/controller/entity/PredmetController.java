@@ -12,6 +12,8 @@ import github.eobrazovanje.service.PredmetService;
 import github.eobrazovanje.service.UcenikService;
 import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -61,8 +63,15 @@ public class PredmetController {
     private UplataToUplataDto toUplataDto;
 
     @GetMapping
-    public ResponseEntity all() {
-        return ResponseEntity.ok(toPredmetDto.convert(predmetService.findAll()));
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity all(@RequestParam(value = "page",defaultValue = "0") int page,
+                              @RequestParam(value = "num",defaultValue = Integer.MAX_VALUE+"") int num,
+                              @RequestParam(value = "naziv",defaultValue = "") String naziv) {
+        Page<Predmet> predmeti = predmetService.findAll(naziv,page,num);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total",String.valueOf(predmeti.getTotalElements()));
+        return ResponseEntity.ok()
+                .headers(headers).body(toPredmetDto.convert(predmeti.getContent()));
     }
 
     @GetMapping("/{id}")

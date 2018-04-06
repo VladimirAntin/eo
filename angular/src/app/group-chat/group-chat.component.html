@@ -1,6 +1,9 @@
 <div class="container-fluid">
   <mat-spinner *ngIf="loading"></mat-spinner>
   <div id="messages" class="container" #messages [scrollTop]="messages.scrollHeight">
+    <button class="btn btn-link btn-block" (click)="seemore()" *ngIf="chat.length!=total">
+      See more ({{total-chat.length}})
+    </button>
     <div *ngFor="let c of chat; let i = index; let first = first" class="row">
       <button *ngIf="c!=null && me!=null && c.sender.id!==me.id && (chat[i>0?i-1:i].sender.id!=c.sender.id || first)"
               class="btn btn-link btn-sm col-4 offset-2" [routerLink]="['/users',c.sender.username]">

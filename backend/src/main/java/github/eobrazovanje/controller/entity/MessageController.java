@@ -9,6 +9,8 @@ import github.eobrazovanje.entity.User;
 import github.eobrazovanje.service.MessageService;
 import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -59,19 +61,24 @@ public class MessageController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getChat(@PathVariable long id, Principal principal){
+    public ResponseEntity getChat(@PathVariable long id,
+                                  @RequestParam(value = "page",defaultValue = "0") int page,
+                                  @RequestParam(value = "num",defaultValue = "20") int num, Principal principal){
         User loginUser = userService.findByUsername(principal.getName());
-        if(loginUser.getId() == id){
+        User user = userService.findOne(id);
+        if(loginUser.getId() == id || user==null){
             return ResponseEntity.notFound().build();
         }
-        List<Message> messages =
-                messageService.findAllByUserUsername(principal.getName())
-                        .stream()
-                        .filter(m -> m.getSender().getId()==id || m.getRecipient().getId()==id)
-                        .collect(Collectors.toList());
-        messages.stream().forEach(m -> m.setSeen(m.getSender().getId()==id?true:m.isSeen()));
-        messages = messageService.save(messages);
-        return ResponseEntity.ok(toMessageDto.convert(messages));
+        Page<Message> messages =
+                messageService.findAllByUserUsernameAndRecipient(principal.getName(),
+                        user.getUsername(), page, num);
+        messages.getContent().stream().forEach(m -> m.setSeen(m.getSender().getId()==id?true:m.isSeen()));
+        messageService.save(messages.getContent());
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total",String.valueOf(messages.getTotalElements()));
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(toMessageDto.convert(messages.getContent()));
     }
 
     @GetMapping("/{id}/unread")

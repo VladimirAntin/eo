@@ -1,5 +1,6 @@
 <div *ngIf="chat!=null" class="container-fluid">
-  <mat-accordion>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <mat-accordion *ngIf="!loading">
     <mat-expansion-panel class="bg-light">
       <mat-expansion-panel-header>
         <mat-panel-title>

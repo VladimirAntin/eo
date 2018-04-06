@@ -1,10 +1,10 @@
 package github.eobrazovanje.repo;
 
 import github.eobrazovanje.entity.Chat;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /*
   Created by IntelliJ IDEA.
@@ -14,6 +14,5 @@ import java.util.List;
 */
 @Repository
 public interface ChatRepo extends JpaRepository<Chat,Long>{
-    List<Chat> findAllByOrderByDate();
-    List<Chat> findAllByOrderByDateDesc();
+    Page<Chat> findAllByOrderByDate(Pageable pageable);
 }

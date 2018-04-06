@@ -14,7 +14,8 @@ import {FileService} from '../../service/file.service';
 })
 export class ChatComponent implements OnInit {
 
-  id: number =0; chat: Message[] = []; user: UserApi = new UserApi(); me: UserApi; newMessage = new Message();
+  id: number =0; chat: Message[] = []; user: UserApi = new UserApi(); me: UserApi; total = 0;
+  newMessage = new Message(); page = 0;
   serverUrl = '/chatting/ws'; loading = true;
   stompClient = null; Stomp; sockjsClient;
   constructor(private route: ActivatedRoute, private messageService: MessageService,
@@ -24,8 +25,9 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id');
-    this.messageService.chatUser(this.id).subscribe(data => {
-      this.chat = data;
+    this.messageService.chatUser(this.id, this.page).subscribe(data => {
+      this.total = Number(data.headers.get('total'));
+      this.chat = data.body;
       this.loading = false;
       this.userService.get(this.id).subscribe(data => {
         this.user = data;
@@ -37,7 +39,16 @@ export class ChatComponent implements OnInit {
         this.Stomp = require('stompjs');
         this.sockjsClient = require('sockjs-client');
         this.connect();
-      }, err => this.user = null);
+      }, err => this.me = null);
+    });
+  }
+
+  seemore() {
+    this.page++;
+    this.loading = true;
+    this.messageService.chatUser(this.id, this.page).subscribe(data => {
+      this.chat = data.body.concat(this.chat);
+      this.loading = false;
     });
   }
 
@@ -55,6 +66,7 @@ export class ChatComponent implements OnInit {
     this.stompClient.connect({'Authorization':localStorage.getItem('token')}, () => {
       that.stompClient.subscribe(`/chatting/topic/${that.me.id}`, (message) =>{
         that.chat.push(JSON.parse(message.body));
+        that.total++;
       }, {'Authorization':localStorage.getItem('token')});
     });
   }

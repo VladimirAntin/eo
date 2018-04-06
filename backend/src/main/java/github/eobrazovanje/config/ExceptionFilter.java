@@ -30,8 +30,6 @@ public class ExceptionFilter implements Filter {
             HttpServletRequest request = (HttpServletRequest) req;
             if(request.getRequestURI().toLowerCase().contains("chatting")){
                 logger.error("Broken Pipe SockJS and StompClient");
-            }else {
-                e.printStackTrace();
             }
         }
     }

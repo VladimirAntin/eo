@@ -11,7 +11,7 @@ import {UserApi} from '../model/user-api';
 })
 export class InboxComponent {
 
-  chat = []; users = []; filter = '';
+  chat = []; users = []; filter = ''; loading = true;
   constructor(private messageService: MessageService, private fileService: FileService,
               private userService: UserService) {
     this.init();
@@ -21,6 +21,7 @@ export class InboxComponent {
   init() {
     this.messageService.chat().subscribe(data => {
       this.chat = data;
+      this.loading = false;
       this.chat.forEach((value) =>{
         this.getAvatar(value);
         this.messageService.countUnreadUser(value.id).subscribe(data => value.unread = data);

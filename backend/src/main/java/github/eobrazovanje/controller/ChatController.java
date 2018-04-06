@@ -78,7 +78,6 @@ public class ChatController {
                     simpMessagingTemplate.convertAndSend(
                             "/chatting/topic/"+String.valueOf(message.getSender()),
                             toMessageDto.convert(newMessage));
-
                 }
             }
         }catch (Exception e){ }

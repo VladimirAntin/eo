@@ -1,6 +1,7 @@
 package github.eobrazovanje.service;
 
 import github.eobrazovanje.entity.Message;
+import org.springframework.data.domain.Page;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,9 +14,8 @@ import java.util.List;
 */
 public interface MessageService {
 
-    List<Message> findAllByRecipientOrSender(long sender, long recipient);
-    List<Message> findAllByUserId(long id);
     List<Message> findAllByUserUsername(String username);
+    Page<Message> findAllByUserUsernameAndRecipient(String username, String recipient, int brojStranice, int brojPrikazanih);
     List<Message> findAllByUserUsernameDesc(String username);
     List<Message> findAllByRecipient(String username);
 

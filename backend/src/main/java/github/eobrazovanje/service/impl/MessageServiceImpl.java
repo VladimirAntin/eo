@@ -4,6 +4,8 @@ import github.eobrazovanje.entity.Message;
 import github.eobrazovanje.repo.MessageRepo;
 import github.eobrazovanje.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -23,28 +25,25 @@ public class MessageServiceImpl implements MessageService {
 
 
     @Override
-    public List<Message> findAllByUserId(long id) {
-        return repo.findAllBySender_idOrRecipient_idOrderByDate(id,id);
-    }
-
-    @Override
     public List<Message> findAllByUserUsername(String username) {
         return repo.findAllBySender_UsernameOrRecipient_UsernameOrderByDate(username, username);
     }
 
     @Override
-    public List<Message> findAllByUserUsernameDesc(String username) {
+    public List<Message> findAllByUserUsernameDesc(String username) { //ostaje
         return repo.findAllBySender_UsernameOrRecipient_UsernameOrderByDateDesc(username, username);
+    }
+
+    @Override
+    public Page<Message> findAllByUserUsernameAndRecipient(String username, String recipient,
+                                                           int brojStranice, int brojPrikazanih) {
+        return repo.findAllBySender_UsernameAndRecipient_UsernameOrSender_UsernameAndRecipient_UsernameOrderByDate(
+                username,recipient,recipient,username, new PageRequest(brojStranice,brojPrikazanih));
     }
 
     @Override
     public List<Message> findAllByRecipient(String username) {
         return repo.findAllByRecipient_UsernameAndSeenIsFalseOrderBySender(username);
-    }
-
-    @Override
-    public List<Message> findAllByRecipientOrSender(long sender, long recipient) {
-        return repo.findAllBySender_idOrRecipient_idOrderByDate(sender,recipient);
     }
 
     @Override
