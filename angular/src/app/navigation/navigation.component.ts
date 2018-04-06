@@ -73,9 +73,11 @@ export class NavigationComponent {
   private getMe() {
     this.authService.me().subscribe(data => {
       this.me = data;
-      this.Stomp = require('stompjs');
-      this.sockjsClient = require('sockjs-client');
-      this.connect();
+      if(!this.stompClient){
+        this.Stomp = require('stompjs');
+        this.sockjsClient = require('sockjs-client');
+        this.connect();
+      }
     }, err => {
         this._router.navigateByUrl('/login');
         this.authService.removeToken();
@@ -85,6 +87,7 @@ export class NavigationComponent {
   logout() {
     this.authService.offline().subscribe(() =>{
       this.authService.logout().subscribe(() => {
+        this.stompClient = null;
         this._router.navigateByUrl('/login');
       });
     });

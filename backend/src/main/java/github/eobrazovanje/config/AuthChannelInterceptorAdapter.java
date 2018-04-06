@@ -23,6 +23,8 @@ import java.util.List;
   Date: 5.4.18.
   Time: 22.38
 */
+
+// https://stackoverflow.com/questions/45405332/websocket-authentication-and-authorization-in-spring
 @Configuration
 public class AuthChannelInterceptorAdapter extends ChannelInterceptorAdapter {
     private final TokenHelper tokenHelper;
