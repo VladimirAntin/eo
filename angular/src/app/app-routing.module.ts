@@ -19,8 +19,8 @@ const appRoutes: Routes = [
   { path: 'predmeti', component: PredmetiComponent},
   { path: 'predmeti/:id', component: PredmetComponent},
   { path: 'inbox', component: InboxComponent},
-  { path: 'group_chat', component: GroupChatComponent},
   { path: 'inbox/:id', component: ChatComponent},
+  { path: 'group_chat', component: GroupChatComponent},
   {path: '**', component: NotFoundComponent}
 ];
 

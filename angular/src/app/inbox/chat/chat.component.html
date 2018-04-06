@@ -1,7 +1,7 @@
 <div *ngIf="user!==null" class="container-fluid">
   <mat-spinner *ngIf="loading"></mat-spinner>
   <a mat-button color="primary" [routerLink]="['/users',user.username]">
-    <img [src]="user.href" width="24">
+    <img [src]="user.href" width="24" *ngIf="user.href">
     <span>{{user.ime + ' '+ user.prezime}}</span>
   </a>
   <span *ngIf="user!=null && user.online"> <mat-icon class="text-success text-sm-center">lens</mat-icon> <i>Online</i></span>
@@ -12,13 +12,13 @@
       See more ({{total-chat.length}})
     </button>
     <div *ngFor="let c of chat" class="row">
-      <img [src]="user.href" height="16"  *ngIf="c!=null && me!=null && c.sender===user.id">
+      <img [src]="user.href" height="16"  *ngIf="c!=null && me!=null && c.sender===user.id && user.href">
       <h4 class="rounded font-16 col-8" matTooltip="{{c.date | date: 'dd.MM.yyyy. HH:mm'}}" *ngIf="c!=null && user!=null"
           [ngClass]="{'badge-primary':me && (c.recipient===me.id),
                 'badge-dark offset-2':me && (c.recipient!==me.id)}">
         {{c.text}}
       </h4>
-      <img [src]="me.href" height="16" *ngIf="c!=null && me!=null && c.sender===me.id">
+      <img [src]="me.href" height="16" *ngIf="c!=null && me!=null && c.sender===me.id && me.href">
     </div>
   </div>
   <div class="row" (keypress)="clickEnter($event,newMessage)">

@@ -41,7 +41,7 @@ app-users .mat-table{
   overflow-y: auto;
   height: 55vh;
 }
-app-predmet mat-list{
+app-predmet mat-list, app-home >div{
   overflow-y: auto;
   height: 70vh;
 }
@@ -110,7 +110,7 @@ app-predmeti mat-paginator {
     width: 100%;
     height: 100%;
   }
-  app-users .mat-table, app-predmet mat-list{
+  app-users .mat-table, app-predmet mat-list, app-home >div {
     height: 60vh;
   }
   app-predmeti mat-list {

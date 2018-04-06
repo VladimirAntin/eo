@@ -23,7 +23,6 @@ import {UserService} from './service/user.service';
 import {ZvanjeService} from './service/zvanje.service';
 import {DokumentService} from './service/dokument.service';
 import { AddDocComponent } from './users/user/add-doc/add-doc.component';
-import {TipDokumenta} from './model/tip-dokumenta';
 import {TipDokumentaService} from './service/tip-dokumenta.service';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
