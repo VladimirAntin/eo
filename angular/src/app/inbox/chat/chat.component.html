@@ -1,4 +1,4 @@
-<div *ngIf="user!==null" class="container-fluid">
+<div *ngIf="chat!==null" class="container-fluid">
   <mat-spinner *ngIf="loading"></mat-spinner>
   <a mat-button color="primary" [routerLink]="['/users',user.username]">
     <img [src]="user.href" width="24" *ngIf="user.href">
@@ -31,4 +31,4 @@
     </button>
   </div>
 </div>
-<app-not-found *ngIf="user===null" class="not-found"></app-not-found>
+<app-not-found *ngIf="chat===null" class="not-found"></app-not-found>

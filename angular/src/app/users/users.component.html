@@ -71,4 +71,4 @@
   </mat-paginator>
 </div>
 <mat-spinner *ngIf="loading"></mat-spinner>
-<app-not-found *ngIf="!isAdmin" class="not-found"></app-not-found>
+<app-not-found *ngIf="!isAdmin && !loading" class="not-found"></app-not-found>

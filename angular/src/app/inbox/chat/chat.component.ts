@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
         this.sockjsClient = require('sockjs-client');
         this.connect();
       }, err => this.me = null);
-    });
+    }, err => this.chat = null);
   }
 
   seemore() {
