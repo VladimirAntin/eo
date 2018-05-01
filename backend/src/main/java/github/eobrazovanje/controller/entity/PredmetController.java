@@ -148,7 +148,7 @@ public class PredmetController {
         }
         User loginUser = userService.findByUsername(principal.getName());
         Predmet predmetBack = predmetService.findOne(dto.getId());
-        if(!predmetBack.isNastavnikNaPredmetu(principal.getName()) || !loginUser.isAdmin()){
+        if(!predmetBack.isNastavnikNaPredmetu(principal.getName()) && !loginUser.isAdmin()){
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         Predmet predmet = predmetService.save(toPredmet.convert(dto, true));

@@ -6,8 +6,8 @@
       </button>
       <span class="spacer"></span>
       <mat-form-field class="w-90">
-          <mat-icon matPrefix>search</mat-icon>
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
     </mat-toolbar>
   </div>
@@ -36,8 +36,14 @@
     <ng-container matColumnDef="online">
       <mat-header-cell *matHeaderCellDef> Last Online </mat-header-cell>
       <mat-cell *matCellDef="let user">
-        <span *ngIf="user.online"> <mat-icon class="text-success text-sm-center">lens</mat-icon> <i>Online</i></span>
-        <span *ngIf="!user.online"> <mat-icon class="text-danger text-sm-center">lens</mat-icon> <i>{{user.lastOnline | date: 'dd.MM.yyyy. HH:mm'}}</i></span>
+        <span *ngIf="user.online">
+          <mat-icon class="text-success text-sm-center">lens</mat-icon>
+          <i>Online</i>
+        </span>
+        <span *ngIf="!user.online">
+          <mat-icon class="text-danger text-sm-center">lens</mat-icon>
+          <i>{{user.lastOnline | date: 'dd.MM.yyyy. HH:mm'}}</i>
+        </span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="options">
@@ -46,28 +52,26 @@
         <button mat-icon-button [routerLink]="['/users',user.username]" matTooltip="Open" color="primary">
           <mat-icon>person</mat-icon>
         </button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="user.type!=='User'"
-                color="primary" matTooltip="Options">
-            <mat-icon>more_vert</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="user.type!=='User'" color="primary" matTooltip="Options">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="updateUser(user)">
+            <mat-icon>edit</mat-icon> Update
           </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="updateUser(user)">
-                <mat-icon>edit</mat-icon> Update
-              </button>
-            <button mat-menu-item (click)="changePassword(user)">
-                <mat-icon>edit</mat-icon> Change password
-            </button>
-            <button mat-menu-item (click)="deleteUser(user)">
-              <mat-icon>delete</mat-icon> Delete
-            </button>
+          <button mat-menu-item (click)="changePassword(user)">
+            <mat-icon>edit</mat-icon> Change password
+          </button>
+          <button mat-menu-item (click)="deleteUser(user)">
+            <mat-icon>delete</mat-icon> Delete
+          </button>
         </mat-menu>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-  <mat-paginator #paginator [pageSize]="5"
-                 [pageSizeOptions]="[5, 10, 20, 50, 100]">
+  <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50, 100]">
   </mat-paginator>
 </div>
 <mat-spinner *ngIf="loading"></mat-spinner>

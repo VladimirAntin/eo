@@ -3,6 +3,8 @@ package github.eobrazovanje.config;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /*
   Created by IntelliJ IDEA.
   User: vladimir_antin
@@ -14,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ViewController {
 
     @RequestMapping(
-            { "/users", "/users/**", "/categories", "/categories/**",
-                    "/languages", "/languages/**"
-
+            {
+                    "/users", "/users/**", "/predmeti", "/predmeti/**",
+                    "/inbox", "/inbox/**", "/group_chat", "/login"
             }
     )
     public String index() {

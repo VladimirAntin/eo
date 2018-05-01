@@ -68,8 +68,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         HttpMethod.GET,
                         "/",
                         "/index.html",
+                        "/users",
+                        "/users/**",
+                        "/predmeti",
+                        "/predmeti/**",
+                        "/inbox",
+                        "/inbox/**",
+                        "/group_chat",
                         "/assets/**",
                         "/public/**",
+                        "/login",
                         "/favicon.ico"
                 ).permitAll()
                 .antMatchers("/auth/**", "/chatting/**").permitAll()

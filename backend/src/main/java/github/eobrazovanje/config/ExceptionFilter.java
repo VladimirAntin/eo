@@ -20,7 +20,6 @@ import java.util.logging.LogRecord;
 public class ExceptionFilter implements Filter {
     private final Log logger = LogFactory.getLog(this.getClass());
 
-
     @Override
     public void doFilter(ServletRequest req, ServletResponse res,
                          FilterChain chain) {
@@ -28,14 +27,16 @@ public class ExceptionFilter implements Filter {
             chain.doFilter(req, res);
         }catch(Exception e ){
             HttpServletRequest request = (HttpServletRequest) req;
-            if(request.getRequestURI().toLowerCase().contains("chatting")){
-                logger.error("Broken Pipe SockJS and StompClient");
+            if(request.getRequestURI()!=null && request.getRequestURI().toLowerCase().contains("chatting")){
+                logger.error("Broken Pipe SockJS and StompClient.");
+            }else {
+                logger.error("Error with request.");
             }
         }
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 

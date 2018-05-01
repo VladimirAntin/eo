@@ -8,28 +8,23 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput placeholder="First name" maxlength="30" [(ngModel)]="data.user.ime"
-           (input)="change()" required>
+    <input matInput placeholder="First name" maxlength="30" [(ngModel)]="data.user.ime" (input)="change()" required>
     <mat-hint align="end">{{data.user.ime.length}}/30</mat-hint>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput placeholder="Last name" maxlength="30" [(ngModel)]="data.user.prezime"
-           (input)="change()" required>
+    <input matInput placeholder="Last name" maxlength="30" [(ngModel)]="data.user.prezime" (input)="change()" required>
     <mat-hint align="end">{{data.user.prezime.length}}/30</mat-hint>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput placeholder="Username" maxlength="30" [(ngModel)]="data.user.username"
-           (input)="change()" required>
+    <input matInput placeholder="Username" maxlength="30" [(ngModel)]="data.user.username" (input)="change()" required>
     <mat-hint align="end">{{data.user.username.length}}/30</mat-hint>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput placeholder="Email" maxlength="50" minlength="10" [(ngModel)]="data.user.email"
-           (input)="change()" required>
+    <input matInput placeholder="Email" maxlength="50" minlength="10" [(ngModel)]="data.user.email" (input)="change()" required>
     <mat-hint align="end">{{data.user.email.length}}/50</mat-hint>
   </mat-form-field>
   <mat-form-field class="full-width" *ngIf="data.user.isUcenik()">
-    <input matInput placeholder="Broj indexa" maxlength="12" [(ngModel)]="data.user.brojIndexa"
-           (input)="change()" required>
+    <input matInput placeholder="Broj indexa" maxlength="12" [(ngModel)]="data.user.brojIndexa" (input)="change()" required>
     <mat-hint align="end">{{data.user.brojIndexa.length}}/12</mat-hint>
   </mat-form-field>
   <mat-form-field class="full-width" *ngIf="data.user.isNastavnik()">
@@ -41,8 +36,7 @@
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-icon-button [mat-dialog-close]="{result:true, user:data.user }"
-          color="primary" matTooltip="Edit" [disabled]="enableB">
+  <button mat-icon-button [mat-dialog-close]="{result:true, user:data.user }" color="primary" matTooltip="Edit" [disabled]="enableB">
     <mat-icon>edit</mat-icon>
   </button>
   <span class="spacer"></span>

@@ -51,6 +51,7 @@ INSERT INTO user_authority(user_id, authority_id) VALUES (12,3);
 INSERT INTO user_authority(user_id, authority_id) VALUES (13,3);
 INSERT INTO user_authority(user_id, authority_id) VALUES (14,3);
 INSERT INTO user_authority(user_id, authority_id) VALUES (15,3);
+INSERT INTO user_authority(user_id, authority_id) VALUES (16,3);
 
 INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('kolokvijum;projekat',2,3,'Osnove programiranja');
 INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('kolokvijum1;projekat',3,3,'Osnove web programiranja');

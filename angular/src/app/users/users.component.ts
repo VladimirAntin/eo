@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { UserPassword } from '../model/user-password';
-import {AuthService} from '../service/auth.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -30,7 +30,7 @@ export class UsersComponent implements OnInit {
     public snackBar: MatSnackBar, private _router: Router) {
     this.authService.me().subscribe(data => {
       this.isAdmin = data.authorities
-        .filter(a => a.name.substring(5).toLowerCase()==='admin').length===1;
+        .filter(a => a.name.substring(5).toLowerCase() === 'admin').length === 1;
     });
   }
 

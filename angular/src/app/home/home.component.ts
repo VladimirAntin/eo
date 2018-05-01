@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../service/auth.service';
-import {UserApi} from '../model/user-api';
-import {UserService} from '../service/user.service';
-import {Predmet} from '../model/predmet';
-import {NavItem} from '../model/nav-item';
+import { AuthService } from '../service/auth.service';
+import { UserApi } from '../model/user-api';
+import { UserService } from '../service/user.service';
+import { Predmet } from '../model/predmet';
+import { NavItem } from '../model/nav-item';
 
 @Component({
   selector: 'app-home',
@@ -29,9 +29,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this._auth.me().subscribe(data => {
       this.me = data;
-      this.isAdmin = data.authorities
-        .filter(a => a.name.substring(5).toLowerCase()==='admin').length===1;
-      if (this.isAdmin){
+      this.isAdmin = data.type.toLowerCase() === 'user';
+      if (this.isAdmin) {
         this._auth.nav_items().subscribe(data => this.nav_items = data);
       } else {
         this._user.getPredmeti(this.me.id).subscribe(data => this.predmeti = data);
