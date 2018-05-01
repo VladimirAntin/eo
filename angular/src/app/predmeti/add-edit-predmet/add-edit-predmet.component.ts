@@ -1,42 +1,22 @@
-import {Component, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA, MatChipInputEvent} from '@angular/material';
-import {ENTER} from '@angular/cdk/keycodes';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {TipAktivnostiService} from '../../service/tip-aktivnosti.service';
 
 @Component({
   selector: 'app-add-edit-predmet',
   templateUrl: './add-edit-predmet.component.html',
   styleUrls: ['./add-edit-predmet.component.css']
 })
-export class AddEditPredmetComponent {
+export class AddEditPredmetComponent implements OnInit {
 
-  separatorKeysCodes = [ENTER, 186]; // semicolon 186 code
-  aktivnosti = [];
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-      if(!data.add){
-        this.aktivnosti = data.predmet.aktivnosti.split(';');
-      }
+  //separatorKeysCodes = [ENTER, 186]; // semicolon 186 code
+   tipovi_aktivnosti = [];
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private tipAkativnostiService: TipAktivnostiService) {
   }
 
-  addKey(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-    if ((value || '').trim() && this.aktivnosti.indexOf(value.trim())===-1) {
-      this.aktivnosti.push(value.trim());
-    }else {
-      return;
-    }
-    if (input) {
-      input.value = '';
-    }
-    this.data.predmet.aktivnosti= this.aktivnosti.join(';');
-
+  ngOnInit(): void {
+    this.tipAkativnostiService.getAll().subscribe(d => this.tipovi_aktivnosti = d);
   }
-  removeKey(key: string): void {
-    const index = this.aktivnosti.indexOf(key);
-    if (index >= 0) {
-      this.aktivnosti.splice(index, 1);
-    }
-    this.data.predmet.aktivnosti = this.aktivnosti.join(';');
+  change() {
   }
-
 }

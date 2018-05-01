@@ -18,9 +18,6 @@ public class Aktivnost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Size(min = 2, max = 50)
-    private String naziv;
-
     @Max(100)
     private int brojBodova;
 
@@ -34,6 +31,12 @@ public class Aktivnost {
     @JoinColumn(name = "ucenik_id", referencedColumnName = "id")
     private Ucenik ucenik;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tip_aktivnosti_id", referencedColumnName = "id")
+    private TipAktivnosti tipAktivnosti;
+
+
     public Aktivnost() { }
 
     public long getId() {
@@ -42,15 +45,6 @@ public class Aktivnost {
 
     public Aktivnost setId(long id) {
         this.id = id;
-        return this;
-    }
-
-    public String getNaziv() {
-        return naziv;
-    }
-
-    public Aktivnost setNaziv(String naziv) {
-        this.naziv = naziv;
         return this;
     }
 
@@ -78,6 +72,15 @@ public class Aktivnost {
 
     public Aktivnost setUcenik(Ucenik ucenik) {
         this.ucenik = ucenik;
+        return this;
+    }
+
+    public TipAktivnosti getTipAktivnosti() {
+        return tipAktivnosti;
+    }
+
+    public Aktivnost setTipAktivnosti(TipAktivnosti tipAktivnosti) {
+        this.tipAktivnosti = tipAktivnosti;
         return this;
     }
 }

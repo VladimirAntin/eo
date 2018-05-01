@@ -16,20 +16,10 @@
     <input matInput placeholder="Broj casova vezbi" [(ngModel)]="data.predmet.brojCasovaVezbi"
            type="number" required>
   </mat-form-field>
-  <mat-form-field class="full-width">
-    <mat-chip-list #keywordList>
-      <mat-chip *ngFor="let key of aktivnosti"
-                [removable]="data.add" (remove)="removeKey(key)">
-        {{key}}
-        <mat-icon matChipRemove>cancel</mat-icon>
-      </mat-chip>
-      <input placeholder="Aktivnosti"
-             [matChipInputFor]="keywordList"
-             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             [matChipInputAddOnBlur]="true"
-             (matChipInputTokenEnd)="addKey($event)" />
-    </mat-chip-list>
-    <mat-hint>Please add</mat-hint>
+  <mat-form-field>
+    <mat-select placeholder="Aktivnosti" multiple [(ngModel)]="data.predmet.aktivnosti" (change)="change()">
+      <mat-option *ngFor="let a of tipovi_aktivnosti" [value]="a">{{a.naziv}}</mat-option>
+    </mat-select>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>

@@ -45,6 +45,7 @@ import { InboxComponent } from './inbox/inbox.component';
 import { ChatComponent } from './inbox/chat/chat.component';
 import { GroupChatComponent } from './group-chat/group-chat.component';
 import {ChatService} from './service/chat.service';
+import {TipAktivnostiService} from './service/tip-aktivnosti.service';
 
 enableProdMode();
 @NgModule({
@@ -77,7 +78,7 @@ enableProdMode();
     AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent, AddUplataComponent,
     DialogDocumentComponent],
 
-  providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService,
+  providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService, TipAktivnostiService,
     AktivnostService, NastavnikService, UcenikService, UplataService, FileService, MessageService, ChatService],
   bootstrap: [AppComponent]
 })

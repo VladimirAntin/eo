@@ -14,6 +14,14 @@ INSERT INTO tip_dokumenta(naziv) VALUES ('Diploma srednje skole');
 INSERT INTO tip_dokumenta(naziv) VALUES ('Diploma takmicenja matematike');
 INSERT INTO tip_dokumenta(naziv) VALUES ('Diploma takmicenja engleskog jezika');
 
+INSERT INTO tip_aktivnosti(naziv) values ('Kolokvijum 1');
+INSERT INTO tip_aktivnosti(naziv) values ('Kolokvijum 2');
+INSERT INTO tip_aktivnosti(naziv) values ('Kolokvijum 3');
+INSERT INTO tip_aktivnosti(naziv) values ('Kolokvijum 4');
+INSERT INTO tip_aktivnosti(naziv) values ('Projekat');
+INSERT INTO tip_aktivnosti(naziv) values ('Usmeni ispit');
+INSERT INTO tip_aktivnosti(naziv) values ('Pismeni ispit');
+
 --username je ujedno i password
 INSERT INTO user (dtype,ime,prezime,username,email,password,online,picture) VALUES ('User','Admin','Admin','admin','admin@localhost.com','$2a$10$li.uU23..9Ooi7HJUw4/ruUY5vaddV90XpqRGkcoPOM5XYc627Vs2', false, 'api/files/profiles/default.png');
 
@@ -53,11 +61,19 @@ INSERT INTO user_authority(user_id, authority_id) VALUES (14,3);
 INSERT INTO user_authority(user_id, authority_id) VALUES (15,3);
 INSERT INTO user_authority(user_id, authority_id) VALUES (16,3);
 
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('kolokvijum;projekat',2,3,'Osnove programiranja');
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('kolokvijum1;projekat',3,3,'Osnove web programiranja');
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('projekat;usmeni deo ispita',3,3,'Web dizajn');
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('projekat;usmeni deo ispita',3,3,'Objektno orjetisano programiranje');
-INSERT INTO predmet(aktivnosti, broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES ('projekat;usmeni deo ispita',3,3,'Osnove baza podataka');
+INSERT INTO predmet(broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES (2,3,'Osnove programiranja');
+INSERT INTO predmet(broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES (3,3,'Osnove web programiranja');
+INSERT INTO predmet(broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES (3,3,'Web dizajn');
+INSERT INTO predmet(broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES (3,3,'Objektno orjetisano programiranje');
+INSERT INTO predmet(broj_casova_vezbi, broj_casova_predavanja,naziv) VALUES (3,3,'Osnove baza podataka');
+
+INSERT INTO predmet_aktivnosti(predmet_id, aktivnosti_id) values (1, 1);
+INSERT INTO predmet_aktivnosti(predmet_id, aktivnosti_id) values (2, 1);
+INSERT INTO predmet_aktivnosti(predmet_id, aktivnosti_id) values (3, 1);
+INSERT INTO predmet_aktivnosti(predmet_id, aktivnosti_id) values (4, 1);
+INSERT INTO predmet_aktivnosti(predmet_id, aktivnosti_id) values (5, 1);
+INSERT INTO predmet_aktivnosti(predmet_id, aktivnosti_id) values (1, 2);
+INSERT INTO predmet_aktivnosti(predmet_id, aktivnosti_id) values (1, 3);
 
 INSERT INTO predmet_nastavnik(predmet_id, nastavnik_id) VALUES (1,5);
 INSERT INTO predmet_nastavnik(predmet_id, nastavnik_id) VALUES (2,2);
@@ -91,8 +107,9 @@ INSERT INTO predmet_ucenik(predmet_id, ucenik_id) VALUES (3,15);
 INSERT INTO uplata(suma,ucenik_id,predmet_id) VALUES (10000,9,1);
 INSERT INTO uplata(suma,ucenik_id,predmet_id) VALUES (10000,10,2);
 
-INSERT INTO aktivnost(naziv,broj_bodova,predmet_id,ucenik_id) VALUES ('kolokvijum', 25, 1,9);
-INSERT INTO aktivnost(naziv,broj_bodova,predmet_id,ucenik_id) VALUES ('kolokvijum1', 25, 2,10);
+
+INSERT INTO aktivnost(broj_bodova,predmet_id,ucenik_id, tip_aktivnosti_id) VALUES (25, 1, 9, 1);
+INSERT INTO aktivnost(broj_bodova,predmet_id,ucenik_id, tip_aktivnosti_id) VALUES (25, 2, 10, 1);
 
 INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka',1,2,'2018-3-30',false);
 INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka',2,1,'2018-3-30',false);

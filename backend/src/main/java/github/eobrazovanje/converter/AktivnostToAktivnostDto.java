@@ -2,6 +2,7 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.AktivnostDto;
 import github.eobrazovanje.entity.Aktivnost;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -18,14 +19,17 @@ import java.util.stream.Collectors;
 @Component
 public class AktivnostToAktivnostDto implements Converter<Aktivnost,AktivnostDto> {
 
+    @Autowired
+    private TipAktivnostiToTipAktivnostiDto toDto;
+
     @Override
     public AktivnostDto convert(Aktivnost aktivnost) {
         return new AktivnostDto()
                 .setId(aktivnost.getId())
-                .setNaziv(aktivnost.getNaziv())
                 .setBrojBodova(aktivnost.getBrojBodova())
                 .setPredmet(aktivnost.getPredmet().getId())
-                .setUcenik(aktivnost.getUcenik().getId());
+                .setUcenik(aktivnost.getUcenik().getId())
+                .setTipAktivnosti(toDto.convert(aktivnost.getTipAktivnosti()));
     }
 
     public List<AktivnostDto> convert(Collection<Aktivnost> aktivnosts){

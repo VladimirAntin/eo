@@ -20,8 +20,8 @@
         </mat-form-field>
         <mat-form-field class="col-md-12">
           <mat-chip-list #keywordList disabled>
-            <mat-chip *ngFor="let key of predmet.aktivnosti.split(';')" disabled>
-              {{key}}
+            <mat-chip *ngFor="let key of predmet.aktivnosti" disabled>
+              {{key.naziv}}
             </mat-chip>
             <input matInput placeholder="Aktivnosti" [matChipInputFor]="keywordList" disabled>
           </mat-chip-list>
@@ -131,7 +131,7 @@
                 </thead>
               <tbody>
                 <tr *ngFor="let a of filterAktivnosti(u.aktivnosti)">
-                  <td>{{a.naziv}}</td>
+                  <td>{{a.tipAktivnosti.naziv}}</td>
                   <td>{{a.brojBodova}}</td>
                   <td>
                     <button mat-mini-fab class="bg-dark" matTooltip="Edit" (click)="editAKtivnost(a, u)" *ngIf="!isUcenik">

@@ -9,12 +9,10 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 export class AddEditAktivnostComponent {
 
   enableB = true;
-  aktivnostFliter: string[] = [];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     data.aktivnost.predmet = data.predmet.id;
-    if (!data.add){
-      this.aktivnostFliter = this.data.predmet.aktivnosti.split(';');
-    }
+    data.aktivnost.tipAktivnosti = data.predmet.aktivnosti
+      .find(a => a.id===data.aktivnost.tipAktivnosti.id);
   }
 
   change(){
@@ -24,12 +22,12 @@ export class AddEditAktivnostComponent {
 
   changeUcenik(){
     this.change();
-    this.aktivnostFliter = this.data.predmet.aktivnosti.split(';');
     const selectedUcenik = this.data.ucenici.filter(u=>u.id===this.data.aktivnost.ucenik)[0];
     selectedUcenik.aktivnosti.forEach(a => {
-      if(this.aktivnostFliter.indexOf(a.naziv)!==-1){
-        this.aktivnostFliter.splice(this.aktivnostFliter.indexOf(a.naziv),1);
-      }
+        const searchAct = this.data.predmet.aktivnosti.findIndex(act => act.id === a.id);
+        if(searchAct!==-1){
+          this.data.predmet.aktivnosti.splice(searchAct,1);
+        }
     });
   }
 }

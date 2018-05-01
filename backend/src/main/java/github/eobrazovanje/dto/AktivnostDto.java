@@ -1,5 +1,7 @@
 package github.eobrazovanje.dto;
 
+import github.eobrazovanje.entity.TipAktivnosti;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,8 +15,6 @@ import javax.validation.constraints.Size;
 public class AktivnostDto {
 
     private long id;
-    @Size(min = 2, max = 50)
-    private String naziv;
 
     @Max(100)
     private int brojBodova;
@@ -24,6 +24,9 @@ public class AktivnostDto {
     @NotNull
     private long ucenik;
 
+    @NotNull
+    private TipAktivnostiDto tipAktivnosti;
+
     public AktivnostDto() { }
 
     public long getId() {
@@ -32,15 +35,6 @@ public class AktivnostDto {
 
     public AktivnostDto setId(long id) {
         this.id = id;
-        return this;
-    }
-
-    public String getNaziv() {
-        return naziv;
-    }
-
-    public AktivnostDto setNaziv(String naziv) {
-        this.naziv = naziv;
         return this;
     }
 
@@ -68,6 +62,15 @@ public class AktivnostDto {
 
     public AktivnostDto setPredmet(long predmet) {
         this.predmet = predmet;
+        return this;
+    }
+
+    public TipAktivnostiDto getTipAktivnosti() {
+        return tipAktivnosti;
+    }
+
+    public AktivnostDto setTipAktivnosti(TipAktivnostiDto tipAktivnosti) {
+        this.tipAktivnosti = tipAktivnosti;
         return this;
     }
 }

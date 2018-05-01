@@ -2,10 +2,13 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.PredmetDto;
 import github.eobrazovanje.entity.Predmet;
+import github.eobrazovanje.entity.TipAktivnosti;
 import github.eobrazovanje.service.PredmetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 /*
   Created by IntelliJ IDEA.
@@ -19,6 +22,9 @@ public class PredmetDtoToPredmet implements Converter<PredmetDto,Predmet>{
     @Autowired
     private PredmetService predmetService;
 
+    @Autowired
+    private TipAktivnostiDtoToTipAktivnosti toEntity;
+
     @Override
     public Predmet convert(PredmetDto dto) {
         return new Predmet()
@@ -27,7 +33,7 @@ public class PredmetDtoToPredmet implements Converter<PredmetDto,Predmet>{
                 .setBrojCasovaPredavanja(dto.getBrojCasovaPredavanja())
                 .setNaziv(dto.getNaziv())
                 .setOpis(dto.getOpis())
-                .setAktivnosti(dto.getAktivnosti());
+                .setAktivnosti(toEntity.convert(dto.getAktivnosti()));
     }
 
     public Predmet convert(PredmetDto dto, boolean edit){

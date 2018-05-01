@@ -23,13 +23,16 @@ public class AktivnostDtoToAktivnost implements Converter<AktivnostDto,Aktivnost
     @Autowired
     private PredmetService predmetService;
 
+    @Autowired
+    private TipAktivnostiDtoToTipAktivnosti toTipAktivnosti;
+
     @Override
     public Aktivnost convert(AktivnostDto dto) {
         return new Aktivnost()
                 .setId(dto.getId())
-                .setNaziv(dto.getNaziv())
                 .setBrojBodova(dto.getBrojBodova())
                 .setPredmet(predmetService.findOne(dto.getPredmet()))
-                .setUcenik(ucenikService.findOne(dto.getUcenik()));
+                .setUcenik(ucenikService.findOne(dto.getUcenik()))
+                .setTipAktivnosti(toTipAktivnosti.convert(dto.getTipAktivnosti()));
     }
 }

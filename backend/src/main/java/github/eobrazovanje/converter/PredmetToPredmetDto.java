@@ -1,12 +1,15 @@
 package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.PredmetDto;
+import github.eobrazovanje.dto.TipAktivnostiDto;
 import github.eobrazovanje.entity.Predmet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /*
@@ -17,6 +20,9 @@ import java.util.stream.Collectors;
 */
 @Component
 public class PredmetToPredmetDto implements Converter<Predmet,PredmetDto>{
+
+    @Autowired
+    private TipAktivnostiToTipAktivnostiDto toDto;
     @Override
     public PredmetDto convert(Predmet predmet) {
         return new PredmetDto()
@@ -25,7 +31,7 @@ public class PredmetToPredmetDto implements Converter<Predmet,PredmetDto>{
                 .setOpis(predmet.getOpis())
                 .setBrojCasovaVezbi(predmet.getBrojCasovaVezbi())
                 .setBrojCasovaPredavanja(predmet.getBrojCasovaPredavanja())
-                .setAktivnosti(predmet.getAktivnosti());
+                .setAktivnosti(toDto.convert(predmet.getAktivnosti()));
     }
 
 

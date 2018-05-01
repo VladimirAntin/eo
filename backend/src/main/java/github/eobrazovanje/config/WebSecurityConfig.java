@@ -76,7 +76,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/inbox/**",
                         "/group_chat",
                         "/assets/**",
-                        "/public/**",
+                        "/**.js",
+                        "/**.js.map",
+                        "/**.wolf",
+                        "/**.wolf2",
+                        "/**.ttf",
+                        "/**.eot",
                         "/login",
                         "/favicon.ico"
                 ).permitAll()
