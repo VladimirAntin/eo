@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Nastavnik} from '../model/nastavnik';
 
 @Injectable()
@@ -11,11 +11,7 @@ export class NastavnikService {
   }
 
   getAll(): Observable<Nastavnik[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Nastavnik[]>(this.nastavnici, httpOptions);
+    return this.http.get<Nastavnik[]>(this.nastavnici);
   }
 
 }

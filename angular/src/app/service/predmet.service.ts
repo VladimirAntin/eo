@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Predmet} from '../model/predmet';
 import {Ucenik} from '../model/ucenik';
@@ -16,90 +16,53 @@ export class PredmetService {
     naziv = naziv==undefined? '': naziv;
     page = page==undefined? 0: page;
     num = num==undefined? 5: num;
-    const headers=  new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` });
-    return this.http.get<Predmet[]>(`${this.predmeti}?naziv=${naziv}&page=${page}&num=${num}`, {
-      headers: headers, observe: 'response'
-    });
+    return this.http.get<Predmet[]>(`${this.predmeti}?naziv=${naziv}&page=${page}&num=${num}`,
+      {observe: 'response'});
   }
+
   get(id: number): Observable<Predmet> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Predmet>(`${this.predmeti}${id}`, httpOptions);
+    return this.http.get<Predmet>(`${this.predmeti}${id}`);
   }
+
   getUcenici(id: number): Observable<Ucenik[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Ucenik[]>(`${this.predmeti}${id}/ucenici`, httpOptions);
+    return this.http.get<Ucenik[]>(`${this.predmeti}${id}/ucenici`);
   }
+
   postUcenici(id: number, helpers: Helper[]): Observable<Ucenik[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.post<Ucenik[]>(`${this.predmeti}${id}/ucenici`, helpers, httpOptions);
+    return this.http.post<Ucenik[]>(`${this.predmeti}${id}/ucenici`, helpers);
   }
+
   getNastavnici(id: number): Observable<Nastavnik[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Nastavnik[]>(`${this.predmeti}${id}/nastavnici`, httpOptions);
+    return this.http.get<Nastavnik[]>(`${this.predmeti}${id}/nastavnici`);
   }
+
   postNastavnici(id: number, helpers: Helper[]): Observable<Nastavnik[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.post<Nastavnik[]>(`${this.predmeti}${id}/nastavnici`, helpers, httpOptions);
+    return this.http.post<Nastavnik[]>(`${this.predmeti}${id}/nastavnici`, helpers);
   }
+
   getUplate(id: number): Observable<Uplata[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Uplata[]>(`${this.predmeti}${id}/uplate`, httpOptions);
+    return this.http.get<Uplata[]>(`${this.predmeti}${id}/uplate`);
   }
+
   add(predmet: Predmet): Observable<Predmet> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.post<Predmet>(this.predmeti, predmet, httpOptions);
+    return this.http.post<Predmet>(this.predmeti, predmet);
   }
+
   edit(predmet: Predmet): Observable<Predmet> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.put<Predmet>(`${this.predmeti}${predmet.id}`, predmet, httpOptions);
+    return this.http.put<Predmet>(`${this.predmeti}${predmet.id}`, predmet);
   }
+
   delete(predmet: Predmet | number): Observable<Predmet> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
     const id = typeof predmet === 'number' ? predmet : predmet.id;
-    return this.http.delete<Predmet>(`${this.predmeti}${id}`, httpOptions);
+    return this.http.delete<Predmet>(`${this.predmeti}${id}`);
   }
 
   deleteNastavnik(predmet: number, nastavnik: number) {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.delete(`${this.predmeti}${predmet}/nastavnici/${nastavnik}`, httpOptions);
+    return this.http.delete(`${this.predmeti}${predmet}/nastavnici/${nastavnik}`);
   }
+
   deleteUcenik(predmet: number, ucenik: number) {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.delete(`${this.predmeti}${predmet}/ucenici/${ucenik}`, httpOptions);
+    return this.http.delete(`${this.predmeti}${predmet}/ucenici/${ucenik}`);
   }
 
 }

@@ -26,37 +26,19 @@ export class AuthService {
     localStorage.removeItem('token');
   }
   logout() {
-    var token = localStorage.getItem('token');
     this.removeToken();
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${token}` })
-    };
-    return this.http.get('/auth/logout', httpOptions);
+    return this.http.get('/auth/logout');
   }
 
   me(): Observable<UserApi> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<UserApi>('/api/me', httpOptions);
+    return this.http.get<UserApi>('/api/me');
   }
 
   offline(): Observable<UserApi> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<UserApi>('/api/offline', httpOptions);
+    return this.http.get<UserApi>('/api/offline');
   }
 
-
   nav_items(): Observable<NavItem[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<NavItem[]>('/api/nav_items', httpOptions);
+    return this.http.get<NavItem[]>('/api/nav_items');
   }
 }

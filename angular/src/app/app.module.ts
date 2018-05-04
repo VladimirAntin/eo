@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {enableProdMode, NgModule} from '@angular/core';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './page/login/login.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './page/home/home.component';
 import {
   MatButtonModule, MatChipsModule, MatDialogModule, MatExpansionModule,
   MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule,
@@ -13,39 +13,40 @@ import {
   MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {AuthService} from './service/auth.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NavigationComponent } from './navigation/navigation.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { UsersComponent } from './users/users.component';
-import { UserComponent } from './users/user/user.component';
+import { NotFoundComponent } from './page/not-found/not-found.component';
+import { UsersComponent } from './page/users/users.component';
+import { UserComponent } from './page/users/user/user.component';
 import { SearchPipe } from './pipes/search.pipe';
 import {UserService} from './service/user.service';
 import {ZvanjeService} from './service/zvanje.service';
 import {DokumentService} from './service/dokument.service';
-import { AddDocComponent } from './users/user/add-doc/add-doc.component';
+import { AddDocComponent } from './page/users/user/add-doc/add-doc.component';
 import {TipDokumentaService} from './service/tip-dokumenta.service';
-import { AddUserComponent } from './users/add-user/add-user.component';
-import { EditUserComponent } from './users/edit-user/edit-user.component';
-import {ChangePasswordComponent} from './users/change-password/change-password.component';
-import { PredmetiComponent } from './predmeti/predmeti.component';
+import { AddUserComponent } from './page/users/add-user/add-user.component';
+import { EditUserComponent } from './page/users/edit-user/edit-user.component';
+import {ChangePasswordComponent} from './page/users/change-password/change-password.component';
+import { PredmetiComponent } from './page/predmeti/predmeti.component';
 import {PredmetService} from './service/predmet.service';
-import { AddEditPredmetComponent } from './predmeti/add-edit-predmet/add-edit-predmet.component';
-import { PredmetComponent } from './predmeti/predmet/predmet.component';
-import { AddEditAktivnostComponent } from './predmeti/add-edit-aktivnost/add-edit-aktivnost.component';
+import { AddEditPredmetComponent } from './page/predmeti/add-edit-predmet/add-edit-predmet.component';
+import { PredmetComponent } from './page/predmeti/predmet/predmet.component';
+import { AddEditAktivnostComponent } from './page/predmeti/add-edit-aktivnost/add-edit-aktivnost.component';
 import {AktivnostService} from './service/aktivnost.service';
 import {NastavnikService} from './service/nastavnik.service';
 import {UcenikService} from './service/ucenik.service';
-import { AddUcenikNastavnikComponent } from './predmeti/add-ucenik-nastavnik/add-ucenik-nastavnik.component';
+import { AddUcenikNastavnikComponent } from './page/predmeti/add-ucenik-nastavnik/add-ucenik-nastavnik.component';
 import {UplataService} from './service/uplata.service';
-import { AddUplataComponent } from './predmeti/add-uplata/add-uplata.component';
+import { AddUplataComponent } from './page/predmeti/add-uplata/add-uplata.component';
 import {FileService} from './service/file.service';
-import { DialogDocumentComponent } from './dialog-document/dialog-document.component';
+import { DialogDocumentComponent } from './page/users/dialog-document/dialog-document.component';
 import {MessageService} from './service/message.service';
-import { InboxComponent } from './inbox/inbox.component';
-import { ChatComponent } from './inbox/chat/chat.component';
-import { GroupChatComponent } from './group-chat/group-chat.component';
+import { InboxComponent } from './page/inbox/inbox.component';
+import { ChatComponent } from './page/inbox/chat/chat.component';
+import { GroupChatComponent } from './page/group-chat/group-chat.component';
 import {ChatService} from './service/chat.service';
 import {TipAktivnostiService} from './service/tip-aktivnosti.service';
+import {TokenInterceptor} from './interceptor/token-interceptor';
 
 enableProdMode();
 @NgModule({
@@ -78,7 +79,8 @@ enableProdMode();
     AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent, AddUplataComponent,
     DialogDocumentComponent],
 
-  providers: [AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService, TipAktivnostiService,
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService, TipAktivnostiService,
     AktivnostService, NastavnikService, UcenikService, UplataService, FileService, MessageService, ChatService],
   bootstrap: [AppComponent]
 })

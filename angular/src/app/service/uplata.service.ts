@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Uplata} from '../model/uplata';
 
 @Injectable()
@@ -11,11 +11,7 @@ export class UplataService {
   constructor(private http: HttpClient) { }
 
   add(uplata: Uplata): Observable<Uplata> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.post<Uplata>(`${this.uplate}`, uplata, httpOptions);
+    return this.http.post<Uplata>(`${this.uplate}`, uplata);
   }
 
 }

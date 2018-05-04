@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {UserApi} from '../model/user-api';
 import {Authority} from '../model/authority';
@@ -13,87 +13,52 @@ export class UserService {
 
   private users = '/api/users/';
   constructor(private http: HttpClient) { }
+
   getAll(): Observable<UserApi[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<UserApi[]>(this.users, httpOptions);
+    return this.http.get<UserApi[]>(this.users);
   }
 
   get(id: number | string): Observable<UserApi>  {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<UserApi>(`${this.users}${id}`, httpOptions);
+    return this.http.get<UserApi>(`${this.users}${id}`);
   }
+
   getAuthorities(id: number | string): Observable<Authority[]>  {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Authority[]>(`${this.users}${id}/authorities`, httpOptions);
+    return this.http.get<Authority[]>(`${this.users}${id}/authorities`);
   }
+
   getPredmeti(id: number | string): Observable<Predmet[]>  {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Predmet[]>(`${this.users}${id}/predmeti`, httpOptions);
+    return this.http.get<Predmet[]>(`${this.users}${id}/predmeti`);
   }
+
   getUplate(id: number | string): Observable<Uplata[]>  {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Uplata[]>(`${this.users}${id}/uplate`, httpOptions);
+    return this.http.get<Uplata[]>(`${this.users}${id}/uplate`);
   }
+
   getDokumenta(id: number | string): Observable<Dokument[]>  {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.get<Dokument[]>(`${this.users}${id}/dokumenti`, httpOptions);
+    return this.http.get<Dokument[]>(`${this.users}${id}/dokumenti`);
   }
+
   add(user: UserApi): Observable<UserApi>  {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.post<UserApi>(this.users, user, httpOptions);
+    return this.http.post<UserApi>(this.users, user);
   }
+
   delete (user: UserApi | number): Observable<UserApi> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
     const id = typeof user === 'number' ? user : user.id;
-    return this.http.delete<UserApi>(`${this.users}${id}`, httpOptions);
+    return this.http.delete<UserApi>(`${this.users}${id}`);
   }
+
   update(user: UserApi) {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.put<UserApi>(`${this.users}${user.id}`, user, httpOptions);
+    return this.http.put<UserApi>(`${this.users}${user.id}`, user);
   }
+
   changePassword(id: number, user: UserPassword) {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.patch(`${this.users}${id}/password`, user, httpOptions);
+    return this.http.patch(`${this.users}${id}/password`, user);
   }
 
   changePicture(id: number, file: File): Observable<UserApi>{
     const formData: FormData = new FormData();
     formData.append('file', file);
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.put<UserApi>(`${this.users}${id}/picture`, formData, httpOptions);
+    return this.http.put<UserApi>(`${this.users}${id}/picture`, formData);
   }
 
 

@@ -4,12 +4,12 @@ import { AuthService } from '../service/auth.service';
 import { NavItem } from '../model/nav-item';
 import { NavigationEnd, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import { ChangePasswordComponent } from '../users/change-password/change-password.component';
-import { EditUserComponent } from '../users/edit-user/edit-user.component';
 import { UserPassword } from '../model/user-password';
 import { UserService } from '../service/user.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import {MessageService} from '../service/message.service';
+import {EditUserComponent} from '../page/users/edit-user/edit-user.component';
+import {ChangePasswordComponent} from '../page/users/change-password/change-password.component';
 
 @Component({
   selector: 'app-navigation',

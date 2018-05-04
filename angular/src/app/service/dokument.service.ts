@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Dokument} from '../model/dokument';
 
@@ -14,20 +14,12 @@ export class DokumentService {
     formData.append('file', file);
     formData.append('ucenik', String(doc.ucenik.username));
     formData.append('tipDokumenta', String(doc.tipDokumenta.id));
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
-    return this.http.post<Dokument>(`${this.docs}`, formData, httpOptions);
+    return this.http.post<Dokument>(`${this.docs}`, formData);
   }
 
   delete(doc: Dokument | number): Observable<Dokument> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        { 'Authorization': `jwt ${localStorage.getItem('token')}` })
-    };
     const id = typeof doc === 'number' ? doc : doc.id;
-    return this.http.delete<Dokument>(`${this.docs}${id}`, httpOptions);
+    return this.http.delete<Dokument>(`${this.docs}${id}`);
   }
 
 }

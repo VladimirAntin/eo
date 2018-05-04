@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LoginComponent} from './login/login.component';
-import {HomeComponent} from './home/home.component';
-import {NotFoundComponent} from './not-found/not-found.component';
-import {UsersComponent} from './users/users.component';
-import {UserComponent} from './users/user/user.component';
-import {PredmetiComponent} from './predmeti/predmeti.component';
-import {PredmetComponent} from './predmeti/predmet/predmet.component';
-import {InboxComponent} from './inbox/inbox.component';
-import {ChatComponent} from './inbox/chat/chat.component';
-import {GroupChatComponent} from './group-chat/group-chat.component';
+import {LoginComponent} from './page/login/login.component';
+import {HomeComponent} from './page/home/home.component';
+import {NotFoundComponent} from './page/not-found/not-found.component';
+import {UsersComponent} from './page/users/users.component';
+import {UserComponent} from './page/users/user/user.component';
+import {PredmetiComponent} from './page/predmeti/predmeti.component';
+import {PredmetComponent} from './page/predmeti/predmet/predmet.component';
+import {InboxComponent} from './page/inbox/inbox.component';
+import {ChatComponent} from './page/inbox/chat/chat.component';
+import {GroupChatComponent} from './page/group-chat/group-chat.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
