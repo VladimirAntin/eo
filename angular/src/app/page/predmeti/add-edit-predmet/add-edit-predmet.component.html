@@ -17,7 +17,7 @@
            type="number" required>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="Aktivnosti" multiple [(ngModel)]="data.predmet.aktivnosti" (change)="change()">
+    <mat-select placeholder="Aktivnosti" multiple [(ngModel)]="selectedValues" (change)="change()">
       <mat-option *ngFor="let a of tipovi_aktivnosti" [value]="a">{{a.naziv}}</mat-option>
     </mat-select>
   </mat-form-field>
