@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
 
   displayedColumns = ['name', 'surname', 'username', 'email', 'type', 'online', 'options'];
   users = new MatTableDataSource();
-  loading = true; isAdmin;
+  loading = true; isAdmin; me: UserApi;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   applyFilter(filterValue: string) {
@@ -29,6 +29,7 @@ export class UsersComponent implements OnInit {
   constructor(public dialog: MatDialog, private userService: UserService, private authService: AuthService,
     public snackBar: MatSnackBar, private _router: Router) {
     this.authService.me().subscribe(data => {
+      this.me = data;
       this.isAdmin = data.authorities
         .filter(a => a.name.substring(5).toLowerCase() === 'admin').length === 1;
     });
@@ -98,7 +99,8 @@ export class UsersComponent implements OnInit {
     const users = this.users.data;
     const dialogRef = this.dialog.open(EditUserComponent, {
       data: {
-        user: Object.assign(new UserApi(), user)
+        user: Object.assign(new UserApi(), user),
+        me: Object.assign(new UserApi(), this.me)
       }
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -96,7 +96,8 @@ export class NavigationComponent {
   updateProfile() {
     const dialogRef = this.dialog.open(EditUserComponent, {
       data: {
-        user: Object.assign(new UserApi(), this.me)
+        user: Object.assign(new UserApi(), this.me),
+        me: Object.assign(new UserApi(), this.me)
       }
     });
     dialogRef.afterClosed().subscribe(result => {

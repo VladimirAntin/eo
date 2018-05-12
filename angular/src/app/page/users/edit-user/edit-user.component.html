@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add new user</h2>
+<h2 mat-dialog-title>Edit user</h2>
 <mat-dialog-content>
   <mat-form-field class="full-width" hidden>
     <mat-select placeholder="Type" [(ngModel)]="data.user.type">
@@ -16,18 +16,14 @@
     <mat-hint align="end">{{data.user.prezime.length}}/30</mat-hint>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput placeholder="Username" maxlength="30" [(ngModel)]="data.user.username" (input)="change()" required>
-    <mat-hint align="end">{{data.user.username.length}}/30</mat-hint>
-  </mat-form-field>
-  <mat-form-field class="full-width">
     <input matInput placeholder="Email" maxlength="50" minlength="10" [(ngModel)]="data.user.email" (input)="change()" required>
     <mat-hint align="end">{{data.user.email.length}}/50</mat-hint>
   </mat-form-field>
-  <mat-form-field class="full-width" *ngIf="data.user.isUcenik()">
+  <mat-form-field class="full-width" *ngIf="data.user.isUcenik() && data.me.isAdmin()">
     <input matInput placeholder="Broj indexa" maxlength="12" [(ngModel)]="data.user.brojIndexa" (input)="change()" required>
     <mat-hint align="end">{{data.user.brojIndexa.length}}/12</mat-hint>
   </mat-form-field>
-  <mat-form-field class="full-width" *ngIf="data.user.isNastavnik()">
+  <mat-form-field class="full-width" *ngIf="data.user.isNastavnik() && data.me.isAdmin()">
     <mat-select placeholder="Zvanje" [(ngModel)]="data.user.zvanje.id" required (change)="change()">
       <mat-option *ngFor="let z of zvanja" [value]="z.id">
         {{ z.naziv }}

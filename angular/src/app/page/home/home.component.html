@@ -11,8 +11,8 @@
         <p mat-line>
           Aktivnosti:
           <mat-chip-list>
-            <mat-chip *ngFor="let a of p.aktivnosti.split(';')" disabled>
-              {{a}}
+            <mat-chip *ngFor="let a of p.aktivnosti" disabled>
+              {{a.naziv}}
             </mat-chip>
           </mat-chip-list>
         </p>

@@ -32,7 +32,12 @@ export class UserApi {
   public isNastavnik(): boolean {
     return this.type==='Nastavnik';
   }
+
   public isUcenik(): boolean {
     return this.type==='Ucenik';
+  }
+
+  public isAdmin(): boolean {
+    return this.type==='User';
   }
 }

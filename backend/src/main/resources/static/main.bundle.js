@@ -533,6 +533,9 @@ var UserApi = /** @class */ (function () {
     UserApi.prototype.isUcenik = function () {
         return this.type === 'Ucenik';
     };
+    UserApi.prototype.isAdmin = function () {
+        return this.type === 'User';
+    };
     return UserApi;
 }());
 
@@ -704,7 +707,8 @@ var NavigationComponent = /** @class */ (function () {
         var _this = this;
         var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_9__page_users_edit_user_edit_user_component__["a" /* EditUserComponent */], {
             data: {
-                user: Object.assign(new __WEBPACK_IMPORTED_MODULE_1__model_user_api__["a" /* UserApi */](), this.me)
+                user: Object.assign(new __WEBPACK_IMPORTED_MODULE_1__model_user_api__["a" /* UserApi */](), this.me),
+                me: Object.assign(new __WEBPACK_IMPORTED_MODULE_1__model_user_api__["a" /* UserApi */](), this.me)
             }
         });
         dialogRef.afterClosed().subscribe(function (result) {
@@ -910,7 +914,7 @@ module.exports = ""
 /***/ "./src/app/page/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div *ngIf=\"!isAdmin\">\n    <mat-list>\n      <mat-list-item *ngFor=\"let p of predmeti\">\n        <mat-icon mat-list-icon>subject</mat-icon>\n        <h4 mat-line>\n          <i>{{p.naziv}}</i>\n        </h4>\n        <p mat-line>Broj casova predavanje: {{p.brojCasovaPredavanja}}</p>\n        <p mat-line>Broj casova vezbi: {{p.brojCasovaVezbi}}</p>\n        <p mat-line>\n          Aktivnosti:\n          <mat-chip-list>\n            <mat-chip *ngFor=\"let a of p.aktivnosti.split(';')\" disabled>\n              {{a}}\n            </mat-chip>\n          </mat-chip-list>\n        </p>\n        <a mat-button color=\"primary\" [routerLink]=\"['/predmeti',p.id]\" matTooltip=\"Open\">\n          <mat-icon>link</mat-icon>\n        </a>\n        <mat-divider></mat-divider>\n      </mat-list-item>\n    </mat-list>\n  </div>\n  <div *ngIf=\"isAdmin\">\n    <div class=\"row\">\n      <div class=\"col-6\" *ngFor=\"let nav of nav_items\">\n        {{randomNum()}}\n        <button class=\"card mb-3 btn btn-block\" [ngClass]=\"[colors[random]]\" [routerLink]=\"[nav.route]\">\n          <div class=\"card-body\">\n            <h5 class=\"card-title\">{{nav.name}}</h5>\n            <p class=\"card-img\">\n              <mat-icon style=\"font-size: 3em\">{{nav.icon}}</mat-icon>\n            </p>\n          </div>\n        </button>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n  <div *ngIf=\"!isAdmin\">\n    <mat-list>\n      <mat-list-item *ngFor=\"let p of predmeti\">\n        <mat-icon mat-list-icon>subject</mat-icon>\n        <h4 mat-line>\n          <i>{{p.naziv}}</i>\n        </h4>\n        <p mat-line>Broj casova predavanje: {{p.brojCasovaPredavanja}}</p>\n        <p mat-line>Broj casova vezbi: {{p.brojCasovaVezbi}}</p>\n        <p mat-line>\n          Aktivnosti:\n          <mat-chip-list>\n            <mat-chip *ngFor=\"let a of p.aktivnosti\" disabled>\n              {{a.naziv}}\n            </mat-chip>\n          </mat-chip-list>\n        </p>\n        <a mat-button color=\"primary\" [routerLink]=\"['/predmeti',p.id]\" matTooltip=\"Open\">\n          <mat-icon>link</mat-icon>\n        </a>\n        <mat-divider></mat-divider>\n      </mat-list-item>\n    </mat-list>\n  </div>\n  <div *ngIf=\"isAdmin\">\n    <div class=\"row\">\n      <div class=\"col-6\" *ngFor=\"let nav of nav_items\">\n        {{randomNum()}}\n        <button class=\"card mb-3 btn btn-block\" [ngClass]=\"[colors[random]]\" [routerLink]=\"[nav.route]\">\n          <div class=\"card-body\">\n            <h5 class=\"card-title\">{{nav.name}}</h5>\n            <p class=\"card-img\">\n              <mat-icon style=\"font-size: 3em\">{{nav.icon}}</mat-icon>\n            </p>\n          </div>\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2244,7 +2248,7 @@ module.exports = ""
 /***/ "./src/app/page/users/edit-user/edit-user.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 mat-dialog-title>Add new user</h2>\n<mat-dialog-content>\n  <mat-form-field class=\"full-width\" hidden>\n    <mat-select placeholder=\"Type\" [(ngModel)]=\"data.user.type\">\n      <mat-option *ngFor=\"let type of types\" [value]=\"type\">\n        {{ type }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"First name\" maxlength=\"30\" [(ngModel)]=\"data.user.ime\" (input)=\"change()\" required>\n    <mat-hint align=\"end\">{{data.user.ime.length}}/30</mat-hint>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Last name\" maxlength=\"30\" [(ngModel)]=\"data.user.prezime\" (input)=\"change()\" required>\n    <mat-hint align=\"end\">{{data.user.prezime.length}}/30</mat-hint>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Username\" maxlength=\"30\" [(ngModel)]=\"data.user.username\" (input)=\"change()\" required>\n    <mat-hint align=\"end\">{{data.user.username.length}}/30</mat-hint>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Email\" maxlength=\"50\" minlength=\"10\" [(ngModel)]=\"data.user.email\" (input)=\"change()\" required>\n    <mat-hint align=\"end\">{{data.user.email.length}}/50</mat-hint>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\" *ngIf=\"data.user.isUcenik()\">\n    <input matInput placeholder=\"Broj indexa\" maxlength=\"12\" [(ngModel)]=\"data.user.brojIndexa\" (input)=\"change()\" required>\n    <mat-hint align=\"end\">{{data.user.brojIndexa.length}}/12</mat-hint>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\" *ngIf=\"data.user.isNastavnik()\">\n    <mat-select placeholder=\"Zvanje\" [(ngModel)]=\"data.user.zvanje.id\" required (change)=\"change()\">\n      <mat-option *ngFor=\"let z of zvanja\" [value]=\"z.id\">\n        {{ z.naziv }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-icon-button [mat-dialog-close]=\"{result:true, user:data.user }\" color=\"primary\" matTooltip=\"Edit\" [disabled]=\"enableB\">\n    <mat-icon>edit</mat-icon>\n  </button>\n  <span class=\"spacer\"></span>\n  <button mat-icon-button mat-dialog-close matTooltip=\"Close\">\n    <mat-icon>close</mat-icon>\n  </button>\n</mat-dialog-actions>"
+module.exports = "<h2 mat-dialog-title>Edit user</h2>\n<mat-dialog-content>\n  <mat-form-field class=\"full-width\" hidden>\n    <mat-select placeholder=\"Type\" [(ngModel)]=\"data.user.type\">\n      <mat-option *ngFor=\"let type of types\" [value]=\"type\">\n        {{ type }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"First name\" maxlength=\"30\" [(ngModel)]=\"data.user.ime\" (input)=\"change()\" required>\n    <mat-hint align=\"end\">{{data.user.ime.length}}/30</mat-hint>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Last name\" maxlength=\"30\" [(ngModel)]=\"data.user.prezime\" (input)=\"change()\" required>\n    <mat-hint align=\"end\">{{data.user.prezime.length}}/30</mat-hint>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Email\" maxlength=\"50\" minlength=\"10\" [(ngModel)]=\"data.user.email\" (input)=\"change()\" required>\n    <mat-hint align=\"end\">{{data.user.email.length}}/50</mat-hint>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\" *ngIf=\"data.user.isUcenik() && data.me.isAdmin()\">\n    <input matInput placeholder=\"Broj indexa\" maxlength=\"12\" [(ngModel)]=\"data.user.brojIndexa\" (input)=\"change()\" required>\n    <mat-hint align=\"end\">{{data.user.brojIndexa.length}}/12</mat-hint>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\" *ngIf=\"data.user.isNastavnik() && data.me.isAdmin()\">\n    <mat-select placeholder=\"Zvanje\" [(ngModel)]=\"data.user.zvanje.id\" required (change)=\"change()\">\n      <mat-option *ngFor=\"let z of zvanja\" [value]=\"z.id\">\n        {{ z.naziv }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-icon-button [mat-dialog-close]=\"{result:true, user:data.user }\" color=\"primary\" matTooltip=\"Edit\" [disabled]=\"enableB\">\n    <mat-icon>edit</mat-icon>\n  </button>\n  <span class=\"spacer\"></span>\n  <button mat-icon-button mat-dialog-close matTooltip=\"Close\">\n    <mat-icon>close</mat-icon>\n  </button>\n</mat-dialog-actions>\n"
 
 /***/ }),
 
@@ -2638,6 +2642,7 @@ var UsersComponent = /** @class */ (function () {
         this.users = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["s" /* MatTableDataSource */]();
         this.loading = true;
         this.authService.me().subscribe(function (data) {
+            _this.me = data;
             _this.isAdmin = data.authorities
                 .filter(function (a) { return a.name.substring(5).toLowerCase() === 'admin'; }).length === 1;
         });
@@ -2710,7 +2715,8 @@ var UsersComponent = /** @class */ (function () {
         var users = this.users.data;
         var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_6__edit_user_edit_user_component__["a" /* EditUserComponent */], {
             data: {
-                user: Object.assign(new __WEBPACK_IMPORTED_MODULE_3__model_user_api__["a" /* UserApi */](), user)
+                user: Object.assign(new __WEBPACK_IMPORTED_MODULE_3__model_user_api__["a" /* UserApi */](), user),
+                me: Object.assign(new __WEBPACK_IMPORTED_MODULE_3__model_user_api__["a" /* UserApi */](), this.me)
             }
         });
         dialogRef.afterClosed().subscribe(function (result) {

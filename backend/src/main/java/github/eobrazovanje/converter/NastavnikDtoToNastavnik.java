@@ -42,6 +42,7 @@ public class NastavnikDtoToNastavnik implements Converter<NastavnikDto,Nastavnik
                 .setPassword(dto.getPassword()==null?
                         backUser.getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()))
                 .setOnline(backUser != null && backUser.isOnline())
+                .setPicture(dto.getPicture())
                 .setLastOnline(backUser!=null? backUser.getLastOnline() : new Date())
                 .setZvanje(zvanjeService.findOne(dto.getZvanje().getId()));
     }

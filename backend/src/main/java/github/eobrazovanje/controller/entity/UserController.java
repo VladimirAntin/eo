@@ -189,9 +189,14 @@ public class UserController {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
         User user;
+        dto.setUsername(userb.getUsername()); // zabrana menjanja username
         dto.setPassword(null);
         if(dto instanceof NastavnikDto){
-            user = userService.save(toNastavnik.convert((NastavnikDto) dto));
+            user = toNastavnik.convert((NastavnikDto) dto);
+            if (loginUser.isNastavnik()) {
+                ((Nastavnik)user).setZvanje(((Nastavnik) userb).getZvanje());
+            }
+            user = userService.save(user);
             return Optional.ofNullable(user).isPresent() ?
                     ResponseEntity.ok(toNastavnikDto.convert((Nastavnik) user)) : new ResponseEntity(HttpStatus.CONFLICT);
         }else if(dto instanceof UcenikDto) {
@@ -199,6 +204,10 @@ public class UserController {
             if(ucenik!=null && ucenik.getId()!=dto.getId()) {
                 return new ResponseEntity<>(String.format("Ucenik sa brojem indexa %s vec postoji, izaberite drugi index",
                         ((UcenikDto) dto).getBrojIndexa()), HttpStatus.CONFLICT);
+            }
+            user = toUcenik.convert((UcenikDto) dto);
+            if (loginUser.isUcenik()) {
+                ((Ucenik)user).setBrojIndexa(((Ucenik) userb).getBrojIndexa());
             }
             user = userService.save(toUcenik.convert((UcenikDto) dto));
             return Optional.ofNullable(user).isPresent() ?

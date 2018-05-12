@@ -39,6 +39,7 @@ public class UcenikDtoToUcenik implements Converter<UcenikDto,Ucenik> {
                 .setPassword(dto.getPassword()==null?
                         backUser.getPassword() : new BCryptPasswordEncoder().encode(dto.getPassword()))
                 .setOnline(backUser != null && backUser.isOnline())
+                .setPicture(dto.getPicture())
                 .setLastOnline(backUser!=null? backUser.getLastOnline() : new Date())
                 .setBrojIndexa(dto.getBrojIndexa());
     }
