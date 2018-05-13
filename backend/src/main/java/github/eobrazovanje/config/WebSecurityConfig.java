@@ -78,10 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/assets/**",
                         "/**.js",
                         "/**.js.map",
-                        "/**.wolf",
-                        "/**.wolf2",
-                        "/**.ttf",
-                        "/**.eot",
+                        "/MaterialIcons-***",
                         "/login",
                         "/favicon.ico"
                 ).permitAll()

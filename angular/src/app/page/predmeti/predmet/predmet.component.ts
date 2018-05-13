@@ -26,7 +26,8 @@ import {UserApi} from '../../../model/user-api';
 export class PredmetComponent implements OnInit {
 
   id: number; predmet: Predmet = new Predmet(); ucenici: Ucenik[] = []; nastavnici: Nastavnik[] = [];
-  uplate: Uplata[] = []; isUcenik = false; me: UserApi; loading = true;
+  uplate: Uplata[] = []; isUcenik = false; me: UserApi; loading = true; isAdmin = false;
+
   constructor(private route: ActivatedRoute, private predmetService: PredmetService,
               private dialog: MatDialog, private snackBar: MatSnackBar,
               private aktivnostService: AktivnostService, private uplataService: UplataService,
@@ -64,8 +65,8 @@ export class PredmetComponent implements OnInit {
       this.predmetService.getUplate(this.id).subscribe(data => this.uplate = data);
       this.authService.me().subscribe(data => {
         this.me = data;
-        this.isUcenik = this.me.authorities
-          .filter(a => a.name.substring(5).toLowerCase()==='student').length===1;
+        this.isUcenik = data.type ==='Ucenik';
+        this.isAdmin = data.type === 'User';
       });
 
     }, error => this.predmet = null);

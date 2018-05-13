@@ -202,7 +202,8 @@ public class PredmetController {
                                       Principal principal){
         User loginUser = userService.findByUsername(principal.getName());
         Predmet predmet = predmetService.findOne(id);
-        if(!predmet.isNastavnikNaPredmetu(principal.getName()) || !loginUser.isAdmin()){
+        if(!predmet.isNastavnikNaPredmetu(principal.getName()) && !loginUser.isAdmin()){
+            System.out.println("upao ovde");
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         for (HelperDto dto:dtos) {
