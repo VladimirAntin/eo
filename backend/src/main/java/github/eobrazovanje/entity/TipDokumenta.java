@@ -18,7 +18,7 @@ public class TipDokumenta {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Size(max = 50)
+    @Size(min = 2, max = 50)
     private String naziv;
 
     @OneToMany(mappedBy = "tipDokumenta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

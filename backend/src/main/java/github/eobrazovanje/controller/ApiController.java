@@ -70,6 +70,7 @@ public class ApiController {
         if(user.isAdmin()) {
             navItems.add(new NavItem("Users","/users", "people"));
             navItems.add(new NavItem("Predmeti","/predmeti", "subject"));
+            navItems.add(new NavItem("Codebook","/codebook", "library_books"));
         }else if(user.isNastavnik()){
             // bla bla za profesora
         }else {

@@ -14,7 +14,7 @@
   <mat-form-field class="full-width">
   <mat-select placeholder="Naziv" [(ngModel)]="data.aktivnost.tipAktivnosti" required
               [disabled]="!data.add" style="margin-bottom: 0.5em" (change)="change()">
-    <mat-option *ngFor="let a of data.predmet.aktivnosti" [value]="a">
+    <mat-option *ngFor="let a of aktivnosti" [value]="a">
       {{a.naziv}}
     </mat-option>
   </mat-select>

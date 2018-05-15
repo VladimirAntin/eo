@@ -75,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/inbox",
                         "/inbox/**",
                         "/group_chat",
+                        "/codebook",
                         "/assets/**",
                         "/**.js",
                         "/**.js.map",

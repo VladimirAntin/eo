@@ -20,7 +20,7 @@ public class Zvanje {
     private long id;
 
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 2, max = 50)
     private String naziv;
 
     @OneToMany(mappedBy = "zvanje", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

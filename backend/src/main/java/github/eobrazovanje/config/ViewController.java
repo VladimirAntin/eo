@@ -18,7 +18,7 @@ public class ViewController {
     @RequestMapping(
             {
                     "/users", "/users/**", "/predmeti", "/predmeti/**",
-                    "/inbox", "/inbox/**", "/group_chat", "/login"
+                    "/inbox", "/inbox/**", "/group_chat", "/login", "/codebook"
             }
     )
     public String index() {

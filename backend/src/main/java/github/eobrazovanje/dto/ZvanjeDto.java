@@ -14,7 +14,7 @@ public class ZvanjeDto {
     private long id;
 
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 2, max = 50)
     private String naziv;
 
     public ZvanjeDto() { }

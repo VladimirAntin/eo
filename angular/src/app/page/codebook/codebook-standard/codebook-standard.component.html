@@ -1,0 +1,17 @@
+<div *ngIf="objects">
+  <button mat-mini-fab color="primary" matTooltip="Add new" (click)="add()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Naziv</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let o of objects">
+        <td>{{o.naziv}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

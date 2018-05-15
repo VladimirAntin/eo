@@ -34,12 +34,14 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__page_inbox_inbox_component__ = __webpack_require__("./src/app/page/inbox/inbox.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__page_inbox_chat_chat_component__ = __webpack_require__("./src/app/page/inbox/chat/chat.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__page_group_chat_group_chat_component__ = __webpack_require__("./src/app/page/group-chat/group-chat.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__page_codebook_codebook_component__ = __webpack_require__("./src/app/page/codebook/codebook.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -62,6 +64,7 @@ var appRoutes = [
     { path: 'inbox', component: __WEBPACK_IMPORTED_MODULE_9__page_inbox_inbox_component__["a" /* InboxComponent */] },
     { path: 'inbox/:id', component: __WEBPACK_IMPORTED_MODULE_10__page_inbox_chat_chat_component__["a" /* ChatComponent */] },
     { path: 'group_chat', component: __WEBPACK_IMPORTED_MODULE_11__page_group_chat_group_chat_component__["a" /* GroupChatComponent */] },
+    { path: 'codebook', component: __WEBPACK_IMPORTED_MODULE_12__page_codebook_codebook_component__["a" /* CodebookComponent */] },
     { path: '**', component: __WEBPACK_IMPORTED_MODULE_4__page_not_found_not_found_component__["a" /* NotFoundComponent */] }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -177,12 +180,18 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__service_chat_service__ = __webpack_require__("./src/app/service/chat.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__service_tip_aktivnosti_service__ = __webpack_require__("./src/app/service/tip-aktivnosti.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__interceptor_token_interceptor__ = __webpack_require__("./src/app/interceptor/token-interceptor.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__page_codebook_codebook_component__ = __webpack_require__("./src/app/page/codebook/codebook.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__page_codebook_codebook_standard_codebook_standard_component__ = __webpack_require__("./src/app/page/codebook/codebook-standard/codebook-standard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__page_codebook_codebook_standard_add_codebook_standard_add_component__ = __webpack_require__("./src/app/page/codebook/codebook-standard-add/codebook-standard-add.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -242,7 +251,10 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_36__page_users_dialog_document_dialog_document_component__["a" /* DialogDocumentComponent */],
                 __WEBPACK_IMPORTED_MODULE_38__page_inbox_inbox_component__["a" /* InboxComponent */],
                 __WEBPACK_IMPORTED_MODULE_39__page_inbox_chat_chat_component__["a" /* ChatComponent */],
-                __WEBPACK_IMPORTED_MODULE_40__page_group_chat_group_chat_component__["a" /* GroupChatComponent */]
+                __WEBPACK_IMPORTED_MODULE_40__page_group_chat_group_chat_component__["a" /* GroupChatComponent */],
+                __WEBPACK_IMPORTED_MODULE_44__page_codebook_codebook_component__["a" /* CodebookComponent */],
+                __WEBPACK_IMPORTED_MODULE_45__page_codebook_codebook_standard_codebook_standard_component__["a" /* CodebookStandardComponent */],
+                __WEBPACK_IMPORTED_MODULE_46__page_codebook_codebook_standard_add_codebook_standard_add_component__["a" /* CodebookStandardAddComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_4__app_routing_module__["a" /* AppRoutingModule */], __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_10__angular_common_http__["c" /* HttpClientModule */],
@@ -260,7 +272,7 @@ var AppModule = /** @class */ (function () {
             ],
             entryComponents: [__WEBPACK_IMPORTED_MODULE_19__page_users_user_add_doc_add_doc_component__["a" /* AddDocComponent */], __WEBPACK_IMPORTED_MODULE_21__page_users_add_user_add_user_component__["a" /* AddUserComponent */], __WEBPACK_IMPORTED_MODULE_22__page_users_edit_user_edit_user_component__["a" /* EditUserComponent */], __WEBPACK_IMPORTED_MODULE_23__page_users_change_password_change_password_component__["a" /* ChangePasswordComponent */],
                 __WEBPACK_IMPORTED_MODULE_26__page_predmeti_add_edit_predmet_add_edit_predmet_component__["a" /* AddEditPredmetComponent */], __WEBPACK_IMPORTED_MODULE_28__page_predmeti_add_edit_aktivnost_add_edit_aktivnost_component__["a" /* AddEditAktivnostComponent */], __WEBPACK_IMPORTED_MODULE_32__page_predmeti_add_ucenik_nastavnik_add_ucenik_nastavnik_component__["a" /* AddUcenikNastavnikComponent */], __WEBPACK_IMPORTED_MODULE_34__page_predmeti_add_uplata_add_uplata_component__["a" /* AddUplataComponent */],
-                __WEBPACK_IMPORTED_MODULE_36__page_users_dialog_document_dialog_document_component__["a" /* DialogDocumentComponent */]],
+                __WEBPACK_IMPORTED_MODULE_36__page_users_dialog_document_dialog_document_component__["a" /* DialogDocumentComponent */], __WEBPACK_IMPORTED_MODULE_46__page_codebook_codebook_standard_add_codebook_standard_add_component__["a" /* CodebookStandardAddComponent */]],
             providers: [{ provide: __WEBPACK_IMPORTED_MODULE_10__angular_common_http__["a" /* HTTP_INTERCEPTORS */], useClass: __WEBPACK_IMPORTED_MODULE_43__interceptor_token_interceptor__["a" /* TokenInterceptor */], multi: true },
                 __WEBPACK_IMPORTED_MODULE_9__service_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_16__service_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_17__service_zvanje_service__["a" /* ZvanjeService */], __WEBPACK_IMPORTED_MODULE_18__service_dokument_service__["a" /* DokumentService */], __WEBPACK_IMPORTED_MODULE_20__service_tip_dokumenta_service__["a" /* TipDokumentaService */], __WEBPACK_IMPORTED_MODULE_25__service_predmet_service__["a" /* PredmetService */], __WEBPACK_IMPORTED_MODULE_42__service_tip_aktivnosti_service__["a" /* TipAktivnostiService */],
                 __WEBPACK_IMPORTED_MODULE_29__service_aktivnost_service__["a" /* AktivnostService */], __WEBPACK_IMPORTED_MODULE_30__service_nastavnik_service__["a" /* NastavnikService */], __WEBPACK_IMPORTED_MODULE_31__service_ucenik_service__["a" /* UcenikService */], __WEBPACK_IMPORTED_MODULE_33__service_uplata_service__["a" /* UplataService */], __WEBPACK_IMPORTED_MODULE_35__service_file_service__["a" /* FileService */], __WEBPACK_IMPORTED_MODULE_37__service_message_service__["a" /* MessageService */], __WEBPACK_IMPORTED_MODULE_41__service_chat_service__["a" /* ChatService */]],
@@ -778,6 +790,227 @@ var NavigationComponent = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_7__angular_material__["p" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_7__angular_material__["d" /* MatDialog */], __WEBPACK_IMPORTED_MODULE_8__service_message_service__["a" /* MessageService */]])
     ], NavigationComponent);
     return NavigationComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/page/codebook/codebook-standard-add/codebook-standard-add.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/page/codebook/codebook-standard-add/codebook-standard-add.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>{{data.title}}</h2>\n<mat-dialog-content>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Naziv\" [(ngModel)]=\"data.object.naziv\">\n  </mat-form-field>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-icon-button [mat-dialog-close]=\"{result:true, object:data.object}\"\n          color=\"primary\" matTooltip=\"Add\" [disabled]=\"data.object.naziv.length<2\">\n    <mat-icon>add</mat-icon>\n  </button>\n  <span class=\"spacer\"></span>\n  <button mat-icon-button mat-dialog-close matTooltip=\"Close\">\n    <mat-icon>close</mat-icon>\n  </button>\n</mat-dialog-actions>\n"
+
+/***/ }),
+
+/***/ "./src/app/page/codebook/codebook-standard-add/codebook-standard-add.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CodebookStandardAddComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+var CodebookStandardAddComponent = /** @class */ (function () {
+    function CodebookStandardAddComponent(data) {
+        this.data = data;
+    }
+    CodebookStandardAddComponent.prototype.ngOnInit = function () {
+    };
+    CodebookStandardAddComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-codebook-standard-add',
+            template: __webpack_require__("./src/app/page/codebook/codebook-standard-add/codebook-standard-add.component.html"),
+            styles: [__webpack_require__("./src/app/page/codebook/codebook-standard-add/codebook-standard-add.component.css")]
+        }),
+        __param(0, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["a" /* MAT_DIALOG_DATA */])),
+        __metadata("design:paramtypes", [Object])
+    ], CodebookStandardAddComponent);
+    return CodebookStandardAddComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/page/codebook/codebook-standard/codebook-standard.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/page/codebook/codebook-standard/codebook-standard.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"objects\">\n  <button mat-mini-fab color=\"primary\" matTooltip=\"Add new\" (click)=\"add()\">\n    <mat-icon>add</mat-icon>\n  </button>\n  <table class=\"table table-hover\">\n    <thead>\n      <tr>\n        <th>Naziv</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let o of objects\">\n        <td>{{o.naziv}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/page/codebook/codebook-standard/codebook-standard.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CodebookStandardComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__codebook_standard_add_codebook_standard_add_component__ = __webpack_require__("./src/app/page/codebook/codebook-standard-add/codebook-standard-add.component.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CodebookStandardComponent = /** @class */ (function () {
+    function CodebookStandardComponent(dialog, snackBar) {
+        this.dialog = dialog;
+        this.snackBar = snackBar;
+        this.objects = [];
+    }
+    CodebookStandardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.service.getAll().subscribe(function (data) { return _this.objects = data; });
+    };
+    CodebookStandardComponent.prototype.add = function () {
+        var _this = this;
+        var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_2__codebook_standard_add_codebook_standard_add_component__["a" /* CodebookStandardAddComponent */], {
+            panelClass: 'dialog-600x400',
+            data: {
+                title: this.edit_title, object: { id: 0, naziv: '' }
+            }
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result) {
+                _this.service.add(result.object).subscribe(function (data) {
+                    _this.objects.push(data);
+                    _this.snackBar.open('Successfully added!', 'Ok', {
+                        duration: 4000, verticalPosition: 'top'
+                    });
+                }, function () {
+                    _this.snackBar.open("Error with add new " + _this.edit_title, 'Ok', {
+                        duration: 4000, verticalPosition: 'top'
+                    });
+                });
+            }
+        });
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", Object)
+    ], CodebookStandardComponent.prototype, "service", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", Object)
+    ], CodebookStandardComponent.prototype, "edit_title", void 0);
+    CodebookStandardComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-codebook-standard',
+            template: __webpack_require__("./src/app/page/codebook/codebook-standard/codebook-standard.component.html"),
+            styles: [__webpack_require__("./src/app/page/codebook/codebook-standard/codebook-standard.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_material__["d" /* MatDialog */], __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatSnackBar */]])
+    ], CodebookStandardComponent);
+    return CodebookStandardComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/page/codebook/codebook.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/page/codebook/codebook.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"isAdmin\">\n\n  <mat-tab-group>\n    <mat-tab *ngFor=\"let t of tabs\" label=\"{{t.label}}\">\n      <app-codebook-standard [service]=\"t.service\" [edit_title]=\"t.label\"></app-codebook-standard>\n    </mat-tab>\n  </mat-tab-group>\n\n</div>\n<app-not-found *ngIf=\"!isAdmin\" class=\"not-found\"></app-not-found>\n"
+
+/***/ }),
+
+/***/ "./src/app/page/codebook/codebook.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CodebookComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_tip_dokumenta_service__ = __webpack_require__("./src/app/service/tip-dokumenta.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_tip_aktivnosti_service__ = __webpack_require__("./src/app/service/tip-aktivnosti.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_zvanje_service__ = __webpack_require__("./src/app/service/zvanje.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_auth_service__ = __webpack_require__("./src/app/service/auth.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var CodebookComponent = /** @class */ (function () {
+    function CodebookComponent(tipDokumentaService, tipAktivnostiService, zvanjeService, _auth) {
+        this.tipDokumentaService = tipDokumentaService;
+        this.tipAktivnostiService = tipAktivnostiService;
+        this.zvanjeService = zvanjeService;
+        this._auth = _auth;
+        this.tabs = [];
+        this.isAdmin = false;
+    }
+    CodebookComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._auth.me().subscribe(function (data) {
+            _this.isAdmin = data.type.toLowerCase() === 'user';
+        });
+        this.tabs = [
+            { label: 'Tipovi Dokumenta', service: this.tipDokumentaService },
+            { label: 'Tipovi Aktivnosti', service: this.tipAktivnostiService },
+            { label: 'Zvanja', service: this.zvanjeService },
+        ];
+    };
+    CodebookComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-codebook',
+            template: __webpack_require__("./src/app/page/codebook/codebook.component.html"),
+            styles: [__webpack_require__("./src/app/page/codebook/codebook.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_tip_dokumenta_service__["a" /* TipDokumentaService */], __WEBPACK_IMPORTED_MODULE_2__service_tip_aktivnosti_service__["a" /* TipAktivnostiService */],
+            __WEBPACK_IMPORTED_MODULE_3__service_zvanje_service__["a" /* ZvanjeService */], __WEBPACK_IMPORTED_MODULE_4__service_auth_service__["a" /* AuthService */]])
+    ], CodebookComponent);
+    return CodebookComponent;
 }());
 
 
@@ -1340,7 +1573,7 @@ module.exports = ""
 /***/ "./src/app/page/predmeti/add-edit-aktivnost/add-edit-aktivnost.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 mat-dialog-title>{{data.title}}</h2>\n<mat-dialog-content>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Naziv predmeta\" [(ngModel)]=\"data.predmet.naziv\" disabled>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <mat-select placeholder=\"Ucenik\" [(ngModel)]=\"data.aktivnost.ucenik\" required\n                style=\"margin-bottom: 0.5em\" [disabled]=\"!data.add\" (change)=\"changeUcenik()\">\n      <mat-option *ngFor=\"let u of data.ucenici\" [value]=\"u.id\">\n        {{ u.ime + ' '+ u.prezime + ' - ' + u.brojIndexa}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n  <mat-select placeholder=\"Naziv\" [(ngModel)]=\"data.aktivnost.tipAktivnosti\" required\n              [disabled]=\"!data.add\" style=\"margin-bottom: 0.5em\" (change)=\"change()\">\n    <mat-option *ngFor=\"let a of data.predmet.aktivnosti\" [value]=\"a\">\n      {{a.naziv}}\n    </mat-option>\n  </mat-select>\n</mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Broj bodova\" type=\"number\" max=\"100\" min=\"0\"\n           [(ngModel)]=\"data.aktivnost.brojBodova\" required (input)=\"change()\">\n  </mat-form-field>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-icon-button [mat-dialog-close]=\"{result:true, aktivnost:data.aktivnost}\"\n          color=\"primary\" matTooltip=\"{{data.tooltip}}\" [disabled]=\"enableB\">\n    <mat-icon>{{data.icon}}</mat-icon>\n  </button>\n  <span class=\"spacer\"></span>\n  <button mat-icon-button mat-dialog-close matTooltip=\"Close\">\n    <mat-icon>close</mat-icon>\n  </button>\n</mat-dialog-actions>\n"
+module.exports = "<h2 mat-dialog-title>{{data.title}}</h2>\n<mat-dialog-content>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Naziv predmeta\" [(ngModel)]=\"data.predmet.naziv\" disabled>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <mat-select placeholder=\"Ucenik\" [(ngModel)]=\"data.aktivnost.ucenik\" required\n                style=\"margin-bottom: 0.5em\" [disabled]=\"!data.add\" (change)=\"changeUcenik()\">\n      <mat-option *ngFor=\"let u of data.ucenici\" [value]=\"u.id\">\n        {{ u.ime + ' '+ u.prezime + ' - ' + u.brojIndexa}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field class=\"full-width\">\n  <mat-select placeholder=\"Naziv\" [(ngModel)]=\"data.aktivnost.tipAktivnosti\" required\n              [disabled]=\"!data.add\" style=\"margin-bottom: 0.5em\" (change)=\"change()\">\n    <mat-option *ngFor=\"let a of aktivnosti\" [value]=\"a\">\n      {{a.naziv}}\n    </mat-option>\n  </mat-select>\n</mat-form-field>\n  <mat-form-field class=\"full-width\">\n    <input matInput placeholder=\"Broj bodova\" type=\"number\" max=\"100\" min=\"0\"\n           [(ngModel)]=\"data.aktivnost.brojBodova\" required (input)=\"change()\">\n  </mat-form-field>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-icon-button [mat-dialog-close]=\"{result:true, aktivnost:data.aktivnost}\"\n          color=\"primary\" matTooltip=\"{{data.tooltip}}\" [disabled]=\"enableB\">\n    <mat-icon>{{data.icon}}</mat-icon>\n  </button>\n  <span class=\"spacer\"></span>\n  <button mat-icon-button mat-dialog-close matTooltip=\"Close\">\n    <mat-icon>close</mat-icon>\n  </button>\n</mat-dialog-actions>\n"
 
 /***/ }),
 
@@ -1369,22 +1602,25 @@ var AddEditAktivnostComponent = /** @class */ (function () {
     function AddEditAktivnostComponent(data) {
         this.data = data;
         this.enableB = true;
+        this.aktivnosti = [];
         data.aktivnost.predmet = data.predmet.id;
+        this.aktivnosti = Object.assign([], data.predmet.aktivnosti);
         data.aktivnost.tipAktivnosti = data.predmet.aktivnosti
             .find(function (a) { return a.id === data.aktivnost.tipAktivnosti.id; });
     }
     AddEditAktivnostComponent.prototype.change = function () {
-        this.enableB = (this.data.aktivnost.ucenik === 0 || this.data.aktivnost.naziv === '' ||
-            this.data.aktivnost.brojBodova > 100 || this.data.aktivnost.brojIndexa < 0);
+        this.enableB = (this.data.aktivnost.ucenik === 0 ||
+            this.data.aktivnost.tipAktivnosti === undefined || this.data.aktivnost.brojBodova > 100);
     };
     AddEditAktivnostComponent.prototype.changeUcenik = function () {
         var _this = this;
         this.change();
         var selectedUcenik = this.data.ucenici.filter(function (u) { return u.id === _this.data.aktivnost.ucenik; })[0];
+        this.aktivnosti = Object.assign([], this.data.predmet.aktivnosti);
         selectedUcenik.aktivnosti.forEach(function (a) {
-            var searchAct = _this.data.predmet.aktivnosti.findIndex(function (act) { return act.id === a.id; });
+            var searchAct = _this.data.predmet.aktivnosti.findIndex(function (act) { return act.id === a.tipAktivnosti.id; });
             if (searchAct !== -1) {
-                _this.data.predmet.aktivnosti.splice(searchAct, 1);
+                _this.aktivnosti.splice(searchAct, 1);
             }
         });
     };
@@ -3234,6 +3470,9 @@ var TipAktivnostiService = /** @class */ (function () {
     TipAktivnostiService.prototype.getAll = function () {
         return this.http.get("" + this.tipovi);
     };
+    TipAktivnostiService.prototype.add = function (tip) {
+        return this.http.post(this.tipovi, tip);
+    };
     TipAktivnostiService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClient */]])
@@ -3270,6 +3509,9 @@ var TipDokumentaService = /** @class */ (function () {
     }
     TipDokumentaService.prototype.getAll = function () {
         return this.http.get("" + this.tipovi);
+    };
+    TipDokumentaService.prototype.add = function (tip) {
+        return this.http.post(this.tipovi, tip);
     };
     TipDokumentaService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
@@ -3454,6 +3696,9 @@ var ZvanjeService = /** @class */ (function () {
     };
     ZvanjeService.prototype.get = function (id) {
         return this.http.get("" + this.zvanja + id);
+    };
+    ZvanjeService.prototype.add = function (zvanje) {
+        return this.http.post(this.zvanja, zvanje);
     };
     ZvanjeService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),

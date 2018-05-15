@@ -13,4 +13,8 @@ export class TipDokumentaService {
     return this.http.get<TipDokumenta[]>(`${this.tipovi}`);
   }
 
+  add(tip: TipDokumenta): Observable<TipDokumenta> {
+    return this.http.post<TipDokumenta>(this.tipovi, tip);
+  }
+
 }

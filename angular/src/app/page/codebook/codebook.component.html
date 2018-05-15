@@ -1,0 +1,10 @@
+<div *ngIf="isAdmin">
+
+  <mat-tab-group>
+    <mat-tab *ngFor="let t of tabs" label="{{t.label}}">
+      <app-codebook-standard [service]="t.service" [edit_title]="t.label"></app-codebook-standard>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>
+<app-not-found *ngIf="!isAdmin" class="not-found"></app-not-found>

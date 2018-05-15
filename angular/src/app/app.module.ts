@@ -47,6 +47,9 @@ import { GroupChatComponent } from './page/group-chat/group-chat.component';
 import {ChatService} from './service/chat.service';
 import {TipAktivnostiService} from './service/tip-aktivnosti.service';
 import {TokenInterceptor} from './interceptor/token-interceptor';
+import { CodebookComponent } from './page/codebook/codebook.component';
+import { CodebookStandardComponent } from './page/codebook/codebook-standard/codebook-standard.component';
+import { CodebookStandardAddComponent } from './page/codebook/codebook-standard-add/codebook-standard-add.component';
 
 enableProdMode();
 @NgModule({
@@ -59,7 +62,10 @@ enableProdMode();
     DialogDocumentComponent,
     InboxComponent,
     ChatComponent,
-    GroupChatComponent
+    GroupChatComponent,
+    CodebookComponent,
+    CodebookStandardComponent,
+    CodebookStandardAddComponent
   ],
   imports: [
     AppRoutingModule, BrowserModule, HttpClientModule,
@@ -77,7 +83,7 @@ enableProdMode();
   ],
   entryComponents: [AddDocComponent, AddUserComponent, EditUserComponent, ChangePasswordComponent,
     AddEditPredmetComponent, AddEditAktivnostComponent, AddUcenikNastavnikComponent, AddUplataComponent,
-    DialogDocumentComponent],
+    DialogDocumentComponent, CodebookStandardAddComponent],
 
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService, TipAktivnostiService,

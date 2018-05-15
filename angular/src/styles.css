@@ -23,7 +23,7 @@ img {
   text-align: center;
 }
 
-app-home, app-users, app-user, app-not-found, app-predmeti, app-predmet, app-inbox, app-chat, app-group-chat{
+app-home, app-users, app-user, app-not-found, app-predmeti, app-predmet, app-inbox, app-chat, app-group-chat, app-codebook{
   float: right;
   width: 84%;
   border-radius: 0 0 30px 30px;
@@ -41,7 +41,7 @@ app-users .mat-table{
   overflow-y: auto;
   height: 55vh;
 }
-app-predmet mat-list, app-home >div{
+app-predmet mat-list, app-home >div, app-codebook >div{
   overflow-y: auto;
   height: 70vh;
 }
