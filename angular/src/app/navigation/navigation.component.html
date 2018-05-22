@@ -42,11 +42,11 @@
           {{nav.name}} <span class="badge badge-pill badge-light" *ngIf="nav.route==='/inbox'">{{messages}}</span>
         </button>
         <mat-divider></mat-divider>
-        <button mat-menu-item class="text-primary">
+        <button mat-menu-item class="text-primary" (click)="changePassword()">
           <mat-icon>edit</mat-icon>
           Change password
         </button>
-        <button mat-menu-item class="text-primary">
+        <button mat-menu-item class="text-primary" (click)="updateProfile()">
           <mat-icon>edit</mat-icon>
           Edit profile
         </button>

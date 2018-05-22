@@ -20,7 +20,7 @@ mat-toolbar button {
 }
 
 
-@media screen and (max-width: 60em){
+@media screen and (max-width: 80em){
   mat-nav-list{
     display: none;
   }

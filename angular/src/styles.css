@@ -146,3 +146,16 @@ app-predmeti mat-paginator {
   overflow: scroll;
   }
 }
+
+@media screen and (max-width: 80em){
+  .mobile-false {
+    display: none;
+  }
+  .mobile{
+    display: unset;
+  }
+  app-home, app-users, app-user, app-not-found, app-predmeti, app-predmet, app-inbox, app-chat, app-group-chat{
+    width: 100%;
+    height: 88vh;
+  }
+}
