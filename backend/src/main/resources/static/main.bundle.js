@@ -2145,7 +2145,7 @@ module.exports = ""
 /***/ "./src/app/page/predmeti/predmeti.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"predmeti!=null\">\n  <mat-spinner *ngIf=\"loading\"></mat-spinner>\n  <div *ngIf=\"!loading\" id=\"content\">\n    <button mat-mini-fab color=\"primary\" matTooltip=\"Add new\" (click)=\"add()\">\n      <mat-icon>add</mat-icon>\n    </button>\n    <mat-form-field class=\"w-90 f20\">\n      <mat-icon matPrefix>search</mat-icon>\n      <input matInput placeholder=\"Naziv predmeta\" [(ngModel)]=\"filter\" (keyup)=\"changeFilter()\">\n    </mat-form-field>\n    <mat-list>\n      <mat-list-item *ngFor=\"let p of predmeti\">\n        <mat-icon mat-list-icon>subject</mat-icon>\n        <h4 mat-line><i>{{p.naziv}}</i></h4>\n        <p mat-line>Broj casova predavanje: {{p.brojCasovaPredavanja}}</p>\n        <p mat-line>Broj casova vezbi: {{p.brojCasovaVezbi}}</p>\n        <p mat-line>\n          Aktivnosti:\n          <mat-chip-list>\n            <mat-chip *ngFor=\"let a of p.aktivnosti\" disabled>\n              {{a.naziv}}\n            </mat-chip>\n          </mat-chip-list>\n        </p>\n        <a mat-mini-fab  [routerLink]=\"['/predmeti',p.id]\" matTooltip=\"Open\" class=\"bg-dark\">\n          <mat-icon>link</mat-icon>\n        </a>\n        <button mat-mini-fab color=\"primary\" matTooltip=\"Update\" (click)=\"edit(p)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button mat-mini-fab color=\"warn\" matTooltip=\"Delete\" (click)=\"deletePredmet(p)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n        <mat-divider></mat-divider>\n      </mat-list-item>\n    </mat-list>\n    <mat-paginator [length]=\"length\"\n                   [pageSize]=\"num\"\n                   [pageSizeOptions]=\"[2, 5, 10, 25, 100]\"\n                   [pageIndex]=\"page\"\n                   (page)=\"changePage($event)\">\n    </mat-paginator>\n  </div>\n</div>\n<app-not-found *ngIf=\"predmeti===null\" class=\"not-found\"></app-not-found>\n"
+module.exports = "<div *ngIf=\"predmeti!=null\">\n  <mat-spinner *ngIf=\"loading\"></mat-spinner>\n  <div *ngIf=\"!loading\" id=\"content\">\n    <button mat-mini-fab color=\"primary\" matTooltip=\"Add new\" (click)=\"add()\">\n      <mat-icon>add</mat-icon>\n    </button>\n    <mat-form-field class=\"w-90 f20\">\n      <mat-icon matPrefix>search</mat-icon>\n      <input matInput placeholder=\"Naziv predmeta\" [(ngModel)]=\"filter\" (keyup)=\"changeFilter()\">\n    </mat-form-field>\n    <mat-list>\n      <mat-list-item *ngFor=\"let p of predmeti\">\n        <mat-icon mat-list-icon>subject</mat-icon>\n        <h4 mat-line><i>{{p.naziv}}</i></h4>\n        <p mat-line>Broj casova predavanje: {{p.brojCasovaPredavanja}}</p>\n        <p mat-line>Broj casova vezbi: {{p.brojCasovaVezbi}}</p>\n        <p mat-line>\n          Aktivnosti:\n          <mat-chip-list>\n            <mat-chip *ngFor=\"let a of p.aktivnosti\" disabled>\n              {{a.naziv}}\n            </mat-chip>\n          </mat-chip-list>\n        </p>\n        <a mat-mini-fab  [routerLink]=\"['/predmeti',p.id]\" matTooltip=\"Open\" class=\"bg-dark\">\n          <mat-icon>link</mat-icon>\n        </a>\n        <button mat-mini-fab color=\"primary\" matTooltip=\"Update\" (click)=\"edit(p)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button mat-mini-fab color=\"warn\" matTooltip=\"Delete\" (click)=\"delete(p)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n        <mat-divider></mat-divider>\n      </mat-list-item>\n    </mat-list>\n    <mat-paginator [length]=\"length\"\n                   [pageSize]=\"num\"\n                   [pageSizeOptions]=\"[2, 5, 10, 25, 100]\"\n                   [pageIndex]=\"page\"\n                   (page)=\"changePage($event)\">\n    </mat-paginator>\n  </div>\n</div>\n<app-not-found *ngIf=\"predmeti===null\" class=\"not-found\"></app-not-found>\n"
 
 /***/ }),
 
@@ -2259,7 +2259,7 @@ var PredmetiComponent = /** @class */ (function () {
             }
         });
     };
-    PredmetiComponent.prototype.deletePredmet = function (predmet) {
+    PredmetiComponent.prototype.delete = function (predmet) {
         var _this = this;
         var index = this.predmeti.indexOf(predmet);
         this.snackBar.open('Are you sure?', 'Yes', {
@@ -2267,6 +2267,7 @@ var PredmetiComponent = /** @class */ (function () {
         }).onAction().subscribe(function () {
             _this.predmetService.delete(predmet).subscribe(function () {
                 _this.predmeti.splice(index, 1);
+                _this.length--;
             });
         });
     };

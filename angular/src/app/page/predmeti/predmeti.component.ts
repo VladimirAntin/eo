@@ -26,17 +26,17 @@ export class PredmetiComponent implements OnInit {
     this.getAll();
   }
 
-  changeFilter(){
+  changeFilter() {
     this.page = 0;
     this.getAll();
   }
 
-  getAll (){
+  getAll () {
     this.predmetService.getAll(this.filter, this.page, this.num).subscribe(data => {
       this.length = Number(data.headers.get('total'));
       this.loading = false;
       this.predmeti = data.body;
-    }, error => this.predmeti = null)
+    }, error => this.predmeti = null);
 
   }
   add() {
@@ -89,13 +89,14 @@ export class PredmetiComponent implements OnInit {
       }
     });
   }
-  deletePredmet(predmet: Predmet) {
-    let index = this.predmeti.indexOf(predmet);
+  delete(predmet: Predmet) {
+    const index = this.predmeti.indexOf(predmet);
     this.snackBar.open('Are you sure?', 'Yes', {
       duration: 10000, verticalPosition: 'top'
     }).onAction().subscribe(() => {
       this.predmetService.delete(predmet).subscribe(() => {
-          this.predmeti.splice(index,1);
+          this.predmeti.splice(index, 1);
+          this.length--;
       });
     });
   }
