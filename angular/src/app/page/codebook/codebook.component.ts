@@ -12,12 +12,13 @@ import {UserApi} from '../../model/user-api';
 })
 export class CodebookComponent implements OnInit {
 
-  tabs = []; isAdmin = false;
+  tabs = []; isAdmin = false; loading = true;
   constructor(private tipDokumentaService: TipDokumentaService, private tipAktivnostiService: TipAktivnostiService,
               private zvanjeService: ZvanjeService, private _auth: AuthService) { }
 
   ngOnInit() {
     this._auth.me().subscribe(data => {
+      this.loading = false;
       this.isAdmin = data.type.toLowerCase() === 'user';
     });
     this.tabs = [

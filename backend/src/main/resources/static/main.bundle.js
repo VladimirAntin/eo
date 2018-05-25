@@ -953,7 +953,7 @@ module.exports = ""
 /***/ "./src/app/page/codebook/codebook.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"isAdmin\">\n\n  <mat-tab-group>\n    <mat-tab *ngFor=\"let t of tabs\" label=\"{{t.label}}\">\n      <app-codebook-standard [service]=\"t.service\" [edit_title]=\"t.label\"></app-codebook-standard>\n    </mat-tab>\n  </mat-tab-group>\n\n</div>\n<app-not-found *ngIf=\"!isAdmin\" class=\"not-found\"></app-not-found>\n"
+module.exports = "<mat-spinner *ngIf=\"loading\"></mat-spinner>\n<div *ngIf=\"isAdmin\">\n  <mat-tab-group>\n    <mat-tab *ngFor=\"let t of tabs\" label=\"{{t.label}}\">\n      <app-codebook-standard [service]=\"t.service\" [edit_title]=\"t.label\"></app-codebook-standard>\n    </mat-tab>\n  </mat-tab-group>\n\n</div>\n<app-not-found *ngIf=\"!isAdmin && !loading\" class=\"not-found\"></app-not-found>\n"
 
 /***/ }),
 
@@ -989,10 +989,12 @@ var CodebookComponent = /** @class */ (function () {
         this._auth = _auth;
         this.tabs = [];
         this.isAdmin = false;
+        this.loading = true;
     }
     CodebookComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._auth.me().subscribe(function (data) {
+            _this.loading = false;
             _this.isAdmin = data.type.toLowerCase() === 'user';
         });
         this.tabs = [
