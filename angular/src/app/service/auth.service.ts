@@ -5,6 +5,9 @@ import {Observable} from 'rxjs/Observable';
 import {Token} from '../model/token';
 import {UserApi} from '../model/user-api';
 import {NavItem} from '../model/nav-item';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class AuthService {
@@ -19,7 +22,7 @@ export class AuthService {
     };
     return this.http.post<Token>('/auth/login', body, httpOptions);
   }
-  setToken(data:Token) {
+  setToken(data: Token) {
     localStorage.setItem('token', data.access_token);
   }
   removeToken(): void {
@@ -40,5 +43,13 @@ export class AuthService {
 
   nav_items(): Observable<NavItem[]> {
     return this.http.get<NavItem[]>('/api/nav_items');
+  }
+
+  isLoggedIn(): boolean {
+    if (localStorage.getItem('token')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

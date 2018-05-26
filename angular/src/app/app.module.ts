@@ -50,6 +50,7 @@ import {TokenInterceptor} from './interceptor/token-interceptor';
 import { CodebookComponent } from './page/codebook/codebook.component';
 import { CodebookStandardComponent } from './page/codebook/codebook-standard/codebook-standard.component';
 import { CodebookStandardAddComponent } from './page/codebook/codebook-standard-add/codebook-standard-add.component';
+import {AuthGuard} from './auth.guard';
 
 enableProdMode();
 @NgModule({
@@ -86,7 +87,7 @@ enableProdMode();
     DialogDocumentComponent, CodebookStandardAddComponent],
 
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService, TipAktivnostiService,
+    AuthGuard, AuthService, UserService, ZvanjeService, DokumentService, TipDokumentaService, PredmetService, TipAktivnostiService,
     AktivnostService, NastavnikService, UcenikService, UplataService, FileService, MessageService, ChatService],
   bootstrap: [AppComponent]
 })

@@ -11,19 +11,20 @@ import {InboxComponent} from './page/inbox/inbox.component';
 import {ChatComponent} from './page/inbox/chat/chat.component';
 import {GroupChatComponent} from './page/group-chat/group-chat.component';
 import {CodebookComponent} from './page/codebook/codebook.component';
+import {AuthGuard} from './auth.guard';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
+  { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
-  { path: 'users', component: UsersComponent},
-  { path: 'users/:id', component: UserComponent},
-  { path: 'predmeti', component: PredmetiComponent},
-  { path: 'predmeti/:id', component: PredmetComponent},
-  { path: 'inbox', component: InboxComponent},
-  { path: 'inbox/:id', component: ChatComponent},
-  { path: 'group_chat', component: GroupChatComponent},
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
+  { path: 'users/:id', component: UserComponent, canActivate: [AuthGuard]},
+  { path: 'predmeti', component: PredmetiComponent, canActivate: [AuthGuard]},
+  { path: 'predmeti/:id', component: PredmetComponent, canActivate: [AuthGuard]},
+  { path: 'inbox', component: InboxComponent, canActivate: [AuthGuard]},
+  { path: 'inbox/:id', component: ChatComponent, canActivate: [AuthGuard]},
+  { path: 'group_chat', component: GroupChatComponent, canActivate: [AuthGuard]},
 
-  { path: 'codebook', component: CodebookComponent},
+  { path: 'codebook', component: CodebookComponent, canActivate: [AuthGuard]},
 
   {path: '**', component: NotFoundComponent}
 ];

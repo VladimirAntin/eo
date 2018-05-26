@@ -28,7 +28,7 @@
   <mat-nav-list>
     <a mat-list-item *ngFor="let c of chat" [routerLink]="[c.id]">
       <img [src]="c.href" mat-list-icon *ngIf="c.href">
-      <i mat-line><a mat-button [routerLink]="['/users',c.username]">
+      <i mat-line><a class="btn btn-link" [routerLink]="['/users',c.username]">
         <h4>{{c.ime + ' '+ c.prezime}}</h4>
       </a></i>
       <span class="badge badge-pill badge-dark" *ngIf="c.unread!=0">{{c.unread}}</span>

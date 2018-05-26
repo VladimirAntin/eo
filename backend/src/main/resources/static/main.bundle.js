@@ -35,6 +35,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__page_inbox_chat_chat_component__ = __webpack_require__("./src/app/page/inbox/chat/chat.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__page_group_chat_group_chat_component__ = __webpack_require__("./src/app/page/group-chat/group-chat.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__page_codebook_codebook_component__ = __webpack_require__("./src/app/page/codebook/codebook.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__auth_guard__ = __webpack_require__("./src/app/auth.guard.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -54,17 +55,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var appRoutes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_3__page_home_home_component__["a" /* HomeComponent */] },
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_3__page_home_home_component__["a" /* HomeComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__auth_guard__["a" /* AuthGuard */]] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_2__page_login_login_component__["a" /* LoginComponent */] },
-    { path: 'users', component: __WEBPACK_IMPORTED_MODULE_5__page_users_users_component__["a" /* UsersComponent */] },
-    { path: 'users/:id', component: __WEBPACK_IMPORTED_MODULE_6__page_users_user_user_component__["a" /* UserComponent */] },
-    { path: 'predmeti', component: __WEBPACK_IMPORTED_MODULE_7__page_predmeti_predmeti_component__["a" /* PredmetiComponent */] },
-    { path: 'predmeti/:id', component: __WEBPACK_IMPORTED_MODULE_8__page_predmeti_predmet_predmet_component__["a" /* PredmetComponent */] },
-    { path: 'inbox', component: __WEBPACK_IMPORTED_MODULE_9__page_inbox_inbox_component__["a" /* InboxComponent */] },
-    { path: 'inbox/:id', component: __WEBPACK_IMPORTED_MODULE_10__page_inbox_chat_chat_component__["a" /* ChatComponent */] },
-    { path: 'group_chat', component: __WEBPACK_IMPORTED_MODULE_11__page_group_chat_group_chat_component__["a" /* GroupChatComponent */] },
-    { path: 'codebook', component: __WEBPACK_IMPORTED_MODULE_12__page_codebook_codebook_component__["a" /* CodebookComponent */] },
+    { path: 'users', component: __WEBPACK_IMPORTED_MODULE_5__page_users_users_component__["a" /* UsersComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__auth_guard__["a" /* AuthGuard */]] },
+    { path: 'users/:id', component: __WEBPACK_IMPORTED_MODULE_6__page_users_user_user_component__["a" /* UserComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__auth_guard__["a" /* AuthGuard */]] },
+    { path: 'predmeti', component: __WEBPACK_IMPORTED_MODULE_7__page_predmeti_predmeti_component__["a" /* PredmetiComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__auth_guard__["a" /* AuthGuard */]] },
+    { path: 'predmeti/:id', component: __WEBPACK_IMPORTED_MODULE_8__page_predmeti_predmet_predmet_component__["a" /* PredmetComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__auth_guard__["a" /* AuthGuard */]] },
+    { path: 'inbox', component: __WEBPACK_IMPORTED_MODULE_9__page_inbox_inbox_component__["a" /* InboxComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__auth_guard__["a" /* AuthGuard */]] },
+    { path: 'inbox/:id', component: __WEBPACK_IMPORTED_MODULE_10__page_inbox_chat_chat_component__["a" /* ChatComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__auth_guard__["a" /* AuthGuard */]] },
+    { path: 'group_chat', component: __WEBPACK_IMPORTED_MODULE_11__page_group_chat_group_chat_component__["a" /* GroupChatComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__auth_guard__["a" /* AuthGuard */]] },
+    { path: 'codebook', component: __WEBPACK_IMPORTED_MODULE_12__page_codebook_codebook_component__["a" /* CodebookComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_13__auth_guard__["a" /* AuthGuard */]] },
     { path: '**', component: __WEBPACK_IMPORTED_MODULE_4__page_not_found_not_found_component__["a" /* NotFoundComponent */] }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -183,12 +185,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__page_codebook_codebook_component__ = __webpack_require__("./src/app/page/codebook/codebook.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__page_codebook_codebook_standard_codebook_standard_component__ = __webpack_require__("./src/app/page/codebook/codebook-standard/codebook-standard.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__page_codebook_codebook_standard_add_codebook_standard_add_component__ = __webpack_require__("./src/app/page/codebook/codebook-standard-add/codebook-standard-add.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__auth_guard__ = __webpack_require__("./src/app/auth.guard.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -274,12 +278,59 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_26__page_predmeti_add_edit_predmet_add_edit_predmet_component__["a" /* AddEditPredmetComponent */], __WEBPACK_IMPORTED_MODULE_28__page_predmeti_add_edit_aktivnost_add_edit_aktivnost_component__["a" /* AddEditAktivnostComponent */], __WEBPACK_IMPORTED_MODULE_32__page_predmeti_add_ucenik_nastavnik_add_ucenik_nastavnik_component__["a" /* AddUcenikNastavnikComponent */], __WEBPACK_IMPORTED_MODULE_34__page_predmeti_add_uplata_add_uplata_component__["a" /* AddUplataComponent */],
                 __WEBPACK_IMPORTED_MODULE_36__page_users_dialog_document_dialog_document_component__["a" /* DialogDocumentComponent */], __WEBPACK_IMPORTED_MODULE_46__page_codebook_codebook_standard_add_codebook_standard_add_component__["a" /* CodebookStandardAddComponent */]],
             providers: [{ provide: __WEBPACK_IMPORTED_MODULE_10__angular_common_http__["a" /* HTTP_INTERCEPTORS */], useClass: __WEBPACK_IMPORTED_MODULE_43__interceptor_token_interceptor__["a" /* TokenInterceptor */], multi: true },
-                __WEBPACK_IMPORTED_MODULE_9__service_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_16__service_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_17__service_zvanje_service__["a" /* ZvanjeService */], __WEBPACK_IMPORTED_MODULE_18__service_dokument_service__["a" /* DokumentService */], __WEBPACK_IMPORTED_MODULE_20__service_tip_dokumenta_service__["a" /* TipDokumentaService */], __WEBPACK_IMPORTED_MODULE_25__service_predmet_service__["a" /* PredmetService */], __WEBPACK_IMPORTED_MODULE_42__service_tip_aktivnosti_service__["a" /* TipAktivnostiService */],
+                __WEBPACK_IMPORTED_MODULE_47__auth_guard__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_9__service_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_16__service_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_17__service_zvanje_service__["a" /* ZvanjeService */], __WEBPACK_IMPORTED_MODULE_18__service_dokument_service__["a" /* DokumentService */], __WEBPACK_IMPORTED_MODULE_20__service_tip_dokumenta_service__["a" /* TipDokumentaService */], __WEBPACK_IMPORTED_MODULE_25__service_predmet_service__["a" /* PredmetService */], __WEBPACK_IMPORTED_MODULE_42__service_tip_aktivnosti_service__["a" /* TipAktivnostiService */],
                 __WEBPACK_IMPORTED_MODULE_29__service_aktivnost_service__["a" /* AktivnostService */], __WEBPACK_IMPORTED_MODULE_30__service_nastavnik_service__["a" /* NastavnikService */], __WEBPACK_IMPORTED_MODULE_31__service_ucenik_service__["a" /* UcenikService */], __WEBPACK_IMPORTED_MODULE_33__service_uplata_service__["a" /* UplataService */], __WEBPACK_IMPORTED_MODULE_35__service_file_service__["a" /* FileService */], __WEBPACK_IMPORTED_MODULE_37__service_message_service__["a" /* MessageService */], __WEBPACK_IMPORTED_MODULE_41__service_chat_service__["a" /* ChatService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/auth.guard.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthGuard; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_auth_service__ = __webpack_require__("./src/app/service/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(_auth, router) {
+        this._auth = _auth;
+        this.router = router;
+    }
+    AuthGuard.prototype.canActivate = function (next, state) {
+        if (this._auth.isLoggedIn()) {
+            return true;
+        }
+        else {
+            this.router.navigate(['/login']);
+            return false;
+        }
+    };
+    AuthGuard = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__service_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]])
+    ], AuthGuard);
+    return AuthGuard;
 }());
 
 
@@ -1363,7 +1414,7 @@ module.exports = "div.container-fluid{\n  width: 60%;\n}\n\nmat-list{\n  height:
 /***/ "./src/app/page/inbox/inbox.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"chat!=null\" class=\"container-fluid\">\n  <mat-spinner *ngIf=\"loading\"></mat-spinner>\n  <mat-accordion *ngIf=\"!loading\">\n    <mat-expansion-panel class=\"bg-light\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          Add new Message\n        </mat-panel-title>\n        <mat-panel-description>\n          <mat-icon>add</mat-icon>\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-form-field class=\"w-90 f20\">\n        <mat-icon matPrefix>search</mat-icon>\n        <input matInput placeholder=\"Filter\" [(ngModel)]=\"filter\">\n      </mat-form-field>\n      <mat-list>\n        <a mat-list-item *ngFor=\"let u of users | search:'ime,prezime,username,type':filter\"\n           [routerLink]=\"[u.id]\">\n          <mat-icon mat-list-icon>person</mat-icon>\n          <h4 mat-line><i>{{u.ime + ' '+ u.prezime}}</i> <b>{{u.type}}</b></h4>\n          <mat-divider></mat-divider>\n        </a>\n      </mat-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n\n  <mat-nav-list>\n    <a mat-list-item *ngFor=\"let c of chat\" [routerLink]=\"[c.id]\">\n      <img [src]=\"c.href\" mat-list-icon *ngIf=\"c.href\">\n      <i mat-line><a mat-button [routerLink]=\"['/users',c.username]\">\n        <h4>{{c.ime + ' '+ c.prezime}}</h4>\n      </a></i>\n      <span class=\"badge badge-pill badge-dark\" *ngIf=\"c.unread!=0\">{{c.unread}}</span>\n      <mat-divider></mat-divider>\n    </a>\n  </mat-nav-list>\n</div>\n<app-not-found *ngIf=\"chat===null\" class=\"not-found\"></app-not-found>\n"
+module.exports = "<div *ngIf=\"chat!=null\" class=\"container-fluid\">\n  <mat-spinner *ngIf=\"loading\"></mat-spinner>\n  <mat-accordion *ngIf=\"!loading\">\n    <mat-expansion-panel class=\"bg-light\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          Add new Message\n        </mat-panel-title>\n        <mat-panel-description>\n          <mat-icon>add</mat-icon>\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-form-field class=\"w-90 f20\">\n        <mat-icon matPrefix>search</mat-icon>\n        <input matInput placeholder=\"Filter\" [(ngModel)]=\"filter\">\n      </mat-form-field>\n      <mat-list>\n        <a mat-list-item *ngFor=\"let u of users | search:'ime,prezime,username,type':filter\"\n           [routerLink]=\"[u.id]\">\n          <mat-icon mat-list-icon>person</mat-icon>\n          <h4 mat-line><i>{{u.ime + ' '+ u.prezime}}</i> <b>{{u.type}}</b></h4>\n          <mat-divider></mat-divider>\n        </a>\n      </mat-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n\n  <mat-nav-list>\n    <a mat-list-item *ngFor=\"let c of chat\" [routerLink]=\"[c.id]\">\n      <img [src]=\"c.href\" mat-list-icon *ngIf=\"c.href\">\n      <i mat-line><a class=\"btn btn-link\" [routerLink]=\"['/users',c.username]\">\n        <h4>{{c.ime + ' '+ c.prezime}}</h4>\n      </a></i>\n      <span class=\"badge badge-pill badge-dark\" *ngIf=\"c.unread!=0\">{{c.unread}}</span>\n      <mat-divider></mat-divider>\n    </a>\n  </mat-nav-list>\n</div>\n<app-not-found *ngIf=\"chat===null\" class=\"not-found\"></app-not-found>\n"
 
 /***/ }),
 
@@ -1376,6 +1427,7 @@ module.exports = "<div *ngIf=\"chat!=null\" class=\"container-fluid\">\n  <mat-s
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_message_service__ = __webpack_require__("./src/app/service/message.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_file_service__ = __webpack_require__("./src/app/service/file.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_user_service__ = __webpack_require__("./src/app/service/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_auth_service__ = __webpack_require__("./src/app/service/auth.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1389,18 +1441,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var InboxComponent = /** @class */ (function () {
-    function InboxComponent(messageService, fileService, userService) {
+    function InboxComponent(messageService, fileService, userService, _auth) {
         var _this = this;
         this.messageService = messageService;
         this.fileService = fileService;
         this.userService = userService;
+        this._auth = _auth;
         this.chat = [];
         this.users = [];
         this.filter = '';
         this.loading = true;
         this.init();
-        this.userService.getAll().subscribe(function (data) { return _this.users = data; });
+        this.userService.getAll().subscribe(function (data) {
+            _this.users = data;
+            _this._auth.me().subscribe(function (me) { return _this.users = _this.users.filter(function (u) { return me.id !== u.id; }); });
+        });
     }
     InboxComponent.prototype.init = function () {
         var _this = this;
@@ -1409,7 +1466,7 @@ var InboxComponent = /** @class */ (function () {
             _this.loading = false;
             _this.chat.forEach(function (value) {
                 _this.getAvatar(value);
-                _this.messageService.countUnreadUser(value.id).subscribe(function (data) { return value.unread = data; });
+                _this.messageService.countUnreadUser(value.id).subscribe(function (m) { return value.unread = m; });
             });
         });
     };
@@ -1423,7 +1480,7 @@ var InboxComponent = /** @class */ (function () {
             styles: [__webpack_require__("./src/app/page/inbox/inbox.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_message_service__["a" /* MessageService */], __WEBPACK_IMPORTED_MODULE_2__service_file_service__["a" /* FileService */],
-            __WEBPACK_IMPORTED_MODULE_3__service_user_service__["a" /* UserService */]])
+            __WEBPACK_IMPORTED_MODULE_3__service_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_4__service_auth_service__["a" /* AuthService */]])
     ], InboxComponent);
     return InboxComponent;
 }());
@@ -3101,6 +3158,8 @@ var AktivnostService = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/catch.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3110,6 +3169,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
 
 
 var AuthService = /** @class */ (function () {
@@ -3141,6 +3202,14 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.nav_items = function () {
         return this.http.get('/api/nav_items');
+    };
+    AuthService.prototype.isLoggedIn = function () {
+        if (localStorage.getItem('token')) {
+            return true;
+        }
+        else {
+            return false;
+        }
     };
     AuthService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),

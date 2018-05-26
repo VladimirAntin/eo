@@ -28,9 +28,11 @@ public class ExceptionFilter implements Filter {
         }catch(Exception e ){
             HttpServletRequest request = (HttpServletRequest) req;
             if(request.getRequestURI()!=null && request.getRequestURI().toLowerCase().contains("chatting")){
-                logger.error("Broken Pipe SockJS and StompClient.");
+                logger.warn("Broken Pipe SockJS and StompClient.");
             }else {
-                logger.error("Error with request.");
+                logger.error(String.format("Error with request. url: %s and method: %s",
+                        request.getRequestURI(),
+                        request.getMethod()));
             }
         }
     }

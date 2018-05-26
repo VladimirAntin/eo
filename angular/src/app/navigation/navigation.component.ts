@@ -54,9 +54,9 @@ export class NavigationComponent {
     this.stompClient = this.Stomp.over(socket);
     this.stompClient.debug = null;
     const that = this;
-    this.stompClient.connect({'Authorization':localStorage.getItem('token')}, () => {
+    this.stompClient.connect({'Authorization': localStorage.getItem('token')}, () => {
       that.stompClient.subscribe(`/chatting/topic/${that.me.id}`, () => that.countNewMessage(),
-        {'Authorization':localStorage.getItem('token')});
+        {'Authorization': localStorage.getItem('token')});
     });
   }
 
@@ -73,7 +73,7 @@ export class NavigationComponent {
   private getMe() {
     this.authService.me().subscribe(data => {
       this.me = data;
-      if(!this.stompClient){
+      if (!this.stompClient) {
         this.Stomp = require('stompjs');
         this.sockjsClient = require('sockjs-client');
         this.connect();
