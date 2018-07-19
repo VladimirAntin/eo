@@ -2,6 +2,7 @@ package github.eobrazovanje.service;
 
 import github.eobrazovanje.entity.Message;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 public interface MessageService {
 
     List<Message> findAllByUserUsername(String username);
-    Page<Message> findAllByUserUsernameAndRecipient(String username, String recipient, int brojStranice, int brojPrikazanih);
+    Page<Message> findAllByUserUsernameAndRecipient(String username, String recipient, Pageable pageable);
     List<Message> findAllByUserUsernameDesc(String username);
     List<Message> findAllByRecipient(String username);
 

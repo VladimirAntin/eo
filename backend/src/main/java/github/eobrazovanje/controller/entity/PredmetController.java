@@ -13,6 +13,7 @@ import github.eobrazovanje.service.UcenikService;
 import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,10 +65,9 @@ public class PredmetController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity all(@RequestParam(value = "page",defaultValue = "0") int page,
-                              @RequestParam(value = "num",defaultValue = Integer.MAX_VALUE+"") int num,
+    public ResponseEntity all(Pageable pageable,
                               @RequestParam(value = "naziv",defaultValue = "") String naziv) {
-        Page<Predmet> predmeti = predmetService.findAll(naziv,page,num);
+        Page<Predmet> predmeti = predmetService.findAll(naziv,pageable);
         HttpHeaders headers = new HttpHeaders();
         headers.set("total",String.valueOf(predmeti.getTotalElements()));
         return ResponseEntity.ok()

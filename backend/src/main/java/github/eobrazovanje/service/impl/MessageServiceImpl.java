@@ -6,6 +6,7 @@ import github.eobrazovanje.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -35,10 +36,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Page<Message> findAllByUserUsernameAndRecipient(String username, String recipient,
-                                                           int brojStranice, int brojPrikazanih) {
+    public Page<Message> findAllByUserUsernameAndRecipient(String username, String recipient, Pageable pageable) {
         return repo.findAllBySender_UsernameAndRecipient_UsernameOrSender_UsernameAndRecipient_UsernameOrderByDate(
-                username,recipient,recipient,username, new PageRequest(brojStranice,brojPrikazanih));
+                username,recipient,recipient,username, pageable);
     }
 
     @Override

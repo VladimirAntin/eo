@@ -10,6 +10,7 @@ import github.eobrazovanje.service.MessageService;
 import github.eobrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,8 +63,7 @@ public class MessageController {
 
     @GetMapping("/{id}")
     public ResponseEntity getChat(@PathVariable long id,
-                                  @RequestParam(value = "page",defaultValue = "0") int page,
-                                  @RequestParam(value = "num",defaultValue = "20") int num, Principal principal){
+                                  Pageable pageable, Principal principal){
         User loginUser = userService.findByUsername(principal.getName());
         User user = userService.findOne(id);
         if(loginUser.getId() == id || user==null){
@@ -71,7 +71,7 @@ public class MessageController {
         }
         Page<Message> messages =
                 messageService.findAllByUserUsernameAndRecipient(principal.getName(),
-                        user.getUsername(), page, num);
+                        user.getUsername(), pageable);
         messages.getContent().stream().forEach(m -> m.setSeen(m.getSender().getId()==id?true:m.isSeen()));
         messageService.save(messages.getContent());
         HttpHeaders headers = new HttpHeaders();

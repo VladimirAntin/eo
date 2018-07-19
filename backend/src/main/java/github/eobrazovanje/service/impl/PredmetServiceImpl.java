@@ -6,6 +6,7 @@ import github.eobrazovanje.service.PredmetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class PredmetServiceImpl implements PredmetService{
     }
 
     @Override
-    public Page<Predmet> findAll(String naziv, int brojStranice, int brojPrikazanih) {
-        return repo.findAllByNazivIgnoreCaseContains(naziv, new PageRequest(brojStranice, brojPrikazanih));
+    public Page<Predmet> findAll(String naziv, Pageable pageable) {
+        return repo.findAllByNazivIgnoreCaseContains(naziv, pageable);
     }
 
     @Override

@@ -11,7 +11,7 @@ export class ChatService {
   group_chat = '/api/group_chat';
 
   getAll(page: Number): Observable<HttpResponse<Chat[]>> {
-    return this.http.get<Chat[]>(`${this.group_chat}?page=${page}`, {observe: 'response'});
+    return this.http.get<Chat[]>(`${this.group_chat}?page=${page}&size=20`, {observe: 'response'});
   }
 
 }

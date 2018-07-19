@@ -2,6 +2,7 @@ package github.eobrazovanje.service;
 
 import github.eobrazovanje.entity.Predmet;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public interface PredmetService {
     Predmet findOne(long id);
 
-    Page<Predmet> findAll(String naziv, int brojStranice, int brojPrikazanih);
+    Page<Predmet> findAll(String naziv, Pageable pageable);
 
     Predmet save(Predmet predmet);
 

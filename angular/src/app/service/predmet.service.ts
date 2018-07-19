@@ -16,7 +16,7 @@ export class PredmetService {
     naziv = naziv==undefined? '': naziv;
     page = page==undefined? 0: page;
     num = num==undefined? 5: num;
-    return this.http.get<Predmet[]>(`${this.predmeti}?naziv=${naziv}&page=${page}&num=${num}`,
+    return this.http.get<Predmet[]>(`${this.predmeti}?naziv=${naziv}&page=${page}&size=${num}`,
       {observe: 'response'});
   }
 

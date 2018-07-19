@@ -2,6 +2,7 @@ package github.eobrazovanje.service;
 
 import github.eobrazovanje.entity.Chat;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /*
   Created by IntelliJ IDEA.
@@ -11,7 +12,7 @@ import org.springframework.data.domain.Page;
 */
 public interface ChatService {
 
-    Page<Chat> findAllOrderByDate(int brojStranice, int brojPrikazanih);
+    Page<Chat> findAllOrderByDate(Pageable pageable);
 
     Chat save(Chat chat);
 }

@@ -24,7 +24,7 @@ export class MessageService {
   }
 
   chatUser(id: number, page: number): Observable<HttpResponse<Message[]>> {
-    return this.http.get<Message[]>(`${this.messages}${id}?page=${page}`, {observe: 'response'});
+    return this.http.get<Message[]>(`${this.messages}${id}?page=${page}&size=20`, {observe: 'response'});
   }
 
 }
