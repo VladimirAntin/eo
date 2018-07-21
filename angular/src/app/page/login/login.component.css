@@ -2,9 +2,9 @@ mat-form-field:first-of-type{
     margin-top: 2vh;
 }
 div.center{
-  margin-top: 2em;
+  margin-top: auto;
   float: right;
-  width: 82%;
+  max-width: 40%;
   border-style: solid;
   border-color: burlywood;
   border-radius: 30px;
