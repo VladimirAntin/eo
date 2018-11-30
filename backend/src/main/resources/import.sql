@@ -111,16 +111,16 @@ INSERT INTO uplata(suma,ucenik_id,predmet_id) VALUES (10000,10,2);
 INSERT INTO aktivnost(broj_bodova,predmet_id,ucenik_id, tip_aktivnosti_id) VALUES (25, 1, 9, 1);
 INSERT INTO aktivnost(broj_bodova,predmet_id,ucenik_id, tip_aktivnosti_id) VALUES (25, 2, 10, 1);
 
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka',1,2,'2018-3-30',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka',2,1,'2018-3-30',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 2',1,2,'2018-3-31',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 3',1,2,'2018-3-30',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 2',2,1,'2018-3-31',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 4',1,2,'2018-3-31',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 3',2,1,'2018-3-31',false);
-INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 4',2,1,'2018-3-31',false);
 
+-- INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka',1,2,'2018-3-30',true);
+-- INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka',2,1,'2018-3-30',true);
+-- INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 2',1,2,'2018-3-31',true);
+-- INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 3',1,2,'2018-3-30',true);
+-- INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 2',2,1,'2018-3-31',true);
+-- INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 4',1,2,'2018-3-31',true);
+-- INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 3',2,1,'2018-3-31',true);
+-- INSERT INTO message(text,sender,recipient,date,seen) VALUES ('nova poruka 4',2,1,'2018-3-31',true);
 
-INSERT INTO chat(text,sender,date) VALUES ('nova poruka grupa',1,'2018-4-01');
-INSERT INTO chat(text,sender,date) VALUES ('nova poruka grupa 2',2,'2018-4-01');
+-- INSERT INTO chat(text,sender,date) VALUES ('nova poruka grupa',1,'2018-4-01');
+-- INSERT INTO chat(text,sender,date) VALUES ('nova poruka grupa 2',2,'2018-4-01');
 
