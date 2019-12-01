@@ -3,7 +3,6 @@ package github.eobrazovanje.controller.entity;
 import github.eobrazovanje.converter.MessageDtoToMessage;
 import github.eobrazovanje.converter.MessageToMessageDto;
 import github.eobrazovanje.converter.UserToUserDto;
-import github.eobrazovanje.dto.MessageDto;
 import github.eobrazovanje.entity.Message;
 import github.eobrazovanje.entity.User;
 import github.eobrazovanje.service.MessageService;
@@ -12,15 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /*

@@ -3,7 +3,6 @@ package github.eobrazovanje.controller.entity;
 import github.eobrazovanje.converter.DokumentDtoToDokument;
 import github.eobrazovanje.converter.DokumentToDokumentDto;
 import github.eobrazovanje.dto.DocumentDtoPost;
-import github.eobrazovanje.dto.DokumentDto;
 import github.eobrazovanje.entity.Dokument;
 import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.Optional;
 
 /*
