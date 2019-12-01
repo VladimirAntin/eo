@@ -23,7 +23,7 @@ export class NavigationComponent {
   stompClient = null;
   Stomp;
   sockjsClient;
-  constructor(private authService: AuthService, private _router: Router, private userService: UserService,
+  constructor(private authService: AuthService, public _router: Router, private userService: UserService,
     private snackBar: MatSnackBar, private dialog: MatDialog, private messageService: MessageService) {
     this._router.events.filter((e) => e instanceof NavigationEnd)
       .subscribe((event: NavigationEnd) => {
@@ -40,7 +40,7 @@ export class NavigationComponent {
 
   init() {
     if (this._router.url !== '/login') {
-      this,this.nav_items = [];
+      this.nav_items = [];
       if (this.nav_items.length === 0) {
         this.navItems();
         this.getMe();
@@ -61,7 +61,7 @@ export class NavigationComponent {
   }
 
   private countNewMessage() {
-    this.messageService.countUnread().subscribe(data => this.messages=data);
+    this.messageService.countUnread().subscribe(data => this.messages = data);
   }
 
   private navItems() {
@@ -85,7 +85,7 @@ export class NavigationComponent {
   }
 
   logout() {
-    this.authService.offline().subscribe(() =>{
+    this.authService.offline().subscribe(() => {
       this.authService.logout().subscribe(() => {
         this.stompClient = null;
         this._router.navigateByUrl('/login');
