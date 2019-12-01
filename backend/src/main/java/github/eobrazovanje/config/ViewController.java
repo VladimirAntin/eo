@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
   Time: 11.08
 */
 // https://stackoverflow.com/questions/38516667/springboot-angular2-how-to-handle-html5-urls
-@Controller
+//@Controller
 public class ViewController {
 
     @RequestMapping(

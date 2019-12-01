@@ -175,6 +175,27 @@ var Aktivnost = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/model/chat.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Chat; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user_api__ = __webpack_require__("./src/app/model/user-api.ts");
+
+var Chat = /** @class */ (function () {
+    function Chat() {
+        this.id = 0;
+        this.text = '';
+        this.seen = false;
+        this.sender = new __WEBPACK_IMPORTED_MODULE_0__user_api__["a" /* UserApi */]();
+    }
+    return Chat;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/model/dokument.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -412,7 +433,7 @@ module.exports = "mat-nav-list {\n  width: 15%;\n  height: 96vh;\n  padding: 2em
 /***/ "./src/app/navigation/navigation.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"_router.url!=='/login'\">\n  <mat-nav-list class=\"mat-elevation-z24\">\n    <a matSubheader routerLink=\"/\">\n      <img width=\"25\" alt=\"E-learn\" src=\"/assets/student.png\">\n      E-learn\n    </a>\n    <mat-divider></mat-divider>\n    <br>\n    <mat-spinner *ngIf=\"me!=null && (!nav_items || nav_items.length==0)\"></mat-spinner>\n    <button *ngFor=\"let nav of nav_items\" [routerLink]=\"[nav.route]\" class=\"btn btn-block\"\n            [ngClass]=\"{'btn-outline-dark':_router.url!==nav.route,\n                'btn-dark':_router.url===nav.route}\">\n      <mat-icon matListIcon>{{nav.icon}}</mat-icon>\n      {{nav.name}} <span class=\"badge badge-pill badge-light\" *ngIf=\"nav.route==='/inbox'\">{{messages}}</span>\n    </button>\n  </mat-nav-list>\n  <mat-toolbar>\n    <mat-toolbar-row>\n      <div class=\"mobile\">\n        <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n          <mat-icon>menu</mat-icon>\n        </button>\n      </div>\n      <span class=\"spacer\"></span>\n      <div class=\"mobile-false\">\n        <button mat-raised-button color=\"primary\" (click)=\"changePassword()\">\n          <mat-icon>edit</mat-icon>\n          Change password\n        </button>\n        <button mat-raised-button color=\"primary\" (click)=\"updateProfile()\">\n          <mat-icon>edit</mat-icon>\n          Edit profile\n        </button>\n        <button mat-raised-button (click)=\"logout()\" color=\"warn\">\n          Logout\n          <mat-icon>input</mat-icon>\n        </button>\n      </div>\n      <mat-menu #menu=\"matMenu\">\n        <button mat-menu-item *ngFor=\"let nav of nav_items\" [routerLink]=\"[nav.route]\">\n          <mat-icon matListIcon>{{nav.icon}}</mat-icon>\n          {{nav.name}} <span class=\"badge badge-pill badge-light\" *ngIf=\"nav.route==='/inbox'\">{{messages}}</span>\n        </button>\n        <mat-divider></mat-divider>\n        <button mat-menu-item class=\"text-primary\" (click)=\"changePassword()\">\n          <mat-icon>edit</mat-icon>\n          Change password\n        </button>\n        <button mat-menu-item class=\"text-primary\" (click)=\"updateProfile()\">\n          <mat-icon>edit</mat-icon>\n          Edit profile\n        </button>\n        <button mat-menu-item (click)=\"logout()\" class=\"text-danger\">\n          Logout\n          <mat-icon>input</mat-icon>\n        </button>\n      </mat-menu>\n    </mat-toolbar-row>\n  </mat-toolbar>\n</div>\n"
+module.exports = "<div *ngIf=\"_router.url!=='/login'\">\n  <mat-nav-list class=\"mat-elevation-z24\">\n    <a matSubheader routerLink=\"/\">\n      <img width=\"25\" alt=\"E-learn\" src=\"assets/student.png\">\n      E-learn\n    </a>\n    <mat-divider></mat-divider>\n    <br>\n    <mat-spinner *ngIf=\"me!=null && (!nav_items || nav_items.length==0)\"></mat-spinner>\n    <button *ngFor=\"let nav of nav_items\" [routerLink]=\"[nav.route]\" class=\"btn btn-block\"\n            [ngClass]=\"{'btn-outline-dark':_router.url!==nav.route,\n                'btn-dark':_router.url===nav.route}\">\n      <mat-icon matListIcon>{{nav.icon}}</mat-icon>\n      {{nav.name}} <span class=\"badge badge-pill badge-light\" *ngIf=\"nav.route==='/inbox'\">{{messages}}</span>\n    </button>\n  </mat-nav-list>\n  <mat-toolbar>\n    <mat-toolbar-row>\n      <div class=\"mobile\">\n        <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n          <mat-icon>menu</mat-icon>\n        </button>\n      </div>\n      <span class=\"spacer\"></span>\n      <div class=\"mobile-false\">\n        <button mat-raised-button color=\"primary\" (click)=\"changePassword()\">\n          <mat-icon>edit</mat-icon>\n          Change password\n        </button>\n        <button mat-raised-button color=\"primary\" (click)=\"updateProfile()\">\n          <mat-icon>edit</mat-icon>\n          Edit profile\n        </button>\n        <button mat-raised-button (click)=\"logout()\" color=\"warn\">\n          Logout\n          <mat-icon>input</mat-icon>\n        </button>\n      </div>\n      <mat-menu #menu=\"matMenu\">\n        <button mat-menu-item *ngFor=\"let nav of nav_items\" [routerLink]=\"[nav.route]\">\n          <mat-icon matListIcon>{{nav.icon}}</mat-icon>\n          {{nav.name}} <span class=\"badge badge-pill badge-light\" *ngIf=\"nav.route==='/inbox'\">{{messages}}</span>\n        </button>\n        <mat-divider></mat-divider>\n        <button mat-menu-item class=\"text-primary\" (click)=\"changePassword()\">\n          <mat-icon>edit</mat-icon>\n          Change password\n        </button>\n        <button mat-menu-item class=\"text-primary\" (click)=\"updateProfile()\">\n          <mat-icon>edit</mat-icon>\n          Edit profile\n        </button>\n        <button mat-menu-item (click)=\"logout()\" class=\"text-danger\">\n          Logout\n          <mat-icon>input</mat-icon>\n        </button>\n      </mat-menu>\n    </mat-toolbar-row>\n  </mat-toolbar>\n</div>\n"
 
 /***/ }),
 
@@ -932,11 +953,11 @@ module.exports = "<div class=\"container-fluid\">\n  <mat-spinner *ngIf=\"loadin
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupChatComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_message__ = __webpack_require__("./src/app/model/message.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_auth_service__ = __webpack_require__("./src/app/service/auth.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_file_service__ = __webpack_require__("./src/app/service/file.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_user_service__ = __webpack_require__("./src/app/service/user.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__service_chat_service__ = __webpack_require__("./src/app/service/chat.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_auth_service__ = __webpack_require__("./src/app/service/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_file_service__ = __webpack_require__("./src/app/service/file.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_user_service__ = __webpack_require__("./src/app/service/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_chat_service__ = __webpack_require__("./src/app/service/chat.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_chat__ = __webpack_require__("./src/app/model/chat.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -959,7 +980,7 @@ var GroupChatComponent = /** @class */ (function () {
         this.authService = authService;
         this.fileService = fileService;
         this.chat = [];
-        this.newMessage = new __WEBPACK_IMPORTED_MODULE_1__model_message__["a" /* Message */]();
+        this.newMessage = new __WEBPACK_IMPORTED_MODULE_5__model_chat__["a" /* Chat */]();
         this.total = 0;
         this.page = 0;
         this.serverUrl = '/chatting/ws';
@@ -968,9 +989,9 @@ var GroupChatComponent = /** @class */ (function () {
     }
     GroupChatComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.chatService.getAll(this.page).subscribe(function (data) {
-            _this.total = Number(data.headers.get('total'));
-            _this.chat = data.body;
+        this.chatService.getAll(this.page).subscribe(function (fullChat) {
+            _this.total = Number(fullChat.headers.get('total'));
+            _this.chat = fullChat.body;
             _this.loading = false;
             _this.authService.me().subscribe(function (data) {
                 _this.me = data;
@@ -1021,9 +1042,9 @@ var GroupChatComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/page/group-chat/group-chat.component.html"),
             styles: [__webpack_require__("./src/app/page/group-chat/group-chat.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__service_chat_service__["a" /* ChatService */],
-            __WEBPACK_IMPORTED_MODULE_4__service_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_2__service_auth_service__["a" /* AuthService */],
-            __WEBPACK_IMPORTED_MODULE_3__service_file_service__["a" /* FileService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__service_chat_service__["a" /* ChatService */],
+            __WEBPACK_IMPORTED_MODULE_3__service_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_1__service_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_2__service_file_service__["a" /* FileService */]])
     ], GroupChatComponent);
     return GroupChatComponent;
 }());
@@ -1457,7 +1478,7 @@ module.exports = "mat-form-field:first-of-type{\n    margin-top: 2vh;\n}\ndiv.ce
 /***/ "./src/app/page/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid row\">\n  <div class=\"col-md-6 offset-md-4 center\" (keypress)=\"clickEnter($event,user)\">\n    <img src=\"/assets/student.png\" alt=\"student\" width=\"100px\">\n    <mat-form-field class=\"full-width\">\n      <input matInput placeholder=\"Username\" [(ngModel)]=\"user.username\" required autofocus>\n    </mat-form-field>\n    <br>\n    <mat-form-field class=\"full-width\">\n      <input matInput placeholder=\"Password\" type=\"password\" [(ngModel)]=\"user.password\" required>\n    </mat-form-field>\n    <br>\n    <button class=\"btn btn-outline-dark\" (click)=\"postLogin(user)\"\n        [disabled]=\"user.username.trim()==='' || user.password.trim()===''\">\n      Login\n    </button>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid row\">\n  <div class=\"col-md-6 offset-md-4 center\" (keypress)=\"clickEnter($event,user)\">\n    <img src=\"assets/student.png\" alt=\"student\" width=\"100px\">\n    <mat-form-field class=\"full-width\">\n      <input matInput placeholder=\"Username\" [(ngModel)]=\"user.username\" required autofocus>\n    </mat-form-field>\n    <br>\n    <mat-form-field class=\"full-width\">\n      <input matInput placeholder=\"Password\" type=\"password\" [(ngModel)]=\"user.password\" required>\n    </mat-form-field>\n    <br>\n    <button class=\"btn btn-outline-dark\" (click)=\"postLogin(user)\"\n        [disabled]=\"user.username.trim()==='' || user.password.trim()===''\">\n      Login\n    </button>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -3858,7 +3879,7 @@ module.exports = ""
 /***/ "./src/app/shared/not-found/not-found.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"center\">\n  <img src=\"/assets/404-error.gif\" width=\"380\">\n  <br>\n  <p>{{date | date: 'dd.MM.yyyy.'}}</p>\n  <p>{{date | date: 'HH:mm'}}</p>\n  <p><i>{{location}}</i></p>\n</div>\n"
+module.exports = "<div class=\"center\">\n  <img src=\"assets/404-error.gif\" width=\"380\">\n  <br>\n  <p>{{date | date: 'dd.MM.yyyy.'}}</p>\n  <p>{{date | date: 'HH:mm'}}</p>\n  <p><i>{{location}}</i></p>\n</div>\n"
 
 /***/ }),
 

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Message} from '../../model/message';
 import {UserApi} from '../../model/user-api';
 import {AuthService} from '../../service/auth.service';
 import {FileService} from '../../service/file.service';
 import {UserService} from '../../service/user.service';
 import {ChatService} from '../../service/chat.service';
+import {Chat} from '../../model/chat';
+import {Message} from '../../model/message';
 
 @Component({
   selector: 'app-group-chat',
@@ -13,7 +14,7 @@ import {ChatService} from '../../service/chat.service';
 })
 export class GroupChatComponent implements OnInit {
 
-  chat: Message[] = []; me: UserApi; newMessage = new Message(); total = 0; page = 0;
+  chat = []; me: UserApi; newMessage = new Chat(); total = 0; page = 0;
   serverUrl = '/chatting/ws'; loading = true;
   stompClient = null; Stomp; sockjsClient;
 
@@ -22,9 +23,9 @@ export class GroupChatComponent implements OnInit {
                 private fileService: FileService) { }
 
   ngOnInit() {
-    this.chatService.getAll(this.page).subscribe(data => {
-      this.total = Number(data.headers.get('total'));
-      this.chat = data.body;
+    this.chatService.getAll(this.page).subscribe(fullChat => {
+      this.total = Number(fullChat.headers.get('total'));
+      this.chat = fullChat.body;
       this.loading = false;
       this.authService.me().subscribe(data => {
         this.me = data;
@@ -36,7 +37,7 @@ export class GroupChatComponent implements OnInit {
     });
   }
 
-  seemore(){
+  seemore() {
     this.loading = true;
     this.page++;
     this.chatService.getAll(this.page).subscribe(data => {
@@ -59,15 +60,15 @@ export class GroupChatComponent implements OnInit {
     });
   }
 
-  clickEnter(event, message: Message) {
+  clickEnter(event, message: Message | Chat) {
     if (event.keyCode == 13) {
       this.send(message);
     }
   }
 
-  send(message: Message) {
+  send(message: Message | Chat) {
     message.text = message.text.trim();
-    if(message.text !== '') {
+    if (message.text !== '') {
       this.stompClient.send('/chatting/group',
         {'Authorization': localStorage.getItem('token')}, JSON.stringify(message));
       this.newMessage.text = '';
