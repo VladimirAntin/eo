@@ -4,7 +4,6 @@ import github.eobrazovanje.dto.DokumentDto;
 import github.eobrazovanje.entity.Dokument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.data.annotation.AccessType;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;

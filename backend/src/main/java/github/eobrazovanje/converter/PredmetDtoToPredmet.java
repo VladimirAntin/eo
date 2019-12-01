@@ -2,13 +2,10 @@ package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.PredmetDto;
 import github.eobrazovanje.entity.Predmet;
-import github.eobrazovanje.entity.TipAktivnosti;
 import github.eobrazovanje.service.PredmetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
 
 /*
   Created by IntelliJ IDEA.

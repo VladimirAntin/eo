@@ -1,7 +1,6 @@
 package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.UcenikDto;
-import github.eobrazovanje.entity.Nastavnik;
 import github.eobrazovanje.entity.Ucenik;
 import github.eobrazovanje.entity.User;
 import github.eobrazovanje.service.UserService;

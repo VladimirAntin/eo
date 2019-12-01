@@ -3,7 +3,6 @@ package github.eobrazovanje.converter;
 import github.eobrazovanje.dto.ChatDto;
 import github.eobrazovanje.dto.UserDto;
 import github.eobrazovanje.entity.Chat;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

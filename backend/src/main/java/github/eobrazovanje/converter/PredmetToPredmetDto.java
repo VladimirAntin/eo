@@ -1,7 +1,6 @@
 package github.eobrazovanje.converter;
 
 import github.eobrazovanje.dto.PredmetDto;
-import github.eobrazovanje.dto.TipAktivnostiDto;
 import github.eobrazovanje.entity.Predmet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /*

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import java.util.logging.LogRecord;
 
 /*
   Created by IntelliJ IDEA.

@@ -4,7 +4,6 @@ import github.eobrazovanje.converter.AktivnostDtoToAktivnost;
 import github.eobrazovanje.converter.AktivnostToAktivnostDto;
 import github.eobrazovanje.dto.AktivnostDto;
 import github.eobrazovanje.entity.Aktivnost;
-import github.eobrazovanje.entity.Predmet;
 import github.eobrazovanje.service.AktivnostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
