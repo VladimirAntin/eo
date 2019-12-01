@@ -17,7 +17,7 @@
       <img [src]="me.href" height="16" *ngIf="c!=null && me!=null && c.sender.id===me.id && me.href">
     </div>
   </div>
-  <div class="row" (keypress)="clickEnter($event,newMessage)">
+  <div class="row" (keypress)="clickEnter($event, newMessage)">
     <mat-form-field class="col-10">
       <textarea matInput placeholder="Message" [(ngModel)]="newMessage.text" style="resize: none"></textarea>
     </mat-form-field>

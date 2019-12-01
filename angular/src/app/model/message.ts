@@ -4,7 +4,7 @@ export class Message {
   date: Date;
   seen: boolean;
   sender: number;
-  recipient: number;
+  recipient?: number;
 
   constructor() {
     this.id = 0;
