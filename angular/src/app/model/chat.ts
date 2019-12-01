@@ -1,16 +1,16 @@
-export class Message {
+import {UserApi} from './user-api';
+
+export class Chat {
   id: number;
   text: string;
   date: Date;
   seen: boolean;
-  sender: number;
-  recipient: number;
+  sender: UserApi;
 
   constructor() {
     this.id = 0;
     this.text = '';
     this.seen = false;
-    this.sender = 0;
-    this.recipient = 0;
+    this.sender = new UserApi();
   }
 }
